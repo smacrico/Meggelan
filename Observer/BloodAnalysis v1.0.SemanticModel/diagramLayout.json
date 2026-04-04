@@ -1,0 +1,74 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 132,
+            "y": 450
+          },
+          "nodeIndex": "Dim_Date",
+          "nodeLineageTag": "e96a855d-a1ec-43c1-8dd5-7508901a7540",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "Fact_EndoMetrics",
+          "nodeLineageTag": "01b6dba5-6243-4c12-89e4-4eba35c7610b",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 402,
+            "y": 0
+          },
+          "nodeIndex": "Fact_LipidMetrics",
+          "nodeLineageTag": "c519e5ac-8cc0-49cf-81fd-b57895b3302d",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 689,
+            "y": 220
+          },
+          "nodeIndex": "Fact_LiverMetrics",
+          "nodeLineageTag": "a741aadb-c537-4a38-88ba-ec7d8611132a",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

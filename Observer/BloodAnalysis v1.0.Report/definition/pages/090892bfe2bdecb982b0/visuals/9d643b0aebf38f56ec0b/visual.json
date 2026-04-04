@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "9d643b0aebf38f56ec0b",
+  "position": {
+    "x": 931.81605611847226,
+    "y": 70.833982852689,
+    "z": 0,
+    "height": 123.71005455962586,
+    "width": 300.29618082618862
+  },
+  "visual": {
+    "visualType": "card",
+    "autoSelectVisualType": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Date"
+                    }
+                  },
+                  "Property": "Test Count"
+                }
+              },
+              "queryRef": "Dim_Date.Test Count",
+              "nativeQueryRef": "Test Count"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "d647c9f4b80b25f235d0",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_Date"
+              }
+            },
+            "Property": "Test Count"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

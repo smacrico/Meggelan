@@ -1,0 +1,103 @@
+table Dim_Date
+	lineageTag: e96a855d-a1ec-43c1-8dd5-7508901a7540
+	dataCategory: Time
+
+	measure 'Latest Selected Date' = MAX(Dim_Date[Date])
+		formatString: General Date
+		displayFolder: _Common
+		lineageTag: 835125cc-8765-4e29-89f3-509c1fcb204a
+
+	measure 'Previous Selected Date' =
+			
+			CALCULATE(
+			    MAX(Dim_Date[Date]),
+			    FILTER(
+			        ALLSELECTED(Dim_Date[Date]),
+			        Dim_Date[Date] < [Latest Selected Date]
+			    )
+			)
+		formatString: General Date
+		displayFolder: _Common
+		lineageTag: 1d76d620-cc92-4e72-928e-fbe36ae8926e
+
+	measure 'Test Count' = COUNTROWS(VALUES(Dim_Date[Date]))
+		formatString: 0
+		displayFolder: _Common
+		lineageTag: aeb7b888-31a7-45ba-a9be-8f8a4ea41aa8
+
+	measure 'Days Between Latest And Previous Test' = DATEDIFF([Previous Selected Date], [Latest Selected Date], DAY)
+		formatString: 0
+		displayFolder: _Common
+		lineageTag: ea67d2cf-106e-43f3-8f22-065243c60ea1
+
+	column Date
+		isKey
+		formatString: dd/mm/yyyy
+		lineageTag: 2751619b-4d41-4925-954a-339da093729c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Year
+		formatString: 0
+		lineageTag: 6ca35a6a-757b-449f-9819-547fca0af02f
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNo
+		formatString: 0
+		lineageTag: 0b6a0a27-fd68-4203-8c01-252c58c143b6
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [MonthNo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		lineageTag: 175254f1-b98b-454c-a57e-e0eb49b9f198
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	column YearMonth
+		lineageTag: cc874aa5-25ff-45bd-967e-844fa8e810b1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [YearMonth]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		lineageTag: 1cf77474-d863-40b1-8b0d-0f5538334c80
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Date = calculated
+		mode: import
+		source =
+				ADDCOLUMNS(
+				    CALENDAR(
+				        DATE(2017,1,1),
+				        DATE(2035,12,31)
+				    ),
+				    "Year", YEAR([Date]),
+				    "MonthNo", MONTH([Date]),
+				    "Month", FORMAT([Date], "MMM"),
+				    "YearMonth", FORMAT([Date], "YYYY-MM"),
+				    "Quarter", "Q" & FORMAT([Date], "Q")
+				)
+
+	annotation PBI_Id = a5b26acb453f4a588699dea5e2a2907c
+

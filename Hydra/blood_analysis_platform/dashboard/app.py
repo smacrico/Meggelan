@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import sqlite3
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional
 
 import pandas as pd
 import streamlit as st
@@ -12,11 +12,7 @@ import streamlit as st
 st.set_page_config(page_title="Blood Analysis Dashboard", layout="wide")
 
 
-# ============================================================
-# Config
-# ============================================================
-
-def load_config(config_path: str | Path = "config/config.json") -> Dict[str, Any]:
+def load_config(config_path: str | Path) -> Dict[str, Any]:
     path = Path(config_path)
     if not path.exists():
         raise FileNotFoundError(f"Config not found: {path}")
@@ -24,21 +20,57 @@ def load_config(config_path: str | Path = "config/config.json") -> Dict[str, Any
         return json.load(f)
 
 
+def profile_plot_dir(config: Dict[str, Any], profile_name: str) -> Path:
+    profile_cfg = config.get("profiles", {}).get(profile_name, {})
+    return Path(profile_cfg.get("plot_dir", config["paths"]["plot_dir"]))
+
+
 def get_database_path(config: Dict[str, Any]) -> str:
     return config["database"]["sqlite_path"]
-
-
-def get_plot_dir(config: Dict[str, Any]) -> str:
-    return config["paths"]["plot_dir"]
 
 
 def get_profile_config(config: Dict[str, Any], profile_name: str) -> Dict[str, Any]:
     return config.get("profiles", {}).get(profile_name, {})
 
 
-# ============================================================
-# Helpers
-# ============================================================
+def table_exists(db_path: str, table_name: str) -> bool:
+    conn = sqlite3.connect(db_path)
+    try:
+        row = conn.execute(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name=?",
+            (table_name,),
+        ).fetchone()
+        return row is not None
+    finally:
+        conn.close()
+
+
+@st.cache_data(show_spinner=False)
+def load_table(db_path: str, table_name: str) -> pd.DataFrame:
+    conn = sqlite3.connect(db_path)
+    try:
+        return pd.read_sql_query(f'SELECT * FROM "{table_name}"', conn)
+    finally:
+        conn.close()
+
+
+def normalize_date_column(df: pd.DataFrame) -> pd.DataFrame:
+    candidates = ["exam_date", "Exam Date", "date", "Date"]
+    out = df.copy()
+    for c in candidates:
+        if c in out.columns:
+            out["__date__"] = pd.to_datetime(out[c], errors="coerce")
+            return out
+    out["__date__"] = pd.NaT
+    return out
+
+
+def latest_row(df: pd.DataFrame) -> pd.Series:
+    if df.empty:
+        return pd.Series(dtype="object")
+    dfx = normalize_date_column(df).sort_values("__date__")
+    return dfx.iloc[-1]
+
 
 def safe_float(value: Any) -> Optional[float]:
     try:
@@ -50,117 +82,67 @@ def safe_float(value: Any) -> Optional[float]:
 
 
 def human_value(value: Any, decimals: int = 2) -> str:
-    num = safe_float(value)
-    if num is None:
+    v = safe_float(value)
+    if v is None:
         return "N/A"
-    return f"{num:.{decimals}f}"
+    return f"{v:.{decimals}f}"
 
 
-def normalize_date_column(df: pd.DataFrame) -> pd.DataFrame:
-    for candidate in ["exam_date", "Exam Date", "date", "Date"]:
-        if candidate in df.columns:
-            df = df.copy()
-            df["__date__"] = pd.to_datetime(df[candidate], errors="coerce")
-            return df
-    df = df.copy()
-    df["__date__"] = pd.NaT
-    return df
-
-
-def get_existing_columns(df: pd.DataFrame, columns: List[str]) -> List[str]:
-    return [c for c in columns if c in df.columns]
-
-
-def pick_first_existing(df: pd.DataFrame, candidates: List[str]) -> Optional[str]:
-    for c in candidates:
-        if c in df.columns:
-            return c
-    return None
-
-
-@st.cache_data(show_spinner=False)
-def load_table(db_path: str, table_name: str) -> pd.DataFrame:
-    conn = sqlite3.connect(db_path)
-    try:
-        return pd.read_sql_query(f"SELECT * FROM {table_name}", conn)
-    finally:
-        conn.close()
-
-
-def table_exists(db_path: str, table_name: str) -> bool:
-    conn = sqlite3.connect(db_path)
-    try:
-        q = """
-        SELECT name
-        FROM sqlite_master
-        WHERE type='table' AND name=?
-        """
-        row = conn.execute(q, (table_name,)).fetchone()
-        return row is not None
-    finally:
-        conn.close()
-
-
-def latest_row(df: pd.DataFrame) -> pd.Series:
-    if df.empty:
-        return pd.Series(dtype="object")
-    df2 = normalize_date_column(df).sort_values("__date__")
-    return df2.iloc[-1]
-
-
-def filter_by_date(df: pd.DataFrame, start_date: Optional[pd.Timestamp], end_date: Optional[pd.Timestamp]) -> pd.DataFrame:
-    df2 = normalize_date_column(df)
-    if start_date is not None:
-        df2 = df2[df2["__date__"] >= pd.Timestamp(start_date)]
-    if end_date is not None:
-        df2 = df2[df2["__date__"] <= pd.Timestamp(end_date)]
-    return df2
-
-
-def show_metric_card(label: str, value: Any, delta: Any = None, decimals: int = 2) -> None:
+def show_metric_card(label: str, value: Any, delta: Any = None) -> None:
     delta_str = None
     if delta is not None and not pd.isna(delta):
         try:
             delta_str = f"{float(delta):+.2f}"
         except Exception:
             delta_str = str(delta)
-    st.metric(label=label, value=human_value(value, decimals=decimals), delta=delta_str)
+    st.metric(label, human_value(value), delta_str)
 
 
-def show_risk_fields(row: pd.Series, candidates: List[str]) -> None:
-    cols = st.columns(max(1, min(4, len(candidates))))
-    col_idx = 0
-    for field in candidates:
+def show_risk_fields(row: pd.Series, fields: List[str]) -> None:
+    cols = st.columns(max(1, min(4, len(fields))))
+    i = 0
+    for field in fields:
         if field in row.index:
-            with cols[col_idx % len(cols)]:
+            with cols[i % len(cols)]:
                 st.caption(field)
                 st.write(str(row.get(field, "N/A")))
-            col_idx += 1
+            i += 1
 
 
-def list_plot_files(plot_dir: Path, profile_prefixes: List[str], preferred_keywords: Optional[List[str]] = None) -> List[Path]:
-    if not plot_dir.exists():
-        return []
-
-    files = [p for p in plot_dir.glob("*.png") if p.is_file()]
-    matched: List[Path] = []
-
-    for file in files:
-        lower = file.name.lower()
-        prefix_hit = any(prefix.lower() in lower for prefix in profile_prefixes)
-        keyword_hit = True if not preferred_keywords else any(k.lower() in lower for k in preferred_keywords)
-        if prefix_hit or keyword_hit:
-            matched.append(file)
-
-    return sorted(set(matched), key=lambda p: p.name.lower())
-
-
-def show_exported_plots(plot_dir: Path, title: str, profile_prefixes: List[str], preferred_keywords: Optional[List[str]] = None) -> None:
+def line_chart_section(df: pd.DataFrame, metrics: List[str], title: str, key: str) -> None:
     st.subheader(title)
-    files = list_plot_files(plot_dir, profile_prefixes, preferred_keywords)
+    if df.empty:
+        st.info("No data available.")
+        return
 
+    dfx = normalize_date_column(df).dropna(subset=["__date__"]).sort_values("__date__")
+    existing = [m for m in metrics if m in dfx.columns]
+    if not existing:
+        st.info("No compatible metric columns found.")
+        return
+
+    selected = st.multiselect(
+        "Select metrics",
+        options=existing,
+        default=existing[: min(3, len(existing))],
+        key=key,
+    )
+    if not selected:
+        return
+
+    chart_df = dfx.set_index("__date__")[selected]
+    st.line_chart(chart_df, use_container_width=True)
+
+
+def show_exported_plots(plot_dir: Path, title: str) -> None:
+    st.subheader(title)
+    if not plot_dir.exists():
+        st.info(f"Plot folder not found: {plot_dir}")
+        return
+
+    files = sorted(plot_dir.glob("*.png"))
     if not files:
-        st.info("No exported plot images found for this section.")
+        st.info("No exported plots found.")
         return
 
     for file in files:
@@ -174,54 +156,23 @@ def render_data_explorer(df: pd.DataFrame, title: str) -> None:
         return
 
     with st.expander("Filter columns", expanded=False):
-        selected_cols = st.multiselect("Columns", options=list(df.columns), default=list(df.columns[: min(15, len(df.columns))]))
-    if selected_cols:
-        st.dataframe(df[selected_cols], use_container_width=True)
-    else:
-        st.dataframe(df, use_container_width=True)
+        selected = st.multiselect(
+            "Columns",
+            options=list(df.columns),
+            default=list(df.columns[: min(15, len(df.columns))]),
+            key=f"cols_{title}",
+        )
+
+    st.dataframe(df[selected] if selected else df, use_container_width=True)
 
 
-def line_chart_section(df: pd.DataFrame, available_metrics: List[str], title: str) -> None:
-    st.subheader(title)
-    if df.empty:
-        st.info("No data available.")
-        return
-
-    df2 = normalize_date_column(df).dropna(subset=["__date__"]).sort_values("__date__")
-    metrics = get_existing_columns(df2, available_metrics)
-
-    if not metrics:
-        st.info("No compatible metric columns found.")
-        return
-
-    selected_metrics = st.multiselect(
-        "Select metrics",
-        options=metrics,
-        default=metrics[: min(3, len(metrics))],
-        key=f"metrics_{title}"
-    )
-
-    if not selected_metrics:
-        st.warning("Select at least one metric.")
-        return
-
-    chart_df = df2.set_index("__date__")[selected_metrics]
-    st.line_chart(chart_df, use_container_width=True)
-
-
-# ============================================================
-# Profile renderers
-# ============================================================
-
-def render_lipid_dashboard(df: pd.DataFrame, plot_dir: Path) -> None:
+def render_lipid_tab(df: pd.DataFrame, plot_dir: Path) -> None:
     st.header("Lipidemic Profile")
-
     if df.empty:
         st.warning("No lipid data found.")
         return
 
     row = latest_row(df)
-
     c1, c2, c3, c4 = st.columns(4)
     with c1:
         show_metric_card("Total Cholesterol", row.get("total_cholesterol"), row.get("total_cholesterol_delta"))
@@ -268,109 +219,95 @@ def render_lipid_dashboard(df: pd.DataFrame, plot_dir: Path) -> None:
             "lpa",
         ],
         "Interactive Trends",
+        "lipid_trends",
     )
 
-    show_exported_plots(
-        plot_dir=plot_dir,
-        title="Exported Lipid Plots",
-        profile_prefixes=["lipid", "cholesterol", "hdl", "ldl", "triglycerides", "aip", "remnant", "lpa"],
-    )
-
+    show_exported_plots(plot_dir, "Exported Lipid Plots")
     render_data_explorer(df, "Lipid Data Explorer")
 
 
-def render_cbc_dashboard(df: pd.DataFrame, plot_dir: Path) -> None:
-    st.header("CBC / Hematology Profile")
-
+def render_endo_tab(df: pd.DataFrame, plot_dir: Path) -> None:
+    st.header("Endocrinology Profile")
     if df.empty:
-        st.warning("No CBC data found.")
+        st.warning("No endocrinology data found.")
         return
 
     row = latest_row(df)
-
     c1, c2, c3, c4 = st.columns(4)
     with c1:
-        show_metric_card("Hemoglobin", row.get("hemoglobin"))
-        show_metric_card("WBC", row.get("wbc"))
+        show_metric_card("Glucose for Calc", row.get("glucose_for_calc"), row.get("glucose_for_calc_delta"))
+        show_metric_card("Fasting Insulin", row.get("fasting_insulin"), row.get("fasting_insulin_delta"))
     with c2:
-        show_metric_card("RBC", row.get("rbc"))
-        show_metric_card("Platelets", row.get("platelets"))
+        show_metric_card("HbA1c", row.get("hba1c"), row.get("hba1c_delta"))
+        show_metric_card("eAG", row.get("eag_mgdl"), row.get("eag_mgdl_delta"))
     with c3:
-        show_metric_card("MCV", row.get("mcv"))
-        show_metric_card("RDW", row.get("rdw"))
+        show_metric_card("HOMA-IR", row.get("homa_ir"), row.get("homa_ir_delta"))
+        show_metric_card("QUICKI", row.get("quicki"), row.get("quicki_delta"))
     with c4:
-        show_metric_card("NLR", row.get("nlr"))
-        show_metric_card("Mentzer Index", row.get("mentzer_index"))
+        show_metric_card("TSH", row.get("tsh"), row.get("tsh_delta"))
+        show_metric_card("TSH / Free T4", row.get("tsh_free_t4_ratio"), row.get("tsh_free_t4_ratio_delta"))
 
     st.subheader("Latest Interpretations")
     show_risk_fields(
         row,
         [
+            "homa_ir_interpretation",
+            "vitamin_d_status",
             "record_quality_note",
-            "nlr_risk",
-            "mentzer_interpretation",
         ],
     )
 
     line_chart_section(
         df,
         [
-            "hemoglobin",
-            "wbc",
-            "rbc",
-            "platelets",
-            "mcv",
-            "rdw",
-            "neutrophils",
-            "lymphocytes",
-            "nlr",
-            "mentzer_index",
-            "anc_surrogate",
-            "alc_surrogate",
-            "amc_surrogate",
+            "glucose_for_calc",
+            "fasting_insulin",
+            "hba1c",
+            "eag_mgdl",
+            "homa_ir",
+            "quicki",
+            "tsh",
+            "free_t4",
+            "tsh_free_t4_ratio",
+            "vitamin_d_25_oh",
         ],
         "Interactive Trends",
+        "endo_trends",
     )
 
-    show_exported_plots(
-        plot_dir=plot_dir,
-        title="Exported CBC Plots",
-        profile_prefixes=["cbc", "hematology", "wbc", "rbc", "platelet", "hemoglobin", "nlr"],
-    )
-
-    render_data_explorer(df, "CBC Data Explorer")
+    show_exported_plots(plot_dir, "Exported Endocrinology Plots")
+    render_data_explorer(df, "Endocrinology Data Explorer")
 
 
-def render_liver_dashboard(df: pd.DataFrame, plot_dir: Path) -> None:
+def render_liver_tab(df: pd.DataFrame, plot_dir: Path) -> None:
     st.header("Liver Profile")
-
     if df.empty:
         st.warning("No liver data found.")
         return
 
     row = latest_row(df)
-
     c1, c2, c3, c4 = st.columns(4)
     with c1:
-        show_metric_card("AST", row.get("ast"))
-        show_metric_card("ALT", row.get("alt"))
+        show_metric_card("AST", row.get("ast"), row.get("ast_delta"))
+        show_metric_card("ALT", row.get("alt"), row.get("alt_delta"))
     with c2:
-        show_metric_card("AST/ALT Ratio", row.get("ast_alt_ratio"))
-        show_metric_card("ALP", row.get("alp"))
+        show_metric_card("AST / ALT Ratio", row.get("ast_alt_ratio"), row.get("ast_alt_ratio_delta"))
+        show_metric_card("GGT", row.get("ggt"), row.get("ggt_delta"))
     with c3:
-        show_metric_card("Total Bilirubin", row.get("total_bilirubin"))
-        show_metric_card("Direct Bilirubin", row.get("direct_bilirubin"))
+        show_metric_card("ALP", row.get("alp"), row.get("alp_delta"))
+        show_metric_card("LDH", row.get("ldh"), row.get("ldh_delta"))
     with c4:
-        show_metric_card("Indirect Bilirubin", row.get("indirect_bilirubin"))
-        show_metric_card("GGT", row.get("ggt"))
+        show_metric_card("Total Bilirubin", row.get("total_bilirubin"), row.get("total_bilirubin_delta"))
+        show_metric_card("Indirect Bilirubin", row.get("indirect_bilirubin"), row.get("indirect_bilirubin_delta"))
 
     st.subheader("Latest Interpretations")
     show_risk_fields(
         row,
         [
-            "record_quality_note",
             "ast_alt_pattern",
+            "direct_total_bilirubin_risk",
             "bilirubin_pattern",
+            "record_quality_note",
         ],
     )
 
@@ -380,44 +317,40 @@ def render_liver_dashboard(df: pd.DataFrame, plot_dir: Path) -> None:
             "ast",
             "alt",
             "ast_alt_ratio",
-            "alp",
             "ggt",
+            "alp",
+            "ldh",
             "total_bilirubin",
             "direct_bilirubin",
             "indirect_bilirubin",
             "direct_total_bilirubin_pct",
             "albumin",
-            "total_protein",
         ],
         "Interactive Trends",
+        "liver_trends",
     )
 
-    show_exported_plots(
-        plot_dir=plot_dir,
-        title="Exported Liver Plots",
-        profile_prefixes=["liver", "ast", "alt", "bilirubin", "alp", "ggt"],
-    )
-
+    show_exported_plots(plot_dir, "Exported Liver Plots")
     render_data_explorer(df, "Liver Data Explorer")
 
 
-# ============================================================
-# Main app
-# ============================================================
+def render_placeholder_tab(title: str) -> None:
+    st.header(title)
+    st.info("This profile is configured in the dashboard, but its pipeline/table is not active yet.")
+
 
 st.title("Blood Analysis Dashboard")
 
+base_dir = Path(__file__).resolve().parents[1]
+default_config_path = base_dir / "config" / "config.json"
+
 with st.sidebar:
     st.header("Configuration")
-    config_path = st.sidebar.text_input(
-    "Config path",
-    value="../config/config.json"
-)
+    config_path = st.text_input("Config path", value=str(default_config_path))
 
 try:
     config = load_config(config_path)
     db_path = get_database_path(config)
-    plot_dir = Path(get_plot_dir(config))
 except Exception as e:
     st.error(f"Failed to load config: {e}")
     st.stop()
@@ -425,109 +358,51 @@ except Exception as e:
 with st.sidebar:
     st.success("Config loaded")
     st.caption(f"SQLite DB: {db_path}")
-    st.caption(f"Plot directory: {plot_dir}")
 
-    enabled_profiles = []
-    all_profiles = config.get("profiles", {})
-    for profile_name, profile_cfg in all_profiles.items():
-        if profile_cfg.get("enabled", False):
-            enabled_profiles.append(profile_name)
+profiles_cfg = config.get("profiles", {})
 
-    if not enabled_profiles:
-        st.error("No enabled profiles found in config.")
-        st.stop()
+tabs = []
+tab_defs = []
 
-    st.subheader("Enabled Profiles")
-    st.write(", ".join(enabled_profiles))
+if profiles_cfg.get("lipidemic", {}).get("enabled", False):
+    tabs.append("Lipid")
+    tab_defs.append("lipidemic")
 
-# Load data for known profile names from config.
-# Uses target_table from config; if missing, uses a fallback.
-PROFILE_META: Dict[str, Dict[str, Any]] = {
-    "lipidemic": {
-        "label": "Lipid",
-        "fallback_table": "lipid_metrics",
-    },
-    "cbc": {
-        "label": "CBC",
-        "fallback_table": "cbc_metrics",
-    },
-    "liver": {
-        "label": "Liver",
-        "fallback_table": "liver_metrics",
-    },
-}
+if profiles_cfg.get("endocrinology", {}).get("enabled", False):
+    tabs.append("Endocrinology")
+    tab_defs.append("endocrinology")
 
-loaded_data: Dict[str, pd.DataFrame] = {}
-missing_tables: List[str] = []
+if profiles_cfg.get("liver", {}).get("enabled", False):
+    tabs.append("Liver")
+    tab_defs.append("liver")
 
-for profile_key, meta in PROFILE_META.items():
-    profile_cfg = get_profile_config(config, profile_key)
-    if not profile_cfg.get("enabled", False):
-        continue
+if profiles_cfg.get("cbc", {}).get("enabled", False):
+    tabs.append("CBC")
+    tab_defs.append("cbc")
 
-    target_table = profile_cfg.get("target_table", meta["fallback_table"])
-    if table_exists(db_path, target_table):
-        try:
-            loaded_data[profile_key] = load_table(db_path, target_table)
-        except Exception as e:
-            st.error(f"Failed loading {profile_key} from table '{target_table}': {e}")
-            loaded_data[profile_key] = pd.DataFrame()
-    else:
-        missing_tables.append(target_table)
-        loaded_data[profile_key] = pd.DataFrame()
-
-# Global filters
-st.subheader("Global Filters")
-
-date_candidates: List[pd.Timestamp] = []
-for df in loaded_data.values():
-    if not df.empty:
-        dfx = normalize_date_column(df)
-        valid_dates = dfx["__date__"].dropna()
-        if not valid_dates.empty:
-            date_candidates.append(valid_dates.min())
-            date_candidates.append(valid_dates.max())
-
-if date_candidates:
-    min_date = min(date_candidates).date()
-    max_date = max(date_candidates).date()
-    date_range = st.date_input("Date range", value=(min_date, max_date), min_value=min_date, max_value=max_date)
-    if isinstance(date_range, tuple) and len(date_range) == 2:
-        start_date, end_date = date_range
-    else:
-        start_date, end_date = min_date, max_date
-else:
-    start_date = None
-    end_date = None
-    st.info("No valid date fields found yet. Date filtering is disabled until data is available.")
-
-for k, df in list(loaded_data.items()):
-    loaded_data[k] = filter_by_date(df, start_date, end_date)
-
-if missing_tables:
-    st.warning(f"Missing tables: {', '.join(missing_tables)}")
-
-# Tabs
-tab_labels: List[str] = []
-tab_keys: List[str] = []
-
-for profile_key, meta in PROFILE_META.items():
-    if profile_key in loaded_data:
-        tab_labels.append(meta["label"])
-        tab_keys.append(profile_key)
-
-if not tab_labels:
-    st.error("No profile tables are available to display.")
+if not tabs:
+    st.error("No enabled profiles found in config.")
     st.stop()
 
-tabs = st.tabs(tab_labels)
+streamlit_tabs = st.tabs(tabs)
 
-for tab, key in zip(tabs, tab_keys):
+for tab, profile_name in zip(streamlit_tabs, tab_defs):
     with tab:
-        df = loaded_data.get(key, pd.DataFrame())
-        if key == "lipidemic":
-            render_lipid_dashboard(df, plot_dir)
-        elif key == "cbc":
-            render_cbc_dashboard(df, plot_dir)
-        elif key == "liver":
-            render_liver_dashboard(df, plot_dir)
+        profile_cfg = get_profile_config(config, profile_name)
+        target_table = profile_cfg.get("target_table")
+        plot_dir = profile_plot_dir(config, profile_name)
+
+        if not target_table or not table_exists(db_path, target_table):
+            st.warning(f"Table not found for profile '{profile_name}': {target_table}")
+            continue
+
+        df = load_table(db_path, target_table)
+
+        if profile_name == "lipidemic":
+            render_lipid_tab(df, plot_dir)
+        elif profile_name == "endocrinology":
+            render_endo_tab(df, plot_dir)
+        elif profile_name == "liver":
+            render_liver_tab(df, plot_dir)
+        elif profile_name == "cbc":
+            render_placeholder_tab("CBC / Hematology Profile")

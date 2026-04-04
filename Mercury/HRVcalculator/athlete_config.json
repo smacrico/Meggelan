@@ -1,0 +1,14 @@
+{
+  "default": {
+    "resting_hr": 52,
+    "max_hr": 190,
+    "sex": "male"
+  },
+  "athletes": {
+    "stelios": {
+      "resting_hr": 63,
+      "max_hr": 165,
+      "sex": "male"
+    }
+  }
+}

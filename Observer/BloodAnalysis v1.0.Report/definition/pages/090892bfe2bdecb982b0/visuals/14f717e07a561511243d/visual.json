@@ -1,0 +1,44 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "14f717e07a561511243d",
+  "position": {
+    "x": 150,
+    "y": 335,
+    "z": 1,
+    "height": 300,
+    "width": 300,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "pythonVisual",
+    "query": {
+      "queryState": {},
+      "sortDefinition": {
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "script": [
+        {
+          "properties": {
+            "source": {
+              "expr": {
+                "Literal": {
+                  "Value": "'# The following code to create a dataframe and remove duplicated rows is always executed and acts as a preamble for your script: \n\n# dataset = pandas.DataFrame(exam_date, aip, tg_hdl_ratio, non_hdl_final, remnant_cholesterol)\n# dataset = dataset.drop_duplicates()\n\n# Paste or type your script code here:\nimport pandas as pd \nimport matplotlib.pyplot as plt \n \ndf = dataset.copy() \ndf[\"exam_date\"] = pd.to_datetime(df[\"exam_date\"], errors=\"coerce\") \ndf = df.sort_values(\"exam_date\") \n \nfor col in [\"aip\", \"tg_hdl_ratio\", \"non_hdl_final\", \"remnant_cholesterol\"]: \n   if col in df.columns: \n       plt.plot(df[\"exam_date\"], df[col], marker=\"o\", label=col) \n \nplt.title(\"Lipidemic Risk Trends\") \nplt.xlabel(\"Exam Date\") \nplt.ylabel(\"Value\") \nplt.legend() \nplt.grid(True, alpha=0.3) \nplt.xticks(rotation=45) \nplt.tight_layout() \nplt.show()'"
+                }
+              }
+            },
+            "provider": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Python'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

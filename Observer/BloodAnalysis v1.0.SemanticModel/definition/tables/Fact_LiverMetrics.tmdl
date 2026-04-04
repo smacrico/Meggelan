@@ -1,0 +1,630 @@
+table Fact_LiverMetrics
+	lineageTag: a741aadb-c537-4a38-88ba-ec7d8611132a
+
+	column exam_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 66ee601f-485e-4488-9651-680135314684
+		summarizeBy: none
+		sourceColumn: exam_date
+
+		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ast
+		dataType: double
+		lineageTag: ea4e2541-ef0c-42ca-b662-a7eb841f81b3
+		summarizeBy: none
+		sourceColumn: ast
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column alt
+		dataType: double
+		lineageTag: f663887a-7e5a-4456-a519-6781c4efc9b1
+		summarizeBy: none
+		sourceColumn: alt
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ggt
+		dataType: double
+		lineageTag: 2dd4fd58-0c4b-4235-a307-55a8c7bc7722
+		summarizeBy: none
+		sourceColumn: ggt
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column alp
+		dataType: double
+		lineageTag: 311c8643-5b61-40b2-b632-899497a226b3
+		summarizeBy: none
+		sourceColumn: alp
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_bilirubin
+		dataType: double
+		lineageTag: 96d83090-480a-45c6-a8b3-0d3b6b197b3f
+		summarizeBy: none
+		sourceColumn: total_bilirubin
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column direct_bilirubin
+		dataType: double
+		lineageTag: ecc2e4df-277d-41b9-86e7-733974e887cb
+		summarizeBy: none
+		sourceColumn: direct_bilirubin
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column albumin
+		dataType: double
+		lineageTag: ef8dc0aa-8144-499c-b803-9da28ce1ce1c
+		summarizeBy: none
+		sourceColumn: albumin
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ldh
+		dataType: double
+		lineageTag: 92bd0006-7cea-439f-9f32-afe40c35fd51
+		summarizeBy: none
+		sourceColumn: ldh
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ast_alt_ratio
+		dataType: double
+		lineageTag: 09bb5b3f-f1ca-4ec5-80a9-d232460c24ab
+		summarizeBy: none
+		sourceColumn: ast_alt_ratio
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column indirect_bilirubin
+		dataType: double
+		lineageTag: f24c8021-edfe-49d2-b17b-15e5846636cf
+		summarizeBy: none
+		sourceColumn: indirect_bilirubin
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column direct_total_bilirubin_pct
+		dataType: double
+		lineageTag: 32ad92b8-8c99-4983-8fc1-4ecc98b63b4d
+		summarizeBy: none
+		sourceColumn: direct_total_bilirubin_pct
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ast_alt_pattern
+		dataType: string
+		lineageTag: 5a856c90-cec6-4758-bf12-49aa67ada2f9
+		summarizeBy: none
+		sourceColumn: ast_alt_pattern
+
+		annotation SummarizationSetBy = User
+
+	column direct_total_bilirubin_risk
+		dataType: string
+		lineageTag: c88fdff9-88fc-4f50-8356-5a49e60071db
+		summarizeBy: none
+		sourceColumn: direct_total_bilirubin_risk
+
+		annotation SummarizationSetBy = User
+
+	column bilirubin_pattern
+		dataType: string
+		lineageTag: b679e43a-d59b-4e30-a4ad-359b0a457b3b
+		summarizeBy: none
+		sourceColumn: bilirubin_pattern
+
+		annotation SummarizationSetBy = User
+
+	column ast_prev
+		dataType: double
+		lineageTag: 835456f6-a9ae-487b-a814-21a66c26e33e
+		summarizeBy: none
+		sourceColumn: ast_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ast_delta
+		dataType: double
+		lineageTag: 09be8b9a-f2fa-48e2-8992-168d35785f1c
+		summarizeBy: none
+		sourceColumn: ast_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ast_pct_change
+		dataType: double
+		lineageTag: 396cc381-8a9e-4257-8026-2f91196f1d7a
+		summarizeBy: none
+		sourceColumn: ast_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ast_rolling3
+		dataType: double
+		lineageTag: 00460740-15aa-4936-81ea-50b6372fc985
+		summarizeBy: none
+		sourceColumn: ast_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column alt_prev
+		dataType: double
+		lineageTag: 925d3987-dd48-48f2-a2fc-f170d23cfb3c
+		summarizeBy: none
+		sourceColumn: alt_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column alt_delta
+		dataType: double
+		lineageTag: 22b26094-f884-4384-81b0-dd5837d244e1
+		summarizeBy: none
+		sourceColumn: alt_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column alt_pct_change
+		dataType: double
+		lineageTag: c81feca2-1330-40e9-b74d-10d173348c50
+		summarizeBy: none
+		sourceColumn: alt_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column alt_rolling3
+		dataType: double
+		lineageTag: a97a7c95-1e0c-4a78-8589-6456ca5accda
+		summarizeBy: none
+		sourceColumn: alt_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ggt_prev
+		dataType: double
+		lineageTag: fe530c9f-1a93-48eb-937d-8e51614e7c5d
+		summarizeBy: none
+		sourceColumn: ggt_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ggt_delta
+		dataType: double
+		lineageTag: 020e9b50-0e76-46ba-8d98-4c3a24eedd7d
+		summarizeBy: none
+		sourceColumn: ggt_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ggt_pct_change
+		dataType: double
+		lineageTag: 027e43e0-0ad0-4671-8801-1160eb8c3ca4
+		summarizeBy: none
+		sourceColumn: ggt_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ggt_rolling3
+		dataType: double
+		lineageTag: 813634ca-39b9-4208-9d93-e7b45f0f071f
+		summarizeBy: none
+		sourceColumn: ggt_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column alp_prev
+		dataType: double
+		lineageTag: 76efc8d7-a18b-4074-8b9c-9eccbee15918
+		summarizeBy: none
+		sourceColumn: alp_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column alp_delta
+		dataType: double
+		lineageTag: 565021f3-966d-4216-852e-16768a6c61c6
+		summarizeBy: none
+		sourceColumn: alp_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column alp_pct_change
+		dataType: double
+		lineageTag: 0c6fba40-3936-423c-9ba9-3d9bc01bf46d
+		summarizeBy: none
+		sourceColumn: alp_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column alp_rolling3
+		dataType: double
+		lineageTag: d561fd8f-f5fd-41ab-9537-f99580b7620d
+		summarizeBy: none
+		sourceColumn: alp_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_bilirubin_prev
+		dataType: double
+		lineageTag: c6b2ee6d-644f-4f58-813f-c188e52c0e14
+		summarizeBy: none
+		sourceColumn: total_bilirubin_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_bilirubin_delta
+		dataType: double
+		lineageTag: 4bc37cb5-1072-4773-9b24-84d0a31a11b5
+		summarizeBy: none
+		sourceColumn: total_bilirubin_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_bilirubin_pct_change
+		dataType: double
+		lineageTag: 1592f869-90b9-45c0-87b3-4845dc2c7e66
+		summarizeBy: none
+		sourceColumn: total_bilirubin_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_bilirubin_rolling3
+		dataType: double
+		lineageTag: 20d5143f-78e7-40e7-9c4c-0c240535d1f7
+		summarizeBy: none
+		sourceColumn: total_bilirubin_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column direct_bilirubin_prev
+		dataType: double
+		lineageTag: 52e16b07-216b-4e79-9a0f-352cecba0c47
+		summarizeBy: none
+		sourceColumn: direct_bilirubin_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column direct_bilirubin_delta
+		dataType: double
+		lineageTag: 0e6f5bf4-29cd-41cd-8945-75b48c08f9bf
+		summarizeBy: none
+		sourceColumn: direct_bilirubin_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column direct_bilirubin_pct_change
+		dataType: double
+		lineageTag: f285afd1-324f-421e-b9ec-6d5634352071
+		summarizeBy: none
+		sourceColumn: direct_bilirubin_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column direct_bilirubin_rolling3
+		dataType: double
+		lineageTag: e2d20ba7-4c1a-40ce-9bdb-442f069cfd1f
+		summarizeBy: none
+		sourceColumn: direct_bilirubin_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column albumin_prev
+		dataType: double
+		lineageTag: 370170ac-b508-4cc8-9c27-bc00c58ca164
+		summarizeBy: none
+		sourceColumn: albumin_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column albumin_delta
+		dataType: double
+		lineageTag: 736c56d8-f5f9-4772-8887-19118d678f19
+		summarizeBy: none
+		sourceColumn: albumin_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column albumin_pct_change
+		dataType: double
+		lineageTag: 3216c7c1-cdef-4908-9589-93069137051a
+		summarizeBy: none
+		sourceColumn: albumin_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column albumin_rolling3
+		dataType: double
+		lineageTag: 45083557-b790-45f3-bb92-85ecfe9d6190
+		summarizeBy: none
+		sourceColumn: albumin_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ldh_prev
+		dataType: double
+		lineageTag: 902c246f-f36d-4be6-9acb-e06615667e38
+		summarizeBy: none
+		sourceColumn: ldh_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ldh_delta
+		dataType: double
+		lineageTag: c83d3f89-23de-4093-9b95-b9d9c7f2ff7d
+		summarizeBy: none
+		sourceColumn: ldh_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ldh_pct_change
+		dataType: double
+		lineageTag: 5426c802-5184-40b3-bb44-035fb4d9bf91
+		summarizeBy: none
+		sourceColumn: ldh_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ldh_rolling3
+		dataType: double
+		lineageTag: aaeb35a4-8976-44bd-8349-31d69aa1b7fe
+		summarizeBy: none
+		sourceColumn: ldh_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ast_alt_ratio_prev
+		dataType: double
+		lineageTag: d382dd7d-f001-45ab-b963-ad69aa75cedd
+		summarizeBy: none
+		sourceColumn: ast_alt_ratio_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ast_alt_ratio_delta
+		dataType: double
+		lineageTag: 9a149185-77e8-469a-bff0-ab9ab21fb98e
+		summarizeBy: none
+		sourceColumn: ast_alt_ratio_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ast_alt_ratio_pct_change
+		dataType: double
+		lineageTag: 35e328e4-61f2-4ca2-bb88-52d9519adb77
+		summarizeBy: none
+		sourceColumn: ast_alt_ratio_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ast_alt_ratio_rolling3
+		dataType: double
+		lineageTag: c0122fbc-ef36-4011-a5f9-d60ca57d7662
+		summarizeBy: none
+		sourceColumn: ast_alt_ratio_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column indirect_bilirubin_prev
+		dataType: double
+		lineageTag: 5a77acca-2e4f-4f0a-8030-e961da7d72b6
+		summarizeBy: none
+		sourceColumn: indirect_bilirubin_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column indirect_bilirubin_delta
+		dataType: double
+		lineageTag: 47892647-0151-4eac-a158-b5050c22eb18
+		summarizeBy: none
+		sourceColumn: indirect_bilirubin_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column indirect_bilirubin_pct_change
+		dataType: double
+		lineageTag: ffbb08ff-b883-4074-85f7-99ee02a42902
+		summarizeBy: none
+		sourceColumn: indirect_bilirubin_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column indirect_bilirubin_rolling3
+		dataType: double
+		lineageTag: ac1b580e-14dd-408c-a0d8-7c6dbbbc67a4
+		summarizeBy: none
+		sourceColumn: indirect_bilirubin_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column direct_total_bilirubin_pct_prev
+		dataType: double
+		lineageTag: 7b46aa6e-8e98-4576-88c2-04be624b6b23
+		summarizeBy: none
+		sourceColumn: direct_total_bilirubin_pct_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column direct_total_bilirubin_pct_delta
+		dataType: double
+		lineageTag: e036b9cb-ec5d-41ff-8d21-0f42603c50da
+		summarizeBy: none
+		sourceColumn: direct_total_bilirubin_pct_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column direct_total_bilirubin_pct_pct_change
+		dataType: double
+		lineageTag: 72fc0f28-9d74-4e2a-8a17-86d359399166
+		summarizeBy: none
+		sourceColumn: direct_total_bilirubin_pct_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column direct_total_bilirubin_pct_rolling3
+		dataType: double
+		lineageTag: 161b7253-d8b7-4c62-b4db-007e3587df99
+		summarizeBy: none
+		sourceColumn: direct_total_bilirubin_pct_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column has_core_liver
+		dataType: double
+		lineageTag: cf6ab1d4-e3ad-4abe-8e72-ee2df66c7eca
+		summarizeBy: none
+		sourceColumn: has_core_liver
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column is_complete_profile
+		dataType: double
+		lineageTag: f4edb936-9849-476e-b1ca-fcf429fe090d
+		summarizeBy: none
+		sourceColumn: is_complete_profile
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column record_quality_note
+		dataType: string
+		lineageTag: 48eb0a39-c588-4023-ad3b-4a6e532a03b1
+		summarizeBy: none
+		sourceColumn: record_quality_note
+
+		annotation SummarizationSetBy = User
+
+	partition Fact_LiverMetrics = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=bllod_raw", [HierarchicalNavigation=true]),
+				    liver_metrics_Table = Source{[Name="liver_metrics",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(liver_metrics_Table,{{"exam_date", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

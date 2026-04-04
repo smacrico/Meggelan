@@ -4,8 +4,8 @@
     "sqlite_path": "C:/smakrykodbs/hydra.db"
   },
   "paths": {
-    "log_dir": "C:/temp/LogsFitnessApp/LipidLogs",
-    "plot_dir": "C:/temp/LogsFitnessApp/Lipid_Dashboard/lipidemic"
+    "log_dir": "C:/temp/LogsFitnessApp/AppLogs",
+    "plot_dir": "C:/temp/LogsFitnessApp/Plots"
   },
   "profiles": {
     "lipidemic": {
@@ -13,6 +13,8 @@
       "source_table": "lipid_raw",
       "target_table": "lipid_metrics",
       "date_column": "Exam Date",
+      "log_dir": "C:/temp/LogsFitnessApp/LipidLogs",
+      "plot_dir": "C:/temp/LogsFitnessApp/Lipid_Dashboard",
       "columns": {
         "total_cholesterol": "Total Cholesterol",
         "hdl": "HDL",
@@ -22,12 +24,47 @@
         "lpa": "Lp(a)"
       }
     },
-
+    "endocrinology": {
+      "enabled": true,
+      "source_table": "endo_raw",
+      "target_table": "endo_metrics",
+      "date_column": "Exam Date",
+      "log_dir": "C:/temp/LogsFitnessApp/EndoLogs",
+      "plot_dir": "C:/temp/LogsFitnessApp/Endo_Dasboards",
+      "columns": {
+        "glucose_for_calc": "Glucose for calc",
+        "fasting_insulin": "Fasting Insulin",
+        "hba1c": "HbA1c",
+        "tsh": "TSH",
+        "free_t4": "Free T4",
+        "vitamin_d_25_oh": "Vitamin D"
+      }
+    },
+    "liver": {
+      "enabled": true,
+      "source_table": "liver_raw",
+      "target_table": "liver_metrics",
+      "date_column": "Exam Date",
+      "log_dir": "C:/temp/LogsFitnessApp/LiverLogs",
+      "plot_dir": "C:/temp/LogsFitnessApp/Liver_Dashboard",
+      "columns": {
+        "ast": "AST",
+        "alt": "ALT",
+        "ggt": "GGT",
+        "alp": "ALP",
+        "total_bilirubin": "Total Bilirubin",
+        "direct_bilirubin": "Direct Bilirubin",
+        "albumin": "Albumin",
+        "ldh": "LDH"
+      }
+    },
     "cbc": {
       "enabled": false,
       "source_table": "cbc_raw",
       "target_table": "cbc_metrics",
       "date_column": "Exam Date",
+      "log_dir": "C:/temp/LogsFitnessApp/CBCLogs",
+      "plot_dir": "C:/temp/LogsFitnessApp/CBC_Dashboard",
       "columns": {
         "hemoglobin": "Hemoglobin",
         "wbc": "WBC",
@@ -38,23 +75,6 @@
         "neutrophils": "Neutrophils",
         "lymphocytes": "Lymphocytes",
         "monocytes": "Monocytes"
-      }
-    },
-
-    "liver": {
-      "enabled": false,
-      "source_table": "liver_raw",
-      "target_table": "liver_metrics",
-      "date_column": "Exam Date",
-      "columns": {
-        "ast": "AST",
-        "alt": "ALT",
-        "alp": "ALP",
-        "ggt": "GGT",
-        "total_bilirubin": "Total Bilirubin",
-        "direct_bilirubin": "Direct Bilirubin",
-        "albumin": "Albumin",
-        "total_protein": "Total Protein"
       }
     }
   }

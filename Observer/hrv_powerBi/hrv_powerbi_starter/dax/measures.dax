@@ -1,0 +1,108 @@
+Measurement Count =
+COUNTROWS('vw_fact_measurements')
+
+Alert Count =
+COUNTROWS('vw_fact_alerts')
+
+Anomaly Count =
+COUNTROWS('vw_fact_anomalies')
+
+Latest Measurement Date =
+MAX('vw_fact_measurements'[measurement_date])
+
+Avg RMSSD =
+AVERAGE('vw_fact_measurements'[rmssd])
+
+Avg SDNN =
+AVERAGE('vw_fact_measurements'[sdnn])
+
+Avg HF =
+AVERAGE('vw_fact_measurements'[HF])
+
+Avg LF =
+AVERAGE('vw_fact_measurements'[LF])
+
+Latest MS Score =
+MAX('vw_latest_trends_by_source_metric'[latest_ms_score])
+
+Latest Metric Value =
+VAR LastDate = MAX('vw_long_measurements'[measurement_date])
+RETURN
+CALCULATE(
+    AVERAGE('vw_long_measurements'[value]),
+    'vw_long_measurements'[measurement_date] = LastDate
+)
+
+Baseline Avg =
+VAR m = SELECTEDVALUE('vw_long_measurements'[metric])
+RETURN
+SWITCH(
+    TRUE(),
+    m = "SD1", MAX('vw_latest_baseline_by_source'[avg_SD1]),
+    m = "SD2", MAX('vw_latest_baseline_by_source'[avg_SD2]),
+    m = "sdnn", MAX('vw_latest_baseline_by_source'[avg_sdnn]),
+    m = "rmssd", MAX('vw_latest_baseline_by_source'[avg_rmssd]),
+    m = "pNN50", MAX('vw_latest_baseline_by_source'[avg_pNN50]),
+    m = "VLF", MAX('vw_latest_baseline_by_source'[avg_VLF]),
+    m = "LF", MAX('vw_latest_baseline_by_source'[avg_LF]),
+    m = "HF", MAX('vw_latest_baseline_by_source'[avg_HF]),
+    BLANK()
+)
+
+Baseline Std =
+VAR m = SELECTEDVALUE('vw_long_measurements'[metric])
+RETURN
+SWITCH(
+    TRUE(),
+    m = "SD1", MAX('vw_latest_baseline_by_source'[std_SD1]),
+    m = "SD2", MAX('vw_latest_baseline_by_source'[std_SD2]),
+    m = "sdnn", MAX('vw_latest_baseline_by_source'[std_sdnn]),
+    m = "rmssd", MAX('vw_latest_baseline_by_source'[std_rmssd]),
+    m = "pNN50", MAX('vw_latest_baseline_by_source'[std_pNN50]),
+    m = "VLF", MAX('vw_latest_baseline_by_source'[std_VLF]),
+    m = "LF", MAX('vw_latest_baseline_by_source'[std_LF]),
+    m = "HF", MAX('vw_latest_baseline_by_source'[std_HF]),
+    BLANK()
+)
+
+Deviation vs Baseline % =
+DIVIDE([Latest Metric Value] - [Baseline Avg], [Baseline Avg])
+
+Z Score vs Baseline =
+DIVIDE([Latest Metric Value] - [Baseline Avg], [Baseline Std])
+
+Trend Slope =
+MAX('vw_latest_trends_by_source_metric'[slope])
+
+Trend R Value =
+MAX('vw_latest_trends_by_source_metric'[r_value])
+
+Trend Direction =
+SELECTEDVALUE('vw_latest_trends_by_source_metric'[trend_direction])
+
+Trend Strength =
+SELECTEDVALUE('vw_latest_trends_by_source_metric'[trend_strength])
+
+RMSSD 7D Avg =
+AVERAGEX(
+    DATESINPERIOD('vw_dim_date'[date_key], MAX('vw_dim_date'[date_key]), -7, DAY),
+    CALCULATE(AVERAGE('vw_fact_measurements'[rmssd]))
+)
+
+SDNN 7D Avg =
+AVERAGEX(
+    DATESINPERIOD('vw_dim_date'[date_key], MAX('vw_dim_date'[date_key]), -7, DAY),
+    CALCULATE(AVERAGE('vw_fact_measurements'[sdnn]))
+)
+
+MS Score 7D Avg =
+AVERAGEX(
+    DATESINPERIOD('vw_dim_date'[date_key], MAX('vw_dim_date'[date_key]), -7, DAY),
+    CALCULATE(MAX('vw_latest_trends_by_source_metric'[latest_ms_score]))
+)
+
+Has Alerts =
+IF([Alert Count] > 0, "Yes", "No")
+
+Has Anomalies =
+IF([Anomaly Count] > 0, "Yes", "No")

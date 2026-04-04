@@ -1,48 +1,57 @@
-
 from __future__ import annotations
 
 import argparse
-from typing import Callable
 
 from blood_analysis_platform.core.config import AppConfig
-from blood_analysis_platform.core.logging_utils import build_logger
+from blood_analysis_platform.core.logging_utils import get_logger
 from blood_analysis_platform.profiles.lipidemic.pipeline import run_lipidemic_pipeline
+from blood_analysis_platform.profiles.endocrinology.pipeline import run_endocrinology_pipeline
+from blood_analysis_platform.profiles.liver.pipeline import run_liver_pipeline
 
-
-PROFILE_RUNNERS: dict[str, Callable] = {
+PROFILE_RUNNERS = {
     "lipidemic": run_lipidemic_pipeline,
+    "endocrinology": run_endocrinology_pipeline,
+    "liver": run_liver_pipeline,
 }
 
-
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Blood Analysis Platform orchestrator")
+    parser = argparse.ArgumentParser(description="Blood Analysis Platform")
     parser.add_argument("--config", required=True, help="Path to config JSON")
     parser.add_argument("--profile", help="Single profile to run")
     parser.add_argument("--all", action="store_true", help="Run all enabled profiles")
     args = parser.parse_args()
 
     config = AppConfig.from_file(args.config)
-    logger = build_logger(config.log_dir)
 
-    if args.all:
-        profiles = list(PROFILE_RUNNERS.keys())
-    elif args.profile:
-        profiles = [args.profile]
+    if args.profile:
+        profile_names = [args.profile]
+    elif args.all:
+        profile_names = [
+            name for name, cfg in config.profiles.items()
+            if cfg.get("enabled", False)
+        ]
     else:
-        raise ValueError("Provide either --profile <name> or --all")
+        raise ValueError("Provide either --profile or --all")
 
-    logger.info("Starting orchestrator for profiles: %s", ", ".join(profiles))
+    first_profile = profile_names[0]
+    first_profile_cfg = config.profile(first_profile)
+    logger = get_logger(
+        app_name=config.app_name,
+        log_dir=first_profile_cfg.get("log_dir", config.log_dir),
+    )
 
-    for profile_name in profiles:
+    logger.info("Starting orchestrator for profiles: %s", ", ".join(profile_names))
+
+    for profile_name in profile_names:
         runner = PROFILE_RUNNERS.get(profile_name)
         if runner is None:
-            raise ValueError(f"Unsupported profile: {profile_name}")
+            logger.warning("No runner registered for profile: %s", profile_name)
+            continue
+
         logger.info("Running profile: %s", profile_name)
         runner(config=config, logger=logger)
-        logger.info("Completed profile: %s", profile_name)
 
-    logger.info("Orchestrator finished successfully")
-
-
+    logger.info("Orchestrator completed")
+    
 if __name__ == "__main__":
     main()

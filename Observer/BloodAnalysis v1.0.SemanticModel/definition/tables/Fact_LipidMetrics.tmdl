@@ -1,0 +1,1857 @@
+table Fact_LipidMetrics
+	lineageTag: c519e5ac-8cc0-49cf-81fd-b57895b3302d
+
+	measure 'Lipid Latest Total Cholesterol' =
+			
+			CALCULATE(
+			    MAX(Fact_LipidMetrics[total_cholesterol]),
+			    TREATAS({[Latest Selected Date]}, Fact_LipidMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Latest
+		lineageTag: e4ce3e4b-773f-48c3-95f4-731b60371a2b
+
+	measure 'Lipid Previous Total Cholesterol' =
+			
+			CALCULATE(
+			    MAX(Fact_LipidMetrics[total_cholesterol]),
+			    TREATAS({[Previous Selected Date]}, Fact_LipidMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Previous
+		lineageTag: 24b6fd96-4b54-4bf5-9e64-2adfff1e2e39
+
+	measure 'Lipid Total Cholesterol Delta' = [Lipid Latest Total Cholesterol] - [Lipid Previous Total Cholesterol]
+		formatString: 0.00
+		displayFolder: Lipid - Delta
+		lineageTag: 75f85642-564c-4bc9-8c33-e56718f480a9
+
+	measure 'Lipid Total Cholesterol Delta %' = DIVIDE([Lipid Total Cholesterol Delta], [Lipid Previous Total Cholesterol])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Lipid - Delta %
+		lineageTag: 73055aed-ef88-4f4a-b725-e982f9ff5fc8
+
+	measure 'Lipid Total Cholesterol Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        ALLSELECTED(Fact_LipidMetrics[exam_date]),
+			        Fact_LipidMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_LipidMetrics[total_cholesterol]))
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Rolling 3
+		lineageTag: 94594593-2383-48cf-8cdc-ef7f0208e158
+
+	measure 'Lipid Latest HDL' =
+			
+			CALCULATE(
+			    MAX(Fact_LipidMetrics[hdl]),
+			    TREATAS({[Latest Selected Date]}, Fact_LipidMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Latest
+		lineageTag: 4b94bd79-a117-4f3a-b15c-b64fb2493c98
+
+	measure 'Lipid Previous HDL' =
+			
+			CALCULATE(
+			    MAX(Fact_LipidMetrics[hdl]),
+			    TREATAS({[Previous Selected Date]}, Fact_LipidMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Previous
+		lineageTag: 10ce3a65-1940-4183-bc4a-e748ab3f3938
+
+	measure 'Lipid HDL Delta' = [Lipid Latest HDL] - [Lipid Previous HDL]
+		formatString: 0.00
+		displayFolder: Lipid - Delta
+		lineageTag: 86d73463-27ea-461d-81d5-99a4c3baff82
+
+	measure 'Lipid HDL Delta %' = DIVIDE([Lipid HDL Delta], [Lipid Previous HDL])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Lipid - Delta %
+		lineageTag: 9800f678-e9af-430d-a5a7-adb1cf5f0c48
+
+	measure 'Lipid HDL Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        ALLSELECTED(Fact_LipidMetrics[exam_date]),
+			        Fact_LipidMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_LipidMetrics[hdl]))
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Rolling 3
+		lineageTag: 7349b4f6-92c3-428b-8bec-5279f5caaff9
+
+	measure 'Lipid Latest LDL Final' =
+			
+			CALCULATE(
+			    MAX(Fact_LipidMetrics[ldl_final]),
+			    TREATAS({[Latest Selected Date]}, Fact_LipidMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Latest
+		lineageTag: 952a5648-c8a6-41c3-b41a-a5c9850a153c
+
+	measure 'Lipid Previous LDL Final' =
+			
+			CALCULATE(
+			    MAX(Fact_LipidMetrics[ldl_final]),
+			    TREATAS({[Previous Selected Date]}, Fact_LipidMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Previous
+		lineageTag: 7a9c8890-7225-4f0b-bc70-f4b3bf3669f6
+
+	measure 'Lipid LDL Final Delta' = [Lipid Latest LDL Final] - [Lipid Previous LDL Final]
+		formatString: 0.00
+		displayFolder: Lipid - Delta
+		lineageTag: 3b31cdf0-f19b-435a-aed4-7d8f1e693908
+
+	measure 'Lipid LDL Final Delta %' = DIVIDE([Lipid LDL Final Delta], [Lipid Previous LDL Final])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Lipid - Delta %
+		lineageTag: 00e4ce77-b641-4e53-9c22-281377ec2cd5
+
+	measure 'Lipid LDL Final Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        ALLSELECTED(Fact_LipidMetrics[exam_date]),
+			        Fact_LipidMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_LipidMetrics[ldl_final]))
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Rolling 3
+		lineageTag: e294ffa8-9a72-450c-9f1b-100ac68b8795
+
+	measure 'Lipid Latest TG' =
+			
+			CALCULATE(
+			    MAX(Fact_LipidMetrics[triglycerides]),
+			    TREATAS({[Latest Selected Date]}, Fact_LipidMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Latest
+		lineageTag: 4317a5d9-11dc-42ae-a9e9-f3e5a7db6fe1
+
+	measure 'Lipid Previous TG' =
+			
+			CALCULATE(
+			    MAX(Fact_LipidMetrics[triglycerides]),
+			    TREATAS({[Previous Selected Date]}, Fact_LipidMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Previous
+		lineageTag: c5744887-50f4-4e03-8176-7d4f900cf38b
+
+	measure 'Lipid TG Delta' = [Lipid Latest TG] - [Lipid Previous TG]
+		formatString: 0.00
+		displayFolder: Lipid - Delta
+		lineageTag: 006a4055-d258-411c-b02a-f61afde7a867
+
+	measure 'Lipid TG Delta %' = DIVIDE([Lipid TG Delta], [Lipid Previous TG])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Lipid - Delta %
+		lineageTag: b97eff3a-4227-4c1e-9588-f2ea3b4e88dd
+
+	measure 'Lipid TG Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        ALLSELECTED(Fact_LipidMetrics[exam_date]),
+			        Fact_LipidMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_LipidMetrics[triglycerides]))
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Rolling 3
+		lineageTag: 05f18913-7f4c-4b82-94d4-6ce848274a7a
+
+	measure 'Lipid Latest Non-HDL' =
+			
+			CALCULATE(
+			    MAX(Fact_LipidMetrics[non_hdl_final]),
+			    TREATAS({[Latest Selected Date]}, Fact_LipidMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Latest
+		lineageTag: 5ea13db3-ecf7-43e7-a1f3-55cf114fe7ae
+
+	measure 'Lipid Previous Non-HDL' =
+			
+			CALCULATE(
+			    MAX(Fact_LipidMetrics[non_hdl_final]),
+			    TREATAS({[Previous Selected Date]}, Fact_LipidMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Previous
+		lineageTag: e9309f9d-ece3-410a-84a5-ff81bf658d43
+
+	measure 'Lipid Non-HDL Delta' = [Lipid Latest Non-HDL] - [Lipid Previous Non-HDL]
+		formatString: 0.00
+		displayFolder: Lipid - Delta
+		lineageTag: bcd0bc27-d1a5-401e-bdfb-346fa4c7f0c1
+
+	measure 'Lipid Non-HDL Delta %' = DIVIDE([Lipid Non-HDL Delta], [Lipid Previous Non-HDL])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Lipid - Delta %
+		lineageTag: 4ace2f3b-1f70-409d-84db-420738dffecc
+
+	measure 'Lipid Non-HDL Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        ALLSELECTED(Fact_LipidMetrics[exam_date]),
+			        Fact_LipidMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_LipidMetrics[non_hdl_final]))
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Rolling 3
+		lineageTag: 9110eef8-a598-4396-96cd-147e39b14659
+
+	measure 'Lipid Latest TC/HDL' =
+			
+			CALCULATE(
+			    MAX(Fact_LipidMetrics[tc_hdl_ratio]),
+			    TREATAS({[Latest Selected Date]}, Fact_LipidMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Latest
+		lineageTag: ad19d525-5c19-4cc9-97ab-1cfe09a245cb
+
+	measure 'Lipid Previous TC/HDL' =
+			
+			CALCULATE(
+			    MAX(Fact_LipidMetrics[tc_hdl_ratio]),
+			    TREATAS({[Previous Selected Date]}, Fact_LipidMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Previous
+		lineageTag: c61cb6b4-51eb-44dd-bff8-5040fa7d7173
+
+	measure 'Lipid TC/HDL Delta' = [Lipid Latest TC/HDL] - [Lipid Previous TC/HDL]
+		formatString: 0.00
+		displayFolder: Lipid - Delta
+		lineageTag: 1b9dad27-8d47-43fc-b1f6-3444bbe72cf2
+
+	measure 'Lipid TC/HDL Delta %' = DIVIDE([Lipid TC/HDL Delta], [Lipid Previous TC/HDL])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Lipid - Delta %
+		lineageTag: 57af3431-a6db-49a6-b2ec-526bb0f1051b
+
+	measure 'Lipid TC/HDL Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        ALLSELECTED(Fact_LipidMetrics[exam_date]),
+			        Fact_LipidMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_LipidMetrics[tc_hdl_ratio]))
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Rolling 3
+		lineageTag: 9266905a-569b-4cf0-85c2-92e449994864
+
+	measure 'Lipid Latest LDL/HDL' =
+			
+			CALCULATE(
+			    MAX(Fact_LipidMetrics[ldl_hdl_ratio]),
+			    TREATAS({[Latest Selected Date]}, Fact_LipidMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Latest
+		lineageTag: 11389937-ddd3-447f-85be-704ead7fcc90
+
+	measure 'Lipid Previous LDL/HDL' =
+			
+			CALCULATE(
+			    MAX(Fact_LipidMetrics[ldl_hdl_ratio]),
+			    TREATAS({[Previous Selected Date]}, Fact_LipidMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Previous
+		lineageTag: 42228e85-d600-4ada-8064-8695f0c3027f
+
+	measure 'Lipid LDL/HDL Delta' = [Lipid Latest LDL/HDL] - [Lipid Previous LDL/HDL]
+		formatString: 0.00
+		displayFolder: Lipid - Delta
+		lineageTag: 7c4b2013-69fc-49f1-bcac-774f4823cca2
+
+	measure 'Lipid LDL/HDL Delta %' = DIVIDE([Lipid LDL/HDL Delta], [Lipid Previous LDL/HDL])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Lipid - Delta %
+		lineageTag: f2defeaa-f79d-4fe4-bae5-c598a6e227f2
+
+	measure 'Lipid LDL/HDL Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        ALLSELECTED(Fact_LipidMetrics[exam_date]),
+			        Fact_LipidMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_LipidMetrics[ldl_hdl_ratio]))
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Rolling 3
+		lineageTag: 0befae3a-462a-4ed9-b901-8d0fd8d3b632
+
+	measure 'Lipid Latest TG/HDL' =
+			
+			CALCULATE(
+			    MAX(Fact_LipidMetrics[tg_hdl_ratio]),
+			    TREATAS({[Latest Selected Date]}, Fact_LipidMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Latest
+		lineageTag: 46a2d34e-b418-40e2-93bc-14be982f3070
+
+	measure 'Lipid Previous TG/HDL' =
+			
+			CALCULATE(
+			    MAX(Fact_LipidMetrics[tg_hdl_ratio]),
+			    TREATAS({[Previous Selected Date]}, Fact_LipidMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Previous
+		lineageTag: 4676f582-a6d5-44b6-987f-dfd893a320a6
+
+	measure 'Lipid TG/HDL Delta' = [Lipid Latest TG/HDL] - [Lipid Previous TG/HDL]
+		formatString: 0.00
+		displayFolder: Lipid - Delta
+		lineageTag: 6615b91c-e2d0-4a27-8191-122b0a8d4f92
+
+	measure 'Lipid TG/HDL Delta %' = DIVIDE([Lipid TG/HDL Delta], [Lipid Previous TG/HDL])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Lipid - Delta %
+		lineageTag: f7588ab9-fe5c-49e4-a8df-fffc11800520
+
+	measure 'Lipid TG/HDL Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        ALLSELECTED(Fact_LipidMetrics[exam_date]),
+			        Fact_LipidMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_LipidMetrics[tg_hdl_ratio]))
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Rolling 3
+		lineageTag: 29d5544f-aad0-448a-bf32-45f217faf485
+
+	measure 'Lipid Latest AIP' =
+			
+			CALCULATE(
+			    MAX(Fact_LipidMetrics[aip]),
+			    TREATAS({[Latest Selected Date]}, Fact_LipidMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Latest
+		lineageTag: 9a4a6bf5-442e-4670-b521-c3fbdb2b5740
+
+	measure 'Lipid Previous AIP' =
+			
+			CALCULATE(
+			    MAX(Fact_LipidMetrics[aip]),
+			    TREATAS({[Previous Selected Date]}, Fact_LipidMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Previous
+		lineageTag: 50f560a3-b392-4505-92bb-e6721a0423f1
+
+	measure 'Lipid AIP Delta' = [Lipid Latest AIP] - [Lipid Previous AIP]
+		formatString: 0.00
+		displayFolder: Lipid - Delta
+		lineageTag: aa2efdf1-dfdb-47e6-893e-ed2b70c5d08a
+
+	measure 'Lipid AIP Delta %' = DIVIDE([Lipid AIP Delta], [Lipid Previous AIP])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Lipid - Delta %
+		lineageTag: ee59a18e-479d-402a-9261-672632c4aa3a
+
+	measure 'Lipid AIP Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        ALLSELECTED(Fact_LipidMetrics[exam_date]),
+			        Fact_LipidMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_LipidMetrics[aip]))
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Rolling 3
+		lineageTag: 6672c31b-9851-43ff-88d1-f074cebfb57d
+
+	measure 'Lipid Latest Remnant' =
+			
+			CALCULATE(
+			    MAX(Fact_LipidMetrics[remnant_cholesterol]),
+			    TREATAS({[Latest Selected Date]}, Fact_LipidMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Latest
+		lineageTag: 57952208-6c6a-43fd-8098-30dff7ada2f8
+
+	measure 'Lipid Previous Remnant' =
+			
+			CALCULATE(
+			    MAX(Fact_LipidMetrics[remnant_cholesterol]),
+			    TREATAS({[Previous Selected Date]}, Fact_LipidMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Previous
+		lineageTag: 300af85d-849f-4ec9-ace2-14c7f6a41711
+
+	measure 'Lipid Remnant Delta' = [Lipid Latest Remnant] - [Lipid Previous Remnant]
+		formatString: 0.00
+		displayFolder: Lipid - Delta
+		lineageTag: 1746be9c-6d9f-4ca9-9a39-d01512ef32e0
+
+	measure 'Lipid Remnant Delta %' = DIVIDE([Lipid Remnant Delta], [Lipid Previous Remnant])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Lipid - Delta %
+		lineageTag: 6337ab00-9363-4dea-8eab-f0f804dec9ee
+
+	measure 'Lipid Remnant Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        ALLSELECTED(Fact_LipidMetrics[exam_date]),
+			        Fact_LipidMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_LipidMetrics[remnant_cholesterol]))
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Rolling 3
+		lineageTag: 2174ae50-ff07-468d-a51f-5a6f48dde72d
+
+	measure 'Lipid Latest Lp(a)' =
+			
+			CALCULATE(
+			    MAX(Fact_LipidMetrics[lpa]),
+			    TREATAS({[Latest Selected Date]}, Fact_LipidMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Latest
+		lineageTag: 70476baf-6a1f-4ba9-96b4-9331e8913131
+
+	measure 'Lipid Previous Lp(a)' =
+			
+			CALCULATE(
+			    MAX(Fact_LipidMetrics[lpa]),
+			    TREATAS({[Previous Selected Date]}, Fact_LipidMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Previous
+		lineageTag: 456cbfa2-8a74-402b-a6f6-55b21f9d5266
+
+	measure 'Lipid Lp(a) Delta' = [Lipid Latest Lp(a)] - [Lipid Previous Lp(a)]
+		formatString: 0.00
+		displayFolder: Lipid - Delta
+		lineageTag: 300fb929-c144-4624-99f7-33fbf9f30483
+
+	measure 'Lipid Lp(a) Delta %' = DIVIDE([Lipid Lp(a) Delta], [Lipid Previous Lp(a)])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Lipid - Delta %
+		lineageTag: 5f61403a-3ad0-44f3-8717-cd555df92c3d
+
+	measure 'Lipid Lp(a) Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        ALLSELECTED(Fact_LipidMetrics[exam_date]),
+			        Fact_LipidMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_LipidMetrics[lpa]))
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Rolling 3
+		lineageTag: 9cef7293-d377-4e0b-9427-54ae28a7c507
+
+	measure 'Lipid Total Cholesterol Trend Direction' =
+			
+			VAR d = [Lipid Total Cholesterol Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Lipid - Trend
+		lineageTag: 5c85ffc4-2753-401e-ad7e-105f0e51c9fa
+
+	measure 'Lipid HDL Trend Direction' =
+			
+			VAR d = [Lipid HDL Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d > 0, "Improving",
+			    d < 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Lipid - Trend
+		lineageTag: e2e6e590-0aa7-4042-8380-593148a014b4
+
+	measure 'Lipid LDL Final Trend Direction' =
+			
+			VAR d = [Lipid LDL Final Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Lipid - Trend
+		lineageTag: ec361f11-2530-4719-b141-fafaa1cff86a
+
+	measure 'Lipid TG Trend Direction' =
+			
+			VAR d = [Lipid TG Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Lipid - Trend
+		lineageTag: 4d901068-42be-4081-80e6-de86f1080827
+
+	measure 'Lipid Non-HDL Trend Direction' =
+			
+			VAR d = [Lipid Non-HDL Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Lipid - Trend
+		lineageTag: 1a8fb48e-dcfd-4353-a66c-348cbb3dbde6
+
+	measure 'Lipid TC/HDL Trend Direction' =
+			
+			VAR d = [Lipid TC/HDL Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Lipid - Trend
+		lineageTag: f9563039-f798-4838-8eeb-95c5f0a4b26c
+
+	measure 'Lipid LDL/HDL Trend Direction' =
+			
+			VAR d = [Lipid LDL/HDL Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Lipid - Trend
+		lineageTag: e080af07-33ce-42da-baf3-8abd1f77bd45
+
+	measure 'Lipid TG/HDL Trend Direction' =
+			
+			VAR d = [Lipid TG/HDL Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Lipid - Trend
+		lineageTag: 086b1025-e921-40e0-ac55-58efeccbec48
+
+	measure 'Lipid AIP Trend Direction' =
+			
+			VAR d = [Lipid AIP Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Lipid - Trend
+		lineageTag: cc0ed87b-81cd-444d-b5fc-1750bcd9e07c
+
+	measure 'Lipid Remnant Trend Direction' =
+			
+			VAR d = [Lipid Remnant Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Lipid - Trend
+		lineageTag: 96b97edf-8406-42ec-9754-a393f001d200
+
+	measure 'Lipid Lp(a) Trend Direction' =
+			
+			VAR d = [Lipid Lp(a) Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Lipid - Trend
+		lineageTag: fd4dd491-b3fb-49b1-aa56-72b2138c22a9
+
+	measure 'Lipid AIP Score' =
+			
+			VAR x = [Lipid Latest AIP]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x < 0.11, 1,
+			    x < 0.21, 2,
+			    3
+			)
+		formatString: 0
+		displayFolder: Lipid - KPI
+		lineageTag: f68b0831-e868-4836-ae78-b5ba9f251083
+
+	measure 'Lipid TG/HDL Score' =
+			
+			VAR x = [Lipid Latest TG/HDL]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x < 2, 1,
+			    x < 3, 2,
+			    x < 4, 3,
+			    4
+			)
+		formatString: 0
+		displayFolder: Lipid - KPI
+		lineageTag: 1723da84-9383-4668-b078-ec6efd709883
+
+	measure 'Lipid Remnant Score' =
+			
+			VAR x = [Lipid Latest Remnant]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x < 20, 1,
+			    x <= 30, 2,
+			    3
+			)
+		formatString: 0
+		displayFolder: Lipid - KPI
+		lineageTag: ab740bd6-7505-44ad-aa39-1049e6b7e0f0
+
+	measure 'Lipid TC/HDL Score' =
+			
+			VAR x = [Lipid Latest TC/HDL]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x < 4, 1,
+			    x < 5, 2,
+			    3
+			)
+		formatString: 0
+		displayFolder: Lipid - KPI
+		lineageTag: 0c23f692-b5de-4790-91fc-7ff778998e13
+
+	measure 'Lipid LDL/HDL Score' =
+			
+			VAR x = [Lipid Latest LDL/HDL]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x < 2, 1,
+			    x < 3, 2,
+			    3
+			)
+		formatString: 0
+		displayFolder: Lipid - KPI
+		lineageTag: 8ff34f63-b03f-4f64-a28f-752a388eb320
+
+	measure 'Lipid Non-HDL Score' =
+			
+			VAR x = [Lipid Latest Non-HDL]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x < 130, 1,
+			    x < 160, 2,
+			    x < 190, 3,
+			    4
+			)
+		formatString: 0
+		displayFolder: Lipid - KPI
+		lineageTag: 29c16178-50fd-4d5d-a735-1b360dd4e9e5
+
+	measure 'Lipid AIP Indicator' =
+			
+			SWITCH(
+			    [Lipid AIP Score],
+			    1, "Low risk",
+			    2, "Intermediate risk",
+			    3, "High risk",
+			    BLANK()
+			)
+		displayFolder: Lipid - KPI
+		lineageTag: 1b135e4a-239f-44b6-9f70-679ad13b52f8
+
+	measure 'Lipid TG/HDL Indicator' =
+			
+			SWITCH(
+			    [Lipid TG/HDL Score],
+			    1, "Favorable",
+			    2, "Borderline",
+			    3, "Higher risk",
+			    4, "Marked metabolic-risk signal",
+			    BLANK()
+			)
+		displayFolder: Lipid - KPI
+		lineageTag: 2d9348e1-1595-408e-9e91-04db3efb1022
+
+	measure 'Lipid Remnant Indicator' =
+			
+			SWITCH(
+			    [Lipid Remnant Score],
+			    1, "Favorable",
+			    2, "Borderline",
+			    3, "Higher residual risk",
+			    BLANK()
+			)
+		displayFolder: Lipid - KPI
+		lineageTag: 3b89b128-58ff-4a71-8ab6-855ab50e2a4e
+
+	measure 'Lipid TC/HDL Indicator' =
+			
+			SWITCH(
+			    [Lipid TC/HDL Score],
+			    1, "Favorable",
+			    2, "Borderline",
+			    3, "Higher risk",
+			    BLANK()
+			)
+		displayFolder: Lipid - KPI
+		lineageTag: 9289f748-9a5b-49d6-89c7-537828c787eb
+
+	measure 'Lipid LDL/HDL Indicator' =
+			
+			SWITCH(
+			    [Lipid LDL/HDL Score],
+			    1, "Favorable",
+			    2, "Borderline",
+			    3, "Less favorable",
+			    BLANK()
+			)
+		displayFolder: Lipid - KPI
+		lineageTag: 07c4283d-9a50-4cc7-9ac7-171d1c1e5234
+
+	measure 'Lipid Non-HDL Indicator' =
+			
+			SWITCH(
+			    [Lipid Non-HDL Score],
+			    1, "Optimal / near-optimal",
+			    2, "Borderline high",
+			    3, "High",
+			    4, "Very high",
+			    BLANK()
+			)
+		displayFolder: Lipid - KPI
+		lineageTag: 60bae0c0-5ad4-4579-abaf-866327222db3
+
+	measure 'Lipid Composite Risk Score' =
+			
+			AVERAGEX(
+			    {
+			        [Lipid AIP Score],
+			        [Lipid TG/HDL Score],
+			        [Lipid Remnant Score],
+			        [Lipid TC/HDL Score],
+			        [Lipid LDL/HDL Score],
+			        [Lipid Non-HDL Score]
+			    },
+			    [Value]
+			)
+		formatString: 0.00
+		displayFolder: Lipid - KPI
+		lineageTag: c07473a8-a0ef-4f2c-840f-e5ae5b655b85
+
+	measure 'Lipid Composite KPI' =
+			
+			VAR x = [Lipid Composite Risk Score]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x <= 1.5, "Favorable",
+			    x <= 2.3, "Monitor",
+			    x <= 3.2, "Elevated risk pattern",
+			    "High concern"
+			)
+		displayFolder: Lipid - KPI
+		lineageTag: 6e6c2383-9acf-4e7a-aa90-d465b2d857af
+
+	measure 'Lipid Composite Color Hex' =
+			
+			VAR x = [Lipid Composite Risk Score]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x <= 1.5, "#2E7D32",
+			    x <= 2.3, "#F9A825",
+			    x <= 3.2, "#EF6C00",
+			    "#C62828"
+			)
+		displayFolder: Lipid - KPI
+		lineageTag: 6419d76c-6d64-4c31-a2de-45f71de80201
+
+	measure 'Lipid AIP Stability KPI' =
+			
+			VAR curr = [Lipid Latest AIP]
+			VAR avg3 = [Lipid AIP Rolling 3]
+			RETURN
+			ABS(curr - avg3)
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Stability
+		lineageTag: 72f7997e-c6d8-4fda-bf5b-342a0691c5f6
+
+	measure 'Lipid TG/HDL Stability KPI' =
+			
+			VAR curr = [Lipid Latest TG/HDL]
+			VAR avg3 = [Lipid TG/HDL Rolling 3]
+			RETURN
+			ABS(curr - avg3)
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Stability
+		lineageTag: 802fc3e0-4af4-4c14-80b2-b6d598723193
+
+	measure 'Lipid Remnant Stability KPI' =
+			
+			VAR curr = [Lipid Latest Remnant]
+			VAR avg3 = [Lipid Remnant Rolling 3]
+			RETURN
+			ABS(curr - avg3)
+			)
+		formatString: 0.00
+		displayFolder: Lipid - Stability
+		lineageTag: 5a444870-62a1-4600-906c-340eba3df71b
+
+	measure 'Combined Metabolic Risk Score' =
+			
+			AVERAGEX(
+			    {
+			        [Lipid AIP Score],
+			        [Lipid TG/HDL Score],
+			        [Lipid Remnant Score],
+			        [Endo HOMA-IR Score],
+			        [Endo QUICKI Score],
+			        [Endo HbA1c Score],
+			        [Endo Glucose Score]
+			    },
+			    [Value]
+			)
+		formatString: 0.00
+		displayFolder: Combined - KPI
+		lineageTag: 1a291852-db21-4797-a7b9-5b993f6f0f29
+
+	measure 'Combined Metabolic KPI' =
+			
+			VAR x = [Combined Metabolic Risk Score]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x <= 1.5, "Favorable",
+			    x <= 2.2, "Monitor",
+			    x <= 3.0, "Elevated combined metabolic risk",
+			    "High combined metabolic risk"
+			)
+		displayFolder: Combined - KPI
+		lineageTag: 7afc1e9f-f5ff-4b5d-bcae-f2a9220690fd
+
+	measure 'Combined Metabolic Color Hex' =
+			
+			VAR x = [Combined Metabolic Risk Score]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x <= 1.5, "#2E7D32",
+			    x <= 2.2, "#F9A825",
+			    x <= 3.0, "#EF6C00",
+			    "#C62828"
+			)
+		displayFolder: Combined - KPI
+		lineageTag: ca102f40-fa6a-4f9f-b860-1ad1ccf62b6d
+
+	measure 'Color - Good' = "#2E7D32"
+		displayFolder: Formatting - Colors
+		lineageTag: b719bfb2-2763-4826-beae-a52f22d6f0ac
+
+	measure 'Color - Warning' = "#F9A825"
+		displayFolder: Formatting - Colors
+		lineageTag: 16607e55-1a70-4874-890f-48aad7886ba4
+
+	measure 'Color - Elevated' = "#EF6C00"
+		displayFolder: Formatting - Colors
+		lineageTag: 766f9676-d721-4955-a77d-adb7c60b971c
+
+	measure 'Color - Bad' = "#C62828"
+		displayFolder: Formatting - Colors
+		lineageTag: 7568a479-1c58-4df9-8d7c-5e68c1df14dc
+
+	measure 'Lipid AIP Color Hex' =
+			
+			SWITCH(
+			    [Lipid AIP Score],
+			    1, "#2E7D32",
+			    2, "#F9A825",
+			    3, "#C62828",
+			    BLANK()
+			)
+		displayFolder: Formatting - Lipid
+		lineageTag: 9e6741f1-835e-4884-b47d-6a8b0b50aafe
+
+	measure 'Lipid TG/HDL Color Hex' =
+			
+			SWITCH(
+			    [Lipid TG/HDL Score],
+			    1, "#2E7D32",
+			    2, "#F9A825",
+			    3, "#EF6C00",
+			    4, "#C62828",
+			    BLANK()
+			)
+		displayFolder: Formatting - Lipid
+		lineageTag: 508c1bcf-547f-47cd-9819-ebaf1154abff
+
+	measure 'Lipid Remnant Color Hex' =
+			
+			SWITCH(
+			    [Lipid Remnant Score],
+			    1, "#2E7D32",
+			    2, "#F9A825",
+			    3, "#C62828",
+			    BLANK()
+			)
+		displayFolder: Formatting - Lipid
+		lineageTag: da308360-ffed-48ce-8f30-15e13ede5a30
+
+	measure 'Lipid TC/HDL Color Hex' =
+			
+			SWITCH(
+			    [Lipid TC/HDL Score],
+			    1, "#2E7D32",
+			    2, "#F9A825",
+			    3, "#C62828",
+			    BLANK()
+			)
+		displayFolder: Formatting - Lipid
+		lineageTag: c91e8287-32d5-4a0d-b26e-1f60e240a8d6
+
+	measure 'Lipid LDL/HDL Color Hex' =
+			
+			SWITCH(
+			    [Lipid LDL/HDL Score],
+			    1, "#2E7D32",
+			    2, "#F9A825",
+			    3, "#C62828",
+			    BLANK()
+			)
+		displayFolder: Formatting - Lipid
+		lineageTag: 652c55d9-08ba-44c0-a74e-3735caaa48b0
+
+	measure 'Lipid Non-HDL Color Hex' =
+			
+			SWITCH(
+			    [Lipid Non-HDL Score],
+			    1, "#2E7D32",
+			    2, "#F9A825",
+			    3, "#EF6C00",
+			    4, "#C62828",
+			    BLANK()
+			)
+		displayFolder: Formatting - Lipid
+		lineageTag: b182e925-1d65-4bac-a181-f9319b65ea65
+
+	measure 'Lipid Composite Background Hex' = [Lipid Composite Color Hex]
+		displayFolder: Formatting - Lipid
+		lineageTag: 67a76458-c6bf-4c8c-80fd-addbf6bf6e08
+
+	measure 'Lipid AIP Trend Color Hex' =
+			
+			SWITCH(
+			    [Lipid AIP Trend Direction],
+			    "Improving", "#2E7D32",
+			    "Worsening", "#C62828",
+			    "Stable", "#9E9E9E",
+			    BLANK()
+			)
+		displayFolder: Formatting - Trend
+		lineageTag: c5d9b683-c6a6-4036-8fff-c89d951fd5e9
+
+	measure 'Lipid TG/HDL Trend Color Hex' =
+			
+			SWITCH(
+			    [Lipid TG/HDL Trend Direction],
+			    "Improving", "#2E7D32",
+			    "Worsening", "#C62828",
+			    "Stable", "#9E9E9E",
+			    BLANK()
+			)
+		displayFolder: Formatting - Trend
+		lineageTag: 32d7f349-fd02-4cf9-9d5a-614cf4ae80e6
+
+	measure 'Combined KPI Background Hex' = [Combined Metabolic Color Hex]
+		displayFolder: Formatting - Combined
+		lineageTag: ed7cd82a-0a70-4565-b942-077b02c66922
+
+	measure 'Combined KPI Status Color Hex' =
+			
+			VAR x = [Combined Metabolic Risk Score]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x <= 1.5, "#2E7D32",
+			    x <= 2.2, "#F9A825",
+			    x <= 3.0, "#EF6C00",
+			    "#C62828"
+			)
+		displayFolder: Formatting - Combined
+		lineageTag: c1cb6632-8546-4a82-94cf-1f5e393edd46
+
+	column metric_id
+		dataType: double
+		lineageTag: 8964096e-80bc-4efa-b3f6-0eb164bef444
+		summarizeBy: none
+		sourceColumn: metric_id
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column exam_date
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: f9650fa8-a3a0-43e2-9bc6-8bf4b99c7686
+		summarizeBy: none
+		sourceColumn: exam_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column total_cholesterol
+		dataType: double
+		lineageTag: 075f2d7c-0b73-48ad-b80e-2027d801775b
+		summarizeBy: none
+		sourceColumn: total_cholesterol
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column hdl
+		dataType: double
+		lineageTag: c7492de3-f8f1-46d2-9f8a-7a17a3f436b3
+		summarizeBy: none
+		sourceColumn: hdl
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ldl_reported
+		dataType: double
+		lineageTag: 59acd473-e8ee-4459-b37d-70b873deb7f2
+		summarizeBy: none
+		sourceColumn: ldl_reported
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column triglycerides
+		dataType: double
+		lineageTag: 4a2b1af0-c1e7-4c29-8aae-542f20f30b75
+		summarizeBy: none
+		sourceColumn: triglycerides
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column reported_non_hdl
+		dataType: double
+		lineageTag: 7a7ae37d-fd6d-47b5-a65b-d307c4e3364c
+		summarizeBy: none
+		sourceColumn: reported_non_hdl
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column lpa
+		dataType: double
+		lineageTag: d624893d-1bd3-4366-a00d-64af749ffdd4
+		summarizeBy: none
+		sourceColumn: lpa
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ldl_friedewald
+		dataType: double
+		lineageTag: 5b7be829-580e-41e4-8b24-c70275f17549
+		summarizeBy: none
+		sourceColumn: ldl_friedewald
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ldl_sampson
+		dataType: double
+		lineageTag: dbcf8db4-c7eb-4cb8-8eaf-45c71d8484f5
+		summarizeBy: none
+		sourceColumn: ldl_sampson
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ldl_final
+		dataType: double
+		lineageTag: 48531dc9-cc0b-42de-965d-c5502c8c4c82
+		summarizeBy: none
+		sourceColumn: ldl_final
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ldl_method
+		dataType: string
+		lineageTag: 29798299-2dad-41a9-a878-8122e9261e13
+		summarizeBy: none
+		sourceColumn: ldl_method
+
+		annotation SummarizationSetBy = User
+
+	column non_hdl_calc
+		dataType: double
+		lineageTag: 0e190d78-9a91-4cbf-aa1e-2625b7e8ae16
+		summarizeBy: none
+		sourceColumn: non_hdl_calc
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column non_hdl_final
+		dataType: double
+		lineageTag: eecf5277-6830-4c2b-9b48-384a818fc5b3
+		summarizeBy: none
+		sourceColumn: non_hdl_final
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column non_hdl_delta_vs_reported
+		dataType: double
+		lineageTag: 40682798-8223-4fd5-9350-c9661f983559
+		summarizeBy: none
+		sourceColumn: non_hdl_delta_vs_reported
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tc_hdl_ratio
+		dataType: double
+		lineageTag: 450d0462-6429-49fd-91d2-e8f9ba86f3a9
+		summarizeBy: none
+		sourceColumn: tc_hdl_ratio
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ldl_hdl_ratio
+		dataType: double
+		lineageTag: c77e0310-1914-4011-a04a-45470e8c6c0c
+		summarizeBy: none
+		sourceColumn: ldl_hdl_ratio
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tg_hdl_ratio
+		dataType: double
+		lineageTag: 677270b9-c129-4585-9770-84ac52cae37f
+		summarizeBy: none
+		sourceColumn: tg_hdl_ratio
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column aip
+		dataType: double
+		lineageTag: 44536bdf-faa9-42b9-bad5-8b024e745d60
+		summarizeBy: none
+		sourceColumn: aip
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column remnant_cholesterol
+		dataType: double
+		lineageTag: 869e151b-164a-4293-a389-1c4cccc4bcb9
+		summarizeBy: none
+		sourceColumn: remnant_cholesterol
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column vldl_estimated
+		dataType: double
+		lineageTag: 4be7f6dd-4f01-455a-8acd-4ecda63ab7f9
+		summarizeBy: none
+		sourceColumn: vldl_estimated
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column cholesterol_residual_burden
+		dataType: double
+		lineageTag: 42e19bd6-b9f6-46ed-953f-bb123b636fac
+		summarizeBy: none
+		sourceColumn: cholesterol_residual_burden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column lpa_present
+		dataType: double
+		lineageTag: a5ff1a31-1443-41ef-b4c6-0d6dba376145
+		summarizeBy: none
+		sourceColumn: lpa_present
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tg_status
+		dataType: string
+		lineageTag: 50b7a74d-9cad-4df0-9057-e8c8e6fdcbee
+		summarizeBy: none
+		sourceColumn: tg_status
+
+		annotation SummarizationSetBy = User
+
+	column non_hdl_risk
+		dataType: string
+		lineageTag: e6f79e95-082d-4141-abcc-2ca5fcb35719
+		summarizeBy: none
+		sourceColumn: non_hdl_risk
+
+		annotation SummarizationSetBy = User
+
+	column tc_hdl_risk
+		dataType: string
+		lineageTag: 0c235517-e3de-4ad1-b06a-05d2428915f6
+		summarizeBy: none
+		sourceColumn: tc_hdl_risk
+
+		annotation SummarizationSetBy = User
+
+	column ldl_hdl_risk
+		dataType: string
+		lineageTag: a2571587-c912-4747-a47f-70751f9e0310
+		summarizeBy: none
+		sourceColumn: ldl_hdl_risk
+
+		annotation SummarizationSetBy = User
+
+	column tg_hdl_risk
+		dataType: string
+		lineageTag: 3a9afe6a-849c-42a1-9799-111c17aa8c42
+		summarizeBy: none
+		sourceColumn: tg_hdl_risk
+
+		annotation SummarizationSetBy = User
+
+	column aip_risk
+		dataType: string
+		lineageTag: 124b18d7-6d1d-4f6d-acdb-706aa0cbc769
+		summarizeBy: none
+		sourceColumn: aip_risk
+
+		annotation SummarizationSetBy = User
+
+	column remnant_risk
+		dataType: string
+		lineageTag: 052dadd5-28f1-40f0-b14b-d49e02fb3b24
+		summarizeBy: none
+		sourceColumn: remnant_risk
+
+		annotation SummarizationSetBy = User
+
+	column total_cholesterol_prev
+		dataType: double
+		lineageTag: 358a1bc0-a71c-41be-9699-7e05633112e0
+		summarizeBy: none
+		sourceColumn: total_cholesterol_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_cholesterol_delta
+		dataType: double
+		lineageTag: 5ee77b4b-b1ff-4e10-8469-f1768be5cdc6
+		summarizeBy: none
+		sourceColumn: total_cholesterol_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_cholesterol_pct_change
+		dataType: double
+		lineageTag: 3a3de554-83a5-40c7-bdb4-a2058ffe1f5c
+		summarizeBy: none
+		sourceColumn: total_cholesterol_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_cholesterol_rolling3
+		dataType: double
+		lineageTag: a72eadf2-80a7-4d3f-8782-0a2f00b501d5
+		summarizeBy: none
+		sourceColumn: total_cholesterol_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column hdl_prev
+		dataType: double
+		lineageTag: 67afa857-2bd4-4008-8d6a-d030cdde08b5
+		summarizeBy: none
+		sourceColumn: hdl_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column hdl_delta
+		dataType: double
+		lineageTag: 31e1cec4-41bf-4ece-9d59-747c5cadc4b2
+		summarizeBy: none
+		sourceColumn: hdl_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column hdl_pct_change
+		dataType: double
+		lineageTag: c31396bf-e53d-4438-ac1b-a70e690215e8
+		summarizeBy: none
+		sourceColumn: hdl_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column hdl_rolling3
+		dataType: double
+		lineageTag: 3bb8f826-486a-4677-8901-70a5bd4266f1
+		summarizeBy: none
+		sourceColumn: hdl_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ldl_final_prev
+		dataType: double
+		lineageTag: dbdfa357-7550-4ad7-a05e-76b1ab879648
+		summarizeBy: none
+		sourceColumn: ldl_final_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ldl_final_delta
+		dataType: double
+		lineageTag: 6fa6990f-a4ea-4b89-96cf-56ed8a9288d4
+		summarizeBy: none
+		sourceColumn: ldl_final_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ldl_final_pct_change
+		dataType: double
+		lineageTag: e093261e-aad2-4f1e-8593-abc7d7679b0a
+		summarizeBy: none
+		sourceColumn: ldl_final_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ldl_final_rolling3
+		dataType: double
+		lineageTag: 543c2f48-4999-4579-a04d-11ea326dd81c
+		summarizeBy: none
+		sourceColumn: ldl_final_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column triglycerides_prev
+		dataType: double
+		lineageTag: 955e751f-6447-41d6-b681-3d3f7e7b6ce4
+		summarizeBy: none
+		sourceColumn: triglycerides_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column triglycerides_delta
+		dataType: double
+		lineageTag: 82373363-7e8c-4959-b877-1f4466938394
+		summarizeBy: none
+		sourceColumn: triglycerides_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column triglycerides_pct_change
+		dataType: double
+		lineageTag: ff74e2a4-2722-47f7-aa47-dc496b81bfec
+		summarizeBy: none
+		sourceColumn: triglycerides_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column triglycerides_rolling3
+		dataType: double
+		lineageTag: fa3f34bd-391b-4e95-9680-966fd22f3cd0
+		summarizeBy: none
+		sourceColumn: triglycerides_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column non_hdl_final_prev
+		dataType: double
+		lineageTag: 057bce8d-1fa9-49be-93a0-b6e8751c58c8
+		summarizeBy: none
+		sourceColumn: non_hdl_final_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column non_hdl_final_delta
+		dataType: double
+		lineageTag: c2dc1924-3b91-4064-860d-4e28520193ff
+		summarizeBy: none
+		sourceColumn: non_hdl_final_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column non_hdl_final_pct_change
+		dataType: double
+		lineageTag: 5f4a9689-a177-4979-b46d-9cee2bdf9dd2
+		summarizeBy: none
+		sourceColumn: non_hdl_final_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column non_hdl_final_rolling3
+		dataType: double
+		lineageTag: 378cb857-7bda-429e-a568-90bbd3a6b7ec
+		summarizeBy: none
+		sourceColumn: non_hdl_final_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tc_hdl_ratio_prev
+		dataType: double
+		lineageTag: bd76e1ae-52e8-42c0-b79b-045ee5f5d6b8
+		summarizeBy: none
+		sourceColumn: tc_hdl_ratio_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tc_hdl_ratio_delta
+		dataType: double
+		lineageTag: e4940e2c-70ee-4224-97c4-9456292cef47
+		summarizeBy: none
+		sourceColumn: tc_hdl_ratio_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tc_hdl_ratio_pct_change
+		dataType: double
+		lineageTag: 7e7cd210-e348-4b94-b4f4-88ceba7d05c8
+		summarizeBy: none
+		sourceColumn: tc_hdl_ratio_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tc_hdl_ratio_rolling3
+		dataType: double
+		lineageTag: 54b94664-074d-4fe8-b391-99d4b951aa09
+		summarizeBy: none
+		sourceColumn: tc_hdl_ratio_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ldl_hdl_ratio_prev
+		dataType: double
+		lineageTag: 14554719-458e-44f6-b928-dffd82544bee
+		summarizeBy: none
+		sourceColumn: ldl_hdl_ratio_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ldl_hdl_ratio_delta
+		dataType: double
+		lineageTag: adb88c72-3396-49e3-beae-213c017c0282
+		summarizeBy: none
+		sourceColumn: ldl_hdl_ratio_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ldl_hdl_ratio_pct_change
+		dataType: double
+		lineageTag: 8ad8e45a-5d0b-4cd4-9e5e-cb7a47a4d72a
+		summarizeBy: none
+		sourceColumn: ldl_hdl_ratio_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ldl_hdl_ratio_rolling3
+		dataType: double
+		lineageTag: 5959369d-e4e7-434d-bd21-66d657e33e2a
+		summarizeBy: none
+		sourceColumn: ldl_hdl_ratio_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tg_hdl_ratio_prev
+		dataType: double
+		lineageTag: 4c997038-3224-4300-b7cd-b9c5898946e3
+		summarizeBy: none
+		sourceColumn: tg_hdl_ratio_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tg_hdl_ratio_delta
+		dataType: double
+		lineageTag: 50fb9e04-d735-4df3-9de7-f5aaa6cd91e1
+		summarizeBy: none
+		sourceColumn: tg_hdl_ratio_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tg_hdl_ratio_pct_change
+		dataType: double
+		lineageTag: 29332c82-976b-4676-83f4-a9b3ba4f4c10
+		summarizeBy: none
+		sourceColumn: tg_hdl_ratio_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tg_hdl_ratio_rolling3
+		dataType: double
+		lineageTag: 73295747-7ff3-4a72-ae6a-020f6e59d785
+		summarizeBy: none
+		sourceColumn: tg_hdl_ratio_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column aip_prev
+		dataType: double
+		lineageTag: 23742592-2800-4d28-8032-c478cce6ee1a
+		summarizeBy: none
+		sourceColumn: aip_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column aip_delta
+		dataType: double
+		lineageTag: a43a4c33-3b27-4447-9c83-a3b146430339
+		summarizeBy: none
+		sourceColumn: aip_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column aip_pct_change
+		dataType: double
+		lineageTag: 5d06588e-adc9-44dc-ae79-2e4e0504d7f5
+		summarizeBy: none
+		sourceColumn: aip_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column aip_rolling3
+		dataType: double
+		lineageTag: 639f23b7-715f-4612-bba4-1ce614987a55
+		summarizeBy: none
+		sourceColumn: aip_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column remnant_cholesterol_prev
+		dataType: double
+		lineageTag: f0013c2a-3f27-48a4-8cad-6bf5b2c3f188
+		summarizeBy: none
+		sourceColumn: remnant_cholesterol_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column remnant_cholesterol_delta
+		dataType: double
+		lineageTag: 1044e42c-4509-4cd8-bc5e-477b0242a4b7
+		summarizeBy: none
+		sourceColumn: remnant_cholesterol_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column remnant_cholesterol_pct_change
+		dataType: double
+		lineageTag: 1b4904ca-94c3-42a6-b51e-34abb428dbf8
+		summarizeBy: none
+		sourceColumn: remnant_cholesterol_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column remnant_cholesterol_rolling3
+		dataType: double
+		lineageTag: 902b636c-c5f7-47c4-8063-ac65137f78c0
+		summarizeBy: none
+		sourceColumn: remnant_cholesterol_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column lpa_prev
+		dataType: double
+		lineageTag: 7b187781-0be4-4873-bd5c-18b168e38ecf
+		summarizeBy: none
+		sourceColumn: lpa_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column lpa_delta
+		dataType: double
+		lineageTag: 8491f78e-802b-42d1-b9e7-bd86c24de7bf
+		summarizeBy: none
+		sourceColumn: lpa_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column lpa_pct_change
+		dataType: double
+		lineageTag: 0161fdc5-1d5c-4bec-bc34-80e716531773
+		summarizeBy: none
+		sourceColumn: lpa_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column lpa_rolling3
+		dataType: double
+		lineageTag: 945d5cc8-065e-46eb-8c0c-49a4a338fad0
+		summarizeBy: none
+		sourceColumn: lpa_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column has_core_lipids
+		dataType: double
+		lineageTag: 50d70f57-01f0-498c-b1c6-9cfe43c6ecb4
+		summarizeBy: none
+		sourceColumn: has_core_lipids
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column is_complete_profile
+		dataType: double
+		lineageTag: bc5ec4e1-5b84-433a-841e-9813367ee132
+		summarizeBy: none
+		sourceColumn: is_complete_profile
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column record_quality_note
+		dataType: string
+		lineageTag: e2c8add3-ee53-4df3-8d2a-201db3df428b
+		summarizeBy: none
+		sourceColumn: record_quality_note
+
+		annotation SummarizationSetBy = User
+
+	column created_at
+		dataType: string
+		lineageTag: 4eba2b08-92e7-4555-bf4e-377f28e124ba
+		summarizeBy: none
+		sourceColumn: created_at
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_at
+		dataType: string
+		lineageTag: 855d7e84-2059-4377-a182-d234f493b9bb
+		summarizeBy: none
+		sourceColumn: updated_at
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_LipidMetrics = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=bllod_raw", [HierarchicalNavigation=true]),
+				    lipid_metrics_Table = Source{[Name="lipid_metrics",Kind="Table"]}[Data],
+				    #"Changed Type with Locale" = Table.TransformColumnTypes(lipid_metrics_Table, {{"exam_date", type date}}, "el-GR")
+				in
+				    #"Changed Type with Locale"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

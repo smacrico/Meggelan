@@ -1,0 +1,38 @@
+
+PAGE 1: EXECUTIVE OVERVIEW
++--------------------------------------------------------------------------------------------------+
+| [Source slicer] [Date slicer]                                                     [Refresh note] |
+| [Measurement Count] [Latest MS Score] [Alert Count] [Anomaly Count]                              |
+|                                                                                                  |
+| [Line Chart: RMSSD + SDNN over time]              [KPI / Line: MS Score over time]              |
+|                                                                                                  |
+| [Column: Alerts by metric]                        [Table: Latest anomalies]                      |
++--------------------------------------------------------------------------------------------------+
+
+PAGE 2: TREND DIAGNOSTICS
++--------------------------------------------------------------------------------------------------+
+| [Slicers]                                                                                       |
+| [Matrix: metric/slope/r/p/direction/strength]      [Bar: Trend slope by metric]                |
+|                                                    [Scatter: r_value vs slope]                 |
++--------------------------------------------------------------------------------------------------+
+
+PAGE 3: BASELINE VS LATEST
++--------------------------------------------------------------------------------------------------+
+| [Slicers]                                                                                       |
+| [Clustered bar: Latest vs Baseline by metric]                                                    |
+| [Table: deviation/z-score/status]                 [Heatmap table: status by metric]            |
++--------------------------------------------------------------------------------------------------+
+
+PAGE 4: ALERTS & ANOMALIES
++--------------------------------------------------------------------------------------------------+
+| [Slicers]                                                                                       |
+| [Line: Alert Count + Anomaly Count over time]      [Bar: anomalies by metric]                  |
+| [Table: Alerts log]                               [Table: Anomalies log]                       |
++--------------------------------------------------------------------------------------------------+
+
+PAGE 5: RAW METRIC EXPLORER
++--------------------------------------------------------------------------------------------------+
+| [Slicers: source/date/metric]                                                                   |
+| [Line: long measurements by metric over time]                                                   |
+| [Detail table: date/metric/value/source]                                                        |
++--------------------------------------------------------------------------------------------------+

@@ -1,0 +1,139 @@
+/// Switches selected measures between current, previous, delta, delta %, and rolling 3 average views.
+table 'Trend View'
+	lineageTag: 138c8482-84a0-4279-9702-70bc4c950302
+
+	calculationGroup
+
+		/// Shows the selected measure as-is.
+		calculationItem Current = SELECTEDMEASURE()
+
+			formatStringDefinition = SELECTEDMEASUREFORMATSTRING()
+
+		/// Shows previous value for supported latest measures.
+		calculationItem Previous =
+				SWITCH(TRUE(),
+				    ISSELECTEDMEASURE([Lipid Latest Total Cholesterol]), [Lipid Previous Total Cholesterol],
+				    ISSELECTEDMEASURE([Lipid Latest HDL]), [Lipid Previous HDL],
+				    ISSELECTEDMEASURE([Lipid Latest LDL Final]), [Lipid Previous LDL Final],
+				    ISSELECTEDMEASURE([Lipid Latest TG]), [Lipid Previous TG],
+				    ISSELECTEDMEASURE([Lipid Latest Non-HDL]), [Lipid Previous Non-HDL],
+				    ISSELECTEDMEASURE([Lipid Latest TC/HDL]), [Lipid Previous TC/HDL],
+				    ISSELECTEDMEASURE([Lipid Latest LDL/HDL]), [Lipid Previous LDL/HDL],
+				    ISSELECTEDMEASURE([Lipid Latest TG/HDL]), [Lipid Previous TG/HDL],
+				    ISSELECTEDMEASURE([Lipid Latest AIP]), [Lipid Previous AIP],
+				    ISSELECTEDMEASURE([Lipid Latest Remnant]), [Lipid Previous Remnant],
+				    ISSELECTEDMEASURE([Lipid Latest Lp(a)]), [Lipid Previous Lp(a)],
+				    ISSELECTEDMEASURE([Endo Latest Glucose]), [Endo Previous Glucose],
+				    ISSELECTEDMEASURE([Endo Latest Fasting Insulin]), [Endo Previous Fasting Insulin],
+				    ISSELECTEDMEASURE([Endo Latest HbA1c]), [Endo Previous HbA1c],
+				    ISSELECTEDMEASURE([Endo Latest eAG]), [Endo Previous eAG],
+				    ISSELECTEDMEASURE([Endo Latest HOMA-IR]), [Endo Previous HOMA-IR],
+				    ISSELECTEDMEASURE([Endo Latest QUICKI]), [Endo Previous QUICKI],
+				    ISSELECTEDMEASURE([Endo Latest TSH]), [Endo Previous TSH],
+				    ISSELECTEDMEASURE([Endo Latest Free T4]), [Endo Previous Free T4],
+				    ISSELECTEDMEASURE([Endo Latest TSH/Free T4 Ratio]), [Endo Previous TSH/Free T4 Ratio],
+				    ISSELECTEDMEASURE([Endo Latest Vitamin D]), [Endo Previous Vitamin D],
+				    SELECTEDMEASURE()
+				)
+
+			formatStringDefinition = SELECTEDMEASUREFORMATSTRING()
+
+		/// Shows delta for supported latest measures.
+		calculationItem Delta =
+				SWITCH(TRUE(),
+				    ISSELECTEDMEASURE([Lipid Latest Total Cholesterol]), [Lipid Total Cholesterol Delta],
+				    ISSELECTEDMEASURE([Lipid Latest HDL]), [Lipid HDL Delta],
+				    ISSELECTEDMEASURE([Lipid Latest LDL Final]), [Lipid LDL Final Delta],
+				    ISSELECTEDMEASURE([Lipid Latest TG]), [Lipid TG Delta],
+				    ISSELECTEDMEASURE([Lipid Latest Non-HDL]), [Lipid Non-HDL Delta],
+				    ISSELECTEDMEASURE([Lipid Latest TC/HDL]), [Lipid TC/HDL Delta],
+				    ISSELECTEDMEASURE([Lipid Latest LDL/HDL]), [Lipid LDL/HDL Delta],
+				    ISSELECTEDMEASURE([Lipid Latest TG/HDL]), [Lipid TG/HDL Delta],
+				    ISSELECTEDMEASURE([Lipid Latest AIP]), [Lipid AIP Delta],
+				    ISSELECTEDMEASURE([Lipid Latest Remnant]), [Lipid Remnant Delta],
+				    ISSELECTEDMEASURE([Lipid Latest Lp(a)]), [Lipid Lp(a) Delta],
+				    ISSELECTEDMEASURE([Endo Latest Glucose]), [Endo Glucose Delta],
+				    ISSELECTEDMEASURE([Endo Latest Fasting Insulin]), [Endo Fasting Insulin Delta],
+				    ISSELECTEDMEASURE([Endo Latest HbA1c]), [Endo HbA1c Delta],
+				    ISSELECTEDMEASURE([Endo Latest eAG]), [Endo eAG Delta],
+				    ISSELECTEDMEASURE([Endo Latest HOMA-IR]), [Endo HOMA-IR Delta],
+				    ISSELECTEDMEASURE([Endo Latest QUICKI]), [Endo QUICKI Delta],
+				    ISSELECTEDMEASURE([Endo Latest TSH]), [Endo TSH Delta],
+				    ISSELECTEDMEASURE([Endo Latest Free T4]), [Endo Free T4 Delta],
+				    ISSELECTEDMEASURE([Endo Latest TSH/Free T4 Ratio]), [Endo TSH/Free T4 Ratio Delta],
+				    ISSELECTEDMEASURE([Endo Latest Vitamin D]), [Endo Vitamin D Delta],
+				    SELECTEDMEASURE()
+				)
+
+			formatStringDefinition = SELECTEDMEASUREFORMATSTRING()
+
+		/// Shows delta percent for supported latest measures.
+		calculationItem 'Delta %' =
+				SWITCH(TRUE(),
+				    ISSELECTEDMEASURE([Lipid Latest Total Cholesterol]), [Lipid Total Cholesterol Delta %],
+				    ISSELECTEDMEASURE([Lipid Latest HDL]), [Lipid HDL Delta %],
+				    ISSELECTEDMEASURE([Lipid Latest LDL Final]), [Lipid LDL Final Delta %],
+				    ISSELECTEDMEASURE([Lipid Latest TG]), [Lipid TG Delta %],
+				    ISSELECTEDMEASURE([Lipid Latest Non-HDL]), [Lipid Non-HDL Delta %],
+				    ISSELECTEDMEASURE([Lipid Latest TC/HDL]), [Lipid TC/HDL Delta %],
+				    ISSELECTEDMEASURE([Lipid Latest LDL/HDL]), [Lipid LDL/HDL Delta %],
+				    ISSELECTEDMEASURE([Lipid Latest TG/HDL]), [Lipid TG/HDL Delta %],
+				    ISSELECTEDMEASURE([Lipid Latest AIP]), [Lipid AIP Delta %],
+				    ISSELECTEDMEASURE([Lipid Latest Remnant]), [Lipid Remnant Delta %],
+				    ISSELECTEDMEASURE([Lipid Latest Lp(a)]), [Lipid Lp(a) Delta %],
+				    ISSELECTEDMEASURE([Endo Latest Glucose]), [Endo Glucose Delta %],
+				    ISSELECTEDMEASURE([Endo Latest Fasting Insulin]), [Endo Fasting Insulin Delta %],
+				    ISSELECTEDMEASURE([Endo Latest HbA1c]), [Endo HbA1c Delta %],
+				    ISSELECTEDMEASURE([Endo Latest eAG]), [Endo eAG Delta %],
+				    ISSELECTEDMEASURE([Endo Latest HOMA-IR]), [Endo HOMA-IR Delta %],
+				    ISSELECTEDMEASURE([Endo Latest QUICKI]), [Endo QUICKI Delta %],
+				    ISSELECTEDMEASURE([Endo Latest TSH]), [Endo TSH Delta %],
+				    ISSELECTEDMEASURE([Endo Latest Free T4]), [Endo Free T4 Delta %],
+				    ISSELECTEDMEASURE([Endo Latest TSH/Free T4 Ratio]), [Endo TSH/Free T4 Ratio Delta %],
+				    ISSELECTEDMEASURE([Endo Latest Vitamin D]), [Endo Vitamin D Delta %],
+				    SELECTEDMEASURE()
+				)
+
+			formatStringDefinition = "0.00%;-0.00%;0.00%"
+
+		/// Shows rolling 3 average for supported latest measures.
+		calculationItem 'Rolling 3 Avg' =
+				SWITCH(TRUE(),
+				    ISSELECTEDMEASURE([Lipid Latest Total Cholesterol]), [Lipid Total Cholesterol Rolling 3],
+				    ISSELECTEDMEASURE([Lipid Latest HDL]), [Lipid HDL Rolling 3],
+				    ISSELECTEDMEASURE([Lipid Latest LDL Final]), [Lipid LDL Final Rolling 3],
+				    ISSELECTEDMEASURE([Lipid Latest TG]), [Lipid TG Rolling 3],
+				    ISSELECTEDMEASURE([Lipid Latest Non-HDL]), [Lipid Non-HDL Rolling 3],
+				    ISSELECTEDMEASURE([Lipid Latest AIP]), [Lipid AIP Rolling 3],
+				    ISSELECTEDMEASURE([Lipid Latest TG/HDL]), [Lipid TG/HDL Rolling 3],
+				    ISSELECTEDMEASURE([Lipid Latest Remnant]), [Lipid Remnant Rolling 3],
+				    ISSELECTEDMEASURE([Endo Latest Glucose]), [Endo Glucose Rolling 3],
+				    ISSELECTEDMEASURE([Endo Latest Fasting Insulin]), [Endo Fasting Insulin Rolling 3],
+				    ISSELECTEDMEASURE([Endo Latest HbA1c]), [Endo HbA1c Rolling 3],
+				    ISSELECTEDMEASURE([Endo Latest eAG]), [Endo eAG Rolling 3],
+				    ISSELECTEDMEASURE([Endo Latest HOMA-IR]), [Endo HOMA-IR Rolling 3],
+				    ISSELECTEDMEASURE([Endo Latest QUICKI]), [Endo QUICKI Rolling 3],
+				    ISSELECTEDMEASURE([Endo Latest TSH]), [Endo TSH Rolling 3],
+				    ISSELECTEDMEASURE([Endo Latest Free T4]), [Endo Free T4 Rolling 3],
+				    ISSELECTEDMEASURE([Endo Latest TSH/Free T4 Ratio]), [Endo TSH/Free T4 Ratio Rolling 3],
+				    ISSELECTEDMEASURE([Endo Latest Vitamin D]), [Endo Vitamin D Rolling 3],
+				    SELECTEDMEASURE()
+				)
+
+			formatStringDefinition = SELECTEDMEASUREFORMATSTRING()
+
+	/// Trend calculation selector
+	column 'Trend View'
+		dataType: string
+		lineageTag: 0b23af7c-985e-4ae1-8e31-444f8be30169
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+	column Ordinal
+		dataType: int64
+		isHidden
+		lineageTag: e3945547-0b21-4d87-841a-bc90f13ce87a
+		sourceColumn: Ordinal
+
+	annotation IntendedPrecedence = 20
+

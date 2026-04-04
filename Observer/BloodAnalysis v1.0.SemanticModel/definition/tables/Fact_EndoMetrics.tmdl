@@ -1,0 +1,1530 @@
+table Fact_EndoMetrics
+	lineageTag: 01b6dba5-6243-4c12-89e4-4eba35c7610b
+
+	measure 'Endo Latest Glucose' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[glucose_for_calc]),
+			    TREATAS({[Latest Selected Date]}, Fact_EndoMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Endo - Latest
+		lineageTag: 2def5c6e-de5a-435d-952b-7170ecb1e766
+
+	measure 'Endo Previous Glucose' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[glucose_for_calc]),
+			    TREATAS({[Previous Selected Date]}, Fact_EndoMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Endo - Previous
+		lineageTag: 9f64f5c5-aa49-485a-9223-5f33c91e8129
+
+	measure 'Endo Glucose Delta' = [Endo Latest Glucose] - [Endo Previous Glucose]
+		formatString: 0.00
+		displayFolder: Endo - Delta
+		lineageTag: 4f38a9ac-68fe-41f1-8a7c-f3c76cf424a4
+
+	measure 'Endo Glucose Delta %' = DIVIDE([Endo Glucose Delta], [Endo Previous Glucose])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Endo - Delta %
+		lineageTag: bdbdc163-9ac6-4776-8f1c-799ad78446e7
+
+	measure 'Endo Glucose Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        ALLSELECTED(Fact_EndoMetrics[exam_date]),
+			        Fact_EndoMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_EndoMetrics[glucose_for_calc]))
+			)
+		formatString: 0.00
+		displayFolder: Endo - Rolling 3
+		lineageTag: 45401005-af74-4b24-9bb6-fae9221367d3
+
+	measure 'Endo Latest Fasting Insulin' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[fasting_insulin]),
+			    TREATAS({[Latest Selected Date]}, Fact_EndoMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Endo - Latest
+		lineageTag: 1be40d9c-8625-43ac-a755-2a5960b2d7ff
+
+	measure 'Endo Previous Fasting Insulin' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[fasting_insulin]),
+			    TREATAS({[Previous Selected Date]}, Fact_EndoMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Endo - Previous
+		lineageTag: 2614c447-269b-4bd9-bb3c-03581a64bcf0
+
+	measure 'Endo Fasting Insulin Delta' = [Endo Latest Fasting Insulin] - [Endo Previous Fasting Insulin]
+		formatString: 0.00
+		displayFolder: Endo - Delta
+		lineageTag: 6bc2560d-5b64-4c2a-887b-aa26660d3b16
+
+	measure 'Endo Fasting Insulin Delta %' = DIVIDE([Endo Fasting Insulin Delta], [Endo Previous Fasting Insulin])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Endo - Delta %
+		lineageTag: 6be39db8-726f-445f-9569-12b5a0f95377
+
+	measure 'Endo Fasting Insulin Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        ALLSELECTED(Fact_EndoMetrics[exam_date]),
+			        Fact_EndoMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_EndoMetrics[fasting_insulin]))
+			)
+		formatString: 0.00
+		displayFolder: Endo - Rolling 3
+		lineageTag: 4ed1f6d0-1063-4484-a6fa-292faa46f805
+
+	measure 'Endo Latest HbA1c' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[hba1c]),
+			    TREATAS({[Latest Selected Date]}, Fact_EndoMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Endo - Latest
+		lineageTag: ac0a30f0-33b3-46db-92f1-80de4a535d76
+
+	measure 'Endo Previous HbA1c' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[hba1c]),
+			    TREATAS({[Previous Selected Date]}, Fact_EndoMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Endo - Previous
+		lineageTag: 6e7fa8d6-3e5c-4a69-bd81-3dd307d3ea09
+
+	measure 'Endo HbA1c Delta' = [Endo Latest HbA1c] - [Endo Previous HbA1c]
+		formatString: 0.00
+		displayFolder: Endo - Delta
+		lineageTag: 8f434043-0c4a-41fa-a385-9f5eb981d68a
+
+	measure 'Endo HbA1c Delta %' = DIVIDE([Endo HbA1c Delta], [Endo Previous HbA1c])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Endo - Delta %
+		lineageTag: 3b504221-d5b2-4103-9f14-109ad32802a4
+
+	measure 'Endo HbA1c Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        ALLSELECTED(Fact_EndoMetrics[exam_date]),
+			        Fact_EndoMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_EndoMetrics[hba1c]))
+			)
+		formatString: 0.00
+		displayFolder: Endo - Rolling 3
+		lineageTag: 26509c0b-250b-43f4-863d-4b57b98479b9
+
+	measure 'Endo Latest eAG' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[eag_mgdl]),
+			    TREATAS({[Latest Selected Date]}, Fact_EndoMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Endo - Latest
+		lineageTag: ce72b3dc-65c9-4855-9d69-ce859b8270df
+
+	measure 'Endo Previous eAG' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[eag_mgdl]),
+			    TREATAS({[Previous Selected Date]}, Fact_EndoMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Endo - Previous
+		lineageTag: 15962bce-b505-4fd7-8d97-c6391f86799c
+
+	measure 'Endo eAG Delta' = [Endo Latest eAG] - [Endo Previous eAG]
+		formatString: 0.00
+		displayFolder: Endo - Delta
+		lineageTag: 9fefd7da-2a38-4425-9c49-d919856fc575
+
+	measure 'Endo eAG Delta %' = DIVIDE([Endo eAG Delta], [Endo Previous eAG])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Endo - Delta %
+		lineageTag: f0796da5-bd92-4211-ac9a-cdc0b48ced92
+
+	measure 'Endo eAG Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        ALLSELECTED(Fact_EndoMetrics[exam_date]),
+			        Fact_EndoMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_EndoMetrics[eag_mgdl]))
+			)
+		formatString: 0.00
+		displayFolder: Endo - Rolling 3
+		lineageTag: 9bbb37a1-8768-4730-9901-b2d013ecc0cf
+
+	measure 'Endo Latest HOMA-IR' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[homa_ir]),
+			    TREATAS({[Latest Selected Date]}, Fact_EndoMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Endo - Latest
+		lineageTag: edd98df7-ed0e-4661-a7c4-a2f95de83087
+
+	measure 'Endo Previous HOMA-IR' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[homa_ir]),
+			    TREATAS({[Previous Selected Date]}, Fact_EndoMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Endo - Previous
+		lineageTag: 52fdf11f-3880-4057-b528-c1bd0a29df0a
+
+	measure 'Endo HOMA-IR Delta' = [Endo Latest HOMA-IR] - [Endo Previous HOMA-IR]
+		formatString: 0.00
+		displayFolder: Endo - Delta
+		lineageTag: 85b3b225-eb0e-4848-9667-0ef12b0d9190
+
+	measure 'Endo HOMA-IR Delta %' = DIVIDE([Endo HOMA-IR Delta], [Endo Previous HOMA-IR])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Endo - Delta %
+		lineageTag: e9980c5f-2e4c-4c32-9b76-17947248d25c
+
+	measure 'Endo HOMA-IR Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        ALLSELECTED(Fact_EndoMetrics[exam_date]),
+			        Fact_EndoMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_EndoMetrics[homa_ir]))
+			)
+		formatString: 0.00
+		displayFolder: Endo - Rolling 3
+		lineageTag: 941e6b28-a175-4017-b203-7f3a46917e5d
+
+	measure 'Endo Latest QUICKI' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[quicki]),
+			    TREATAS({[Latest Selected Date]}, Fact_EndoMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Endo - Latest
+		lineageTag: 75178061-62cd-495d-908a-4539dd5dac9b
+
+	measure 'Endo Previous QUICKI' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[quicki]),
+			    TREATAS({[Previous Selected Date]}, Fact_EndoMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Endo - Previous
+		lineageTag: 65b16a0c-3217-45ba-b60c-a91d1e37e699
+
+	measure 'Endo QUICKI Delta' = [Endo Latest QUICKI] - [Endo Previous QUICKI]
+		formatString: 0.00
+		displayFolder: Endo - Delta
+		lineageTag: 0716f22d-0bdc-4413-9c0c-902b74311f8f
+
+	measure 'Endo QUICKI Delta %' = DIVIDE([Endo QUICKI Delta], [Endo Previous QUICKI])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Endo - Delta %
+		lineageTag: a3be5cbf-d64e-4b1f-8b08-7da498c65ca1
+
+	measure 'Endo QUICKI Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        ALLSELECTED(Fact_EndoMetrics[exam_date]),
+			        Fact_EndoMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_EndoMetrics[quicki]))
+			)
+		formatString: 0.00
+		displayFolder: Endo - Rolling 3
+		lineageTag: 71787345-22bf-4971-88a2-73c608022b12
+
+	measure 'Endo Latest TSH' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[tsh]),
+			    TREATAS({[Latest Selected Date]}, Fact_EndoMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Endo - Latest
+		lineageTag: aa55bcd7-6acc-4d8d-bf21-c008a55a4fb8
+
+	measure 'Endo Previous TSH' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[tsh]),
+			    TREATAS({[Previous Selected Date]}, Fact_EndoMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Endo - Previous
+		lineageTag: 2b139465-9595-448f-9018-957b131827c0
+
+	measure 'Endo TSH Delta' = [Endo Latest TSH] - [Endo Previous TSH]
+		formatString: 0.00
+		displayFolder: Endo - Delta
+		lineageTag: 57c3d1ae-5489-4172-be7e-eed83a6d8ec4
+
+	measure 'Endo TSH Delta %' = DIVIDE([Endo TSH Delta], [Endo Previous TSH])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Endo - Delta %
+		lineageTag: c0d73a24-13c5-4da4-8a5f-64afce842f07
+
+	measure 'Endo TSH Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        ALLSELECTED(Fact_EndoMetrics[exam_date]),
+			        Fact_EndoMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_EndoMetrics[tsh]))
+			)
+		formatString: 0.00
+		displayFolder: Endo - Rolling 3
+		lineageTag: 07b8a772-3be7-435d-a8a0-3d495ca406f0
+
+	measure 'Endo Latest Free T4' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[free_t4]),
+			    TREATAS({[Latest Selected Date]}, Fact_EndoMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Endo - Latest
+		lineageTag: 96bb7241-4109-417a-84f4-e42d5e8a1412
+
+	measure 'Endo Previous Free T4' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[free_t4]),
+			    TREATAS({[Previous Selected Date]}, Fact_EndoMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Endo - Previous
+		lineageTag: d54c897a-42c7-4549-b572-1122fdd7def5
+
+	measure 'Endo Free T4 Delta' = [Endo Latest Free T4] - [Endo Previous Free T4]
+		formatString: 0.00
+		displayFolder: Endo - Delta
+		lineageTag: a878f61c-8569-4b4d-88b8-cad82fe21d13
+
+	measure 'Endo Free T4 Delta %' = DIVIDE([Endo Free T4 Delta], [Endo Previous Free T4])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Endo - Delta %
+		lineageTag: ee12165f-7373-4880-8b6f-aab58d60ea3f
+
+	measure 'Endo Free T4 Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        ALLSELECTED(Fact_EndoMetrics[exam_date]),
+			        Fact_EndoMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_EndoMetrics[free_t4]))
+			)
+		formatString: 0.00
+		displayFolder: Endo - Rolling 3
+		lineageTag: 14c3b4f4-7a58-4996-91e1-c737f4530c0e
+
+	measure 'Endo Latest TSH/Free T4 Ratio' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[tsh_free_t4_ratio]),
+			    TREATAS({[Latest Selected Date]}, Fact_EndoMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Endo - Latest
+		lineageTag: 3c5abab2-33cf-4d88-a91d-4ee21281b316
+
+	measure 'Endo Previous TSH/Free T4 Ratio' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[tsh_free_t4_ratio]),
+			    TREATAS({[Previous Selected Date]}, Fact_EndoMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Endo - Previous
+		lineageTag: 31631d53-c357-4e5c-88b3-798bb46f26c8
+
+	measure 'Endo TSH/Free T4 Ratio Delta' = [Endo Latest TSH/Free T4 Ratio] - [Endo Previous TSH/Free T4 Ratio]
+		formatString: 0.00
+		displayFolder: Endo - Delta
+		lineageTag: f4f2543a-1130-4829-a3d5-71f41dfc8986
+
+	measure 'Endo TSH/Free T4 Ratio Delta %' = DIVIDE([Endo TSH/Free T4 Ratio Delta], [Endo Previous TSH/Free T4 Ratio])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Endo - Delta %
+		lineageTag: 3cef3e19-07a8-44e1-a916-ef5e905bf404
+
+	measure 'Endo TSH/Free T4 Ratio Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        ALLSELECTED(Fact_EndoMetrics[exam_date]),
+			        Fact_EndoMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_EndoMetrics[tsh_free_t4_ratio]))
+			)
+		formatString: 0.00
+		displayFolder: Endo - Rolling 3
+		lineageTag: 9dad1c6e-4d1a-4ed4-85c7-090662488ef8
+
+	measure 'Endo Latest Vitamin D' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[vitamin_d_25_oh]),
+			    TREATAS({[Latest Selected Date]}, Fact_EndoMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Endo - Latest
+		lineageTag: 35b4e3a3-dae7-42dc-93e0-96e0e34aadd5
+
+	measure 'Endo Previous Vitamin D' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[vitamin_d_25_oh]),
+			    TREATAS({[Previous Selected Date]}, Fact_EndoMetrics[exam_date])
+			)
+		formatString: 0.00
+		displayFolder: Endo - Previous
+		lineageTag: 687eecd1-f247-4741-a9d3-c0f63aa7700e
+
+	measure 'Endo Vitamin D Delta' = [Endo Latest Vitamin D] - [Endo Previous Vitamin D]
+		formatString: 0.00
+		displayFolder: Endo - Delta
+		lineageTag: 4119179b-32c6-4321-ba30-46d9d71daf98
+
+	measure 'Endo Vitamin D Delta %' = DIVIDE([Endo Vitamin D Delta], [Endo Previous Vitamin D])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Endo - Delta %
+		lineageTag: ce0ecb78-2656-4665-a809-58f08f80874c
+
+	measure 'Endo Vitamin D Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        ALLSELECTED(Fact_EndoMetrics[exam_date]),
+			        Fact_EndoMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_EndoMetrics[vitamin_d_25_oh]))
+			)
+		formatString: 0.00
+		displayFolder: Endo - Rolling 3
+		lineageTag: c2350e5f-a12c-44bb-b10a-d3ca240650d8
+
+	measure 'Endo Glucose Trend Direction' =
+			
+			VAR d = [Endo Glucose Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Endo - Trend
+		lineageTag: e7ae2a2e-7a97-4d94-8a4b-3ce84bdc722c
+
+	measure 'Endo Fasting Insulin Trend Direction' =
+			
+			VAR d = [Endo Fasting Insulin Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Endo - Trend
+		lineageTag: 074e06d5-ada2-4e71-bc50-efd21a0e929a
+
+	measure 'Endo HbA1c Trend Direction' =
+			
+			VAR d = [Endo HbA1c Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Endo - Trend
+		lineageTag: 81cd06a6-10d5-412e-bf15-bbfc2f8214c9
+
+	measure 'Endo eAG Trend Direction' =
+			
+			VAR d = [Endo eAG Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Endo - Trend
+		lineageTag: 0287359c-cbca-4719-861d-3752382185eb
+
+	measure 'Endo HOMA-IR Trend Direction' =
+			
+			VAR d = [Endo HOMA-IR Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Endo - Trend
+		lineageTag: 8c4baea6-2913-45c1-a07c-fab5e4a45a35
+
+	measure 'Endo QUICKI Trend Direction' =
+			
+			VAR d = [Endo QUICKI Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d > 0, "Improving",
+			    d < 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Endo - Trend
+		lineageTag: e025ae11-e95a-49f2-9aa2-c18deba49267
+
+	measure 'Endo TSH Trend Direction' =
+			
+			VAR d = [Endo TSH Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Endo - Trend
+		lineageTag: 812a6bd4-5067-4223-bd82-cd7f7148e709
+
+	measure 'Endo Free T4 Trend Direction' =
+			
+			VAR d = [Endo Free T4 Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d > 0, "Improving",
+			    d < 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Endo - Trend
+		lineageTag: 2aa146ae-125f-45c4-aae0-cb25e4890a0f
+
+	measure 'Endo TSH/Free T4 Ratio Trend Direction' =
+			
+			VAR d = [Endo TSH/Free T4 Ratio Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Endo - Trend
+		lineageTag: 77af5f70-7fcd-4455-a07b-046c2e72f979
+
+	measure 'Endo Vitamin D Trend Direction' =
+			
+			VAR d = [Endo Vitamin D Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d > 0, "Improving",
+			    d < 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Endo - Trend
+		lineageTag: f74e0cf8-6a5f-450b-8fb0-de64e14bf8c8
+
+	measure 'Endo HOMA-IR Score' =
+			
+			VAR x = [Endo Latest HOMA-IR]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x < 2, 1,
+			    x < 3, 2,
+			    3
+			)
+		formatString: 0
+		displayFolder: Endo - KPI
+		lineageTag: ac98348f-780b-470f-8207-fd288b8a2897
+
+	measure 'Endo QUICKI Score' =
+			
+			VAR x = [Endo Latest QUICKI]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x >= 0.35, 1,
+			    x >= 0.30, 2,
+			    3
+			)
+		formatString: 0
+		displayFolder: Endo - KPI
+		lineageTag: f8fb74f9-20fa-4f94-aec6-6fd568849fd1
+
+	measure 'Endo Vitamin D Score' =
+			
+			VAR x = [Endo Latest Vitamin D]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x < 20, 3,
+			    x < 30, 2,
+			    x <= 100, 1,
+			    3
+			)
+		formatString: 0
+		displayFolder: Endo - KPI
+		lineageTag: fd2d7441-d3d0-4b11-a0bc-48e8b9fab84f
+
+	measure 'Endo HbA1c Score' =
+			
+			VAR x = [Endo Latest HbA1c]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x < 5.7, 1,
+			    x < 6.5, 2,
+			    3
+			)
+		formatString: 0
+		displayFolder: Endo - KPI
+		lineageTag: 39e9c3c4-9841-4cd6-89c0-25b85b76128f
+
+	measure 'Endo Glucose Score' =
+			
+			VAR x = [Endo Latest Glucose]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x < 100, 1,
+			    x < 126, 2,
+			    3
+			)
+		formatString: 0
+		displayFolder: Endo - KPI
+		lineageTag: 37402ed2-e06d-4a63-974c-bddaf06cf86c
+
+	measure 'Endo HOMA-IR Indicator' =
+			
+			SWITCH(
+			    [Endo HOMA-IR Score],
+			    1, "Favorable / insulin sensitive",
+			    2, "Borderline insulin resistance",
+			    3, "Insulin resistance signal",
+			    BLANK()
+			)
+		displayFolder: Endo - KPI
+		lineageTag: fbe2e351-d14d-4513-aff0-285f90bbb314
+
+	measure 'Endo QUICKI Indicator' =
+			
+			SWITCH(
+			    [Endo QUICKI Score],
+			    1, "Better insulin sensitivity",
+			    2, "Borderline",
+			    3, "Lower insulin sensitivity",
+			    BLANK()
+			)
+		displayFolder: Endo - KPI
+		lineageTag: 6025cfbc-730f-4056-865e-5309097c0006
+
+	measure 'Endo Vitamin D Indicator' =
+			
+			VAR x = [Endo Latest Vitamin D]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x < 20, "Deficient",
+			    x < 30, "Insufficient",
+			    x <= 50, "Sufficient",
+			    x <= 100, "High / upper range",
+			    "Potential excess"
+			)
+		displayFolder: Endo - KPI
+		lineageTag: 758f9008-ee13-42ba-80e2-5df58a271ffa
+
+	measure 'Endo HbA1c Indicator' =
+			
+			SWITCH(
+			    [Endo HbA1c Score],
+			    1, "Favorable",
+			    2, "Prediabetes range",
+			    3, "Diabetes range",
+			    BLANK()
+			)
+		displayFolder: Endo - KPI
+		lineageTag: 02aa1c78-db5c-4718-8fc8-0dca59a72535
+
+	measure 'Endo Glucose Indicator' =
+			
+			SWITCH(
+			    [Endo Glucose Score],
+			    1, "Favorable",
+			    2, "Impaired fasting range",
+			    3, "High fasting glucose range",
+			    BLANK()
+			)
+		displayFolder: Endo - KPI
+		lineageTag: 50c71481-ad84-4d93-9bcf-066ab4acda91
+
+	measure 'Endo Composite Risk Score' =
+			
+			AVERAGEX(
+			    {
+			        [Endo HOMA-IR Score],
+			        [Endo QUICKI Score],
+			        [Endo Vitamin D Score],
+			        [Endo HbA1c Score],
+			        [Endo Glucose Score]
+			    },
+			    [Value]
+			)
+		formatString: 0.00
+		displayFolder: Endo - KPI
+		lineageTag: 92ae1fc2-1ca1-455f-a0d9-9a6b7ee20342
+
+	measure 'Endo Composite KPI' =
+			
+			VAR x = [Endo Composite Risk Score]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x <= 1.4, "Favorable",
+			    x <= 2.1, "Monitor",
+			    x <= 2.8, "Elevated metabolic/endocrine concern",
+			    "High concern"
+			)
+		displayFolder: Endo - KPI
+		lineageTag: 3e83e0ce-2218-4259-91fd-5731f95b33de
+
+	measure 'Endo Composite Color Hex' =
+			
+			VAR x = [Endo Composite Risk Score]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x <= 1.4, "#2E7D32",
+			    x <= 2.1, "#F9A825",
+			    x <= 2.8, "#EF6C00",
+			    "#C62828"
+			)
+		displayFolder: Endo - KPI
+		lineageTag: fa0fe00b-e001-4251-88fc-fe6f3da7b41b
+
+	measure 'Endo HOMA-IR Stability KPI' =
+			
+			VAR curr = [Endo Latest HOMA-IR]
+			VAR avg3 = [Endo HOMA-IR Rolling 3]
+			RETURN
+			ABS(curr - avg3)
+			)
+		formatString: 0.00
+		displayFolder: Endo - Stability
+		lineageTag: d8a0e75c-0942-43bd-825b-f62e2a2a6708
+
+	measure 'Endo QUICKI Stability KPI' =
+			
+			VAR curr = [Endo Latest QUICKI]
+			VAR avg3 = [Endo QUICKI Rolling 3]
+			RETURN
+			ABS(curr - avg3)
+			)
+		formatString: 0.00
+		displayFolder: Endo - Stability
+		lineageTag: 497e96ce-c981-4640-ad53-6c54b657c580
+
+	measure 'Endo HbA1c Stability KPI' =
+			
+			VAR curr = [Endo Latest HbA1c]
+			VAR avg3 = [Endo HbA1c Rolling 3]
+			RETURN
+			ABS(curr - avg3)
+			)
+		formatString: 0.00
+		displayFolder: Endo - Stability
+		lineageTag: 0abe6f14-1dc0-4784-a40a-869007741852
+
+	measure 'Endo Vitamin D Stability KPI' =
+			
+			VAR curr = [Endo Latest Vitamin D]
+			VAR avg3 = [Endo Vitamin D Rolling 3]
+			RETURN
+			ABS(curr - avg3)
+			)
+		formatString: 0.00
+		displayFolder: Endo - Stability
+		lineageTag: 9a175d16-0853-4cbf-87aa-f319407bea9a
+
+	measure 'Endo HOMA-IR Color Hex' =
+			
+			SWITCH(
+			    [Endo HOMA-IR Score],
+			    1, "#2E7D32",
+			    2, "#F9A825",
+			    3, "#C62828",
+			    BLANK()
+			)
+		displayFolder: Formatting - Endo
+		lineageTag: c44bfd6f-1ea5-4f7f-8bea-6a242e457fad
+
+	measure 'Endo QUICKI Color Hex' =
+			
+			SWITCH(
+			    [Endo QUICKI Score],
+			    1, "#2E7D32",
+			    2, "#F9A825",
+			    3, "#C62828",
+			    BLANK()
+			)
+		displayFolder: Formatting - Endo
+		lineageTag: f9025a4a-6a57-4c3e-8c08-d36f65441e0a
+
+	measure 'Endo Vitamin D Color Hex' =
+			
+			SWITCH(
+			    [Endo Vitamin D Score],
+			    1, "#2E7D32",
+			    2, "#F9A825",
+			    3, "#C62828",
+			    BLANK()
+			)
+		displayFolder: Formatting - Endo
+		lineageTag: bbc1c1e8-a99b-4ff9-bd8c-52fa0655965e
+
+	measure 'Endo HbA1c Color Hex' =
+			
+			SWITCH(
+			    [Endo HbA1c Score],
+			    1, "#2E7D32",
+			    2, "#F9A825",
+			    3, "#C62828",
+			    BLANK()
+			)
+		displayFolder: Formatting - Endo
+		lineageTag: 59375207-5f85-445d-afd8-98ac5569fb04
+
+	measure 'Endo Glucose Color Hex' =
+			
+			SWITCH(
+			    [Endo Glucose Score],
+			    1, "#2E7D32",
+			    2, "#F9A825",
+			    3, "#C62828",
+			    BLANK()
+			)
+		displayFolder: Formatting - Endo
+		lineageTag: 6c6dc4f8-6961-4edb-9e90-1b1c99a9ab0c
+
+	measure 'Endo HOMA-IR Trend Color Hex' =
+			
+			SWITCH(
+			    [Endo HOMA-IR Trend Direction],
+			    "Improving", "#2E7D32",
+			    "Worsening", "#C62828",
+			    "Stable", "#9E9E9E",
+			    BLANK()
+			)
+		displayFolder: Formatting - Trend
+		lineageTag: 5228ad6b-0197-4f99-ad48-85e3b9a2f0bf
+
+	measure 'Endo QUICKI Trend Color Hex' =
+			
+			SWITCH(
+			    [Endo QUICKI Trend Direction],
+			    "Improving", "#2E7D32",
+			    "Worsening", "#C62828",
+			    "Stable", "#9E9E9E",
+			    BLANK()
+			)
+		displayFolder: Formatting - Trend
+		lineageTag: 4edb810b-4a83-41db-8b1e-b45bb4476a22
+
+	column exam_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: cf16c07d-f4f1-4986-9cbe-52ffc030121f
+		summarizeBy: none
+		sourceColumn: exam_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column glucose_for_calc
+		dataType: double
+		lineageTag: 75e5fede-f87c-4a92-a1ad-381c1e11947b
+		summarizeBy: none
+		sourceColumn: glucose_for_calc
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column fasting_insulin
+		dataType: double
+		lineageTag: 91c6aef7-e560-485c-a3b2-c3e828d177b0
+		summarizeBy: none
+		sourceColumn: fasting_insulin
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column hba1c
+		dataType: double
+		lineageTag: 57f1c09d-12b4-4045-a47e-e651eb4213a2
+		summarizeBy: none
+		sourceColumn: hba1c
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tsh
+		dataType: double
+		lineageTag: 6385a2ca-2c97-4374-a3c1-f4ef08a45891
+		summarizeBy: none
+		sourceColumn: tsh
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column free_t4
+		dataType: double
+		lineageTag: 24d4cb06-001c-4026-a06f-cb20ce5dd3d6
+		summarizeBy: none
+		sourceColumn: free_t4
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column vitamin_d_25_oh
+		dataType: double
+		lineageTag: c5a99b54-5426-414e-a118-f41a7ce0900d
+		summarizeBy: none
+		sourceColumn: vitamin_d_25_oh
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column homa_ir
+		dataType: double
+		lineageTag: bfda6fac-7d30-4b87-9d05-ca77dfd74692
+		summarizeBy: none
+		sourceColumn: homa_ir
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column quicki
+		dataType: double
+		lineageTag: 99c56a41-ccaa-42ab-be68-416a87e47306
+		summarizeBy: none
+		sourceColumn: quicki
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column eag_mgdl
+		dataType: double
+		lineageTag: aab79144-77ca-4ebc-b9b9-03891ac9da51
+		summarizeBy: none
+		sourceColumn: eag_mgdl
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tsh_free_t4_ratio
+		dataType: double
+		lineageTag: 35a96161-116d-4583-bcaa-578370ad2532
+		summarizeBy: none
+		sourceColumn: tsh_free_t4_ratio
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column homa_ir_interpretation
+		dataType: string
+		lineageTag: 7eba773d-efdf-4250-97f1-5ef87cfe92d1
+		summarizeBy: none
+		sourceColumn: homa_ir_interpretation
+
+		annotation SummarizationSetBy = User
+
+	column quicki_interpretation
+		dataType: string
+		lineageTag: 79affbb2-1a25-4f84-b369-55bf33440c42
+		summarizeBy: none
+		sourceColumn: quicki_interpretation
+
+		annotation SummarizationSetBy = User
+
+	column eag_interpretation
+		dataType: string
+		lineageTag: e61f9f31-07de-43d7-8c66-a9cdc42c9307
+		summarizeBy: none
+		sourceColumn: eag_interpretation
+
+		annotation SummarizationSetBy = User
+
+	column vitamin_d_status
+		dataType: string
+		lineageTag: 348c4a8f-aa3e-47dc-a6a5-f8c46e49134a
+		summarizeBy: none
+		sourceColumn: vitamin_d_status
+
+		annotation SummarizationSetBy = User
+
+	column glucose_for_calc_prev
+		dataType: double
+		lineageTag: 2bf78d3e-9c57-4ef1-a09a-f6fa14b4162f
+		summarizeBy: none
+		sourceColumn: glucose_for_calc_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column glucose_for_calc_delta
+		dataType: double
+		lineageTag: fe2517b7-a09b-42b4-90f1-f784fd453bad
+		summarizeBy: none
+		sourceColumn: glucose_for_calc_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column glucose_for_calc_pct_change
+		dataType: double
+		lineageTag: 5022bae0-4a06-42a8-9595-46e67dd27779
+		summarizeBy: none
+		sourceColumn: glucose_for_calc_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column glucose_for_calc_rolling3
+		dataType: double
+		lineageTag: 411e879e-dc04-4b77-89c0-b632fd32812e
+		summarizeBy: none
+		sourceColumn: glucose_for_calc_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column fasting_insulin_prev
+		dataType: double
+		lineageTag: f90e89b1-7639-47e3-9076-4a3dea080255
+		summarizeBy: none
+		sourceColumn: fasting_insulin_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column fasting_insulin_delta
+		dataType: double
+		lineageTag: 76d1beea-a722-4c9f-9fb4-d1120887980a
+		summarizeBy: none
+		sourceColumn: fasting_insulin_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column fasting_insulin_pct_change
+		dataType: double
+		lineageTag: be02c200-6bbe-4f5c-ac1c-1c83a4d94353
+		summarizeBy: none
+		sourceColumn: fasting_insulin_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column fasting_insulin_rolling3
+		dataType: double
+		lineageTag: 76cde3a3-a130-407a-9a3c-08265ae10d78
+		summarizeBy: none
+		sourceColumn: fasting_insulin_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column hba1c_prev
+		dataType: double
+		lineageTag: 6524530a-8ccb-4957-ab38-32beb1357878
+		summarizeBy: none
+		sourceColumn: hba1c_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column hba1c_delta
+		dataType: double
+		lineageTag: d9c21861-3edf-4afa-8ba4-67af58ac7f99
+		summarizeBy: none
+		sourceColumn: hba1c_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column hba1c_pct_change
+		dataType: double
+		lineageTag: 7894f1d9-0048-4751-b487-6cb4ce42e84a
+		summarizeBy: none
+		sourceColumn: hba1c_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column hba1c_rolling3
+		dataType: double
+		lineageTag: 27fa61e4-011f-4422-a7aa-1ef67777df0f
+		summarizeBy: none
+		sourceColumn: hba1c_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tsh_prev
+		dataType: double
+		lineageTag: 916d642b-35f7-473a-bfe2-88ffb79da361
+		summarizeBy: none
+		sourceColumn: tsh_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tsh_delta
+		dataType: double
+		lineageTag: c0038d15-fd28-4818-a6ac-d82222affce6
+		summarizeBy: none
+		sourceColumn: tsh_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tsh_pct_change
+		dataType: double
+		lineageTag: b39008dd-fe9c-4973-ab59-356fa7ab0b62
+		summarizeBy: none
+		sourceColumn: tsh_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tsh_rolling3
+		dataType: double
+		lineageTag: fe55d44f-cc85-4480-922b-ac13f18cc528
+		summarizeBy: none
+		sourceColumn: tsh_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column free_t4_prev
+		dataType: double
+		lineageTag: 6f4971c1-01ce-4509-ba75-0ffb2ac1047c
+		summarizeBy: none
+		sourceColumn: free_t4_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column free_t4_delta
+		dataType: double
+		lineageTag: e2b1145b-ca35-4237-8f8e-8af94c8954e2
+		summarizeBy: none
+		sourceColumn: free_t4_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column free_t4_pct_change
+		dataType: double
+		lineageTag: 9470eebf-03a6-43dc-a68e-d98e52343444
+		summarizeBy: none
+		sourceColumn: free_t4_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column free_t4_rolling3
+		dataType: double
+		lineageTag: 33193181-d209-4945-b778-bfc96467f95f
+		summarizeBy: none
+		sourceColumn: free_t4_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column vitamin_d_25_oh_prev
+		dataType: double
+		lineageTag: 31762e73-dce3-4f4b-b8c6-8dd13dfec375
+		summarizeBy: none
+		sourceColumn: vitamin_d_25_oh_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column vitamin_d_25_oh_delta
+		dataType: double
+		lineageTag: d98ceef0-5e0f-427a-9743-092547d47af3
+		summarizeBy: none
+		sourceColumn: vitamin_d_25_oh_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column vitamin_d_25_oh_pct_change
+		dataType: double
+		lineageTag: 477fbf8d-55c8-4d39-a617-e44093633d73
+		summarizeBy: none
+		sourceColumn: vitamin_d_25_oh_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column vitamin_d_25_oh_rolling3
+		dataType: double
+		lineageTag: c8f7dc0b-084d-4b12-b6d0-c8126df2ce96
+		summarizeBy: none
+		sourceColumn: vitamin_d_25_oh_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column homa_ir_prev
+		dataType: double
+		lineageTag: b554310c-df09-49c3-ac0a-cdfa5a28300d
+		summarizeBy: none
+		sourceColumn: homa_ir_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column homa_ir_delta
+		dataType: double
+		lineageTag: e6b08b0b-835e-4a85-a5d9-bd352c1604cb
+		summarizeBy: none
+		sourceColumn: homa_ir_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column homa_ir_pct_change
+		dataType: double
+		lineageTag: ac298917-7cbb-408e-b7a8-c26260c080b6
+		summarizeBy: none
+		sourceColumn: homa_ir_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column homa_ir_rolling3
+		dataType: double
+		lineageTag: 024de820-4d40-43a9-b41a-f779e0d8bf8c
+		summarizeBy: none
+		sourceColumn: homa_ir_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column quicki_prev
+		dataType: double
+		lineageTag: 776e6e2d-7fe0-4cd2-bf0e-c59ac7aa3bd0
+		summarizeBy: none
+		sourceColumn: quicki_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column quicki_delta
+		dataType: double
+		lineageTag: 35a19a27-aed7-451a-b08c-32c7dfa5b3ee
+		summarizeBy: none
+		sourceColumn: quicki_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column quicki_pct_change
+		dataType: double
+		lineageTag: 71ea35de-a071-40d0-b452-187e00e01260
+		summarizeBy: none
+		sourceColumn: quicki_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column quicki_rolling3
+		dataType: double
+		lineageTag: bdb95131-15dd-40de-a529-ac2c78fed437
+		summarizeBy: none
+		sourceColumn: quicki_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column eag_mgdl_prev
+		dataType: double
+		lineageTag: a27921df-6d83-46aa-85b3-206adf937ccd
+		summarizeBy: none
+		sourceColumn: eag_mgdl_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column eag_mgdl_delta
+		dataType: double
+		lineageTag: 51a38bb0-6908-405f-9792-2e9c9e1cf9f1
+		summarizeBy: none
+		sourceColumn: eag_mgdl_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column eag_mgdl_pct_change
+		dataType: double
+		lineageTag: f6294d32-7e0a-4653-910b-65d63454b54a
+		summarizeBy: none
+		sourceColumn: eag_mgdl_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column eag_mgdl_rolling3
+		dataType: double
+		lineageTag: f681855e-6765-4835-9d5c-bba6375bc01a
+		summarizeBy: none
+		sourceColumn: eag_mgdl_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tsh_free_t4_ratio_prev
+		dataType: double
+		lineageTag: 77cb9b8a-c71f-4606-abf6-0b5f6ba2568b
+		summarizeBy: none
+		sourceColumn: tsh_free_t4_ratio_prev
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tsh_free_t4_ratio_delta
+		dataType: double
+		lineageTag: 01658da1-e8fb-4f1c-9d57-eb8a582a1396
+		summarizeBy: none
+		sourceColumn: tsh_free_t4_ratio_delta
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tsh_free_t4_ratio_pct_change
+		dataType: double
+		lineageTag: 2a588071-7ee0-4dd9-93fa-11e71cc4a2bc
+		summarizeBy: none
+		sourceColumn: tsh_free_t4_ratio_pct_change
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tsh_free_t4_ratio_rolling3
+		dataType: double
+		lineageTag: eeaa71a3-8c5d-4c64-be4d-b46c5401136d
+		summarizeBy: none
+		sourceColumn: tsh_free_t4_ratio_rolling3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column has_core_endo
+		dataType: double
+		lineageTag: 7d443176-295c-4e4c-a457-de701fb482e2
+		summarizeBy: none
+		sourceColumn: has_core_endo
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column is_complete_metabolic_ir
+		dataType: double
+		lineageTag: 7271e256-938d-450e-8d4d-9d782bcbb30f
+		summarizeBy: none
+		sourceColumn: is_complete_metabolic_ir
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column record_quality_note
+		dataType: string
+		lineageTag: fa6cb492-5356-41f1-85d2-ceaee5782335
+		summarizeBy: none
+		sourceColumn: record_quality_note
+
+		annotation SummarizationSetBy = User
+
+	column created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 91edaef7-9bf3-42b7-8012-55f234c112c1
+		summarizeBy: none
+		sourceColumn: created_at
+
+		variation Variation
+			isDefault
+			relationship: b12fe101-69e6-412b-b595-662870721540
+			defaultHierarchy: LocalDateTable_47668c12-7c4a-46fb-9d12-92e9801944b0.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 6a663c49-111b-478a-9186-a02a2dd00b61
+		summarizeBy: none
+		sourceColumn: updated_at
+
+		variation Variation
+			isDefault
+			relationship: 143c90c0-0231-4ea7-b40f-e9b8c27a1e71
+			defaultHierarchy: LocalDateTable_87b9a9b9-6ce9-4ee1-addb-f24510a013ef.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_core_endocrine
+		dataType: double
+		lineageTag: 061d0048-c16d-447c-8b85-f68936da71fd
+		summarizeBy: none
+		sourceColumn: has_core_endocrine
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column is_complete_profile
+		dataType: double
+		lineageTag: 610db126-8f02-4e5b-a6fd-b6602cf58c8e
+		summarizeBy: none
+		sourceColumn: is_complete_profile
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Fact_EndoMetrics = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=bllod_raw", [HierarchicalNavigation=true]),
+				    endo_metrics_Table = Source{[Name="endo_metrics",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(endo_metrics_Table,{{"exam_date", type date}, {"created_at", type datetime}, {"updated_at", type datetime}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
