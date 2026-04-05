@@ -1,0 +1,119 @@
+relationship 57d70b2a-a5ae-4f75-8f17-c946ba42ab69
+	joinOnDateBehavior: datePartOnly
+	fromColumn: vw_fact_alerts.alert_date
+	toColumn: LocalDateTable_83504809-f7b7-4229-ab45-cb49c3f2814f.Date
+
+relationship 85a3c9c0-381d-44cd-b439-69a29d206b01
+	joinOnDateBehavior: datePartOnly
+	fromColumn: vw_fact_alerts.created_at
+	toColumn: LocalDateTable_a101c327-fa32-48f0-a2d8-8191d7304456.Date
+
+relationship cc1b1617-5b8b-4858-8d82-29ac1b5102cf
+	joinOnDateBehavior: datePartOnly
+	fromColumn: vw_latest_trends_by_source_metric.analysis_date
+	toColumn: LocalDateTable_b2e19227-cecc-43b3-a6fb-bad023d3ef4d.Date
+
+relationship e8694765-289e-4644-9309-1e6405233472
+	joinOnDateBehavior: datePartOnly
+	fromColumn: vw_latest_baseline_by_source.analysis_date
+	toColumn: LocalDateTable_551959ae-e408-4833-98e9-c02e9f216490.Date
+
+relationship d9c46c42-7fc7-4ccc-bbe5-94ae567dc541
+	joinOnDateBehavior: datePartOnly
+	fromColumn: vw_fact_trends.analysis_date
+	toColumn: LocalDateTable_92efc094-99ef-4268-ad03-a83b90c2e24c.Date
+
+relationship e32d22c6-7649-4058-9a87-ef5b2cbdcdd2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: vw_fact_measurements.measurement_date
+	toColumn: LocalDateTable_ff1cec5d-914f-45ab-a7bf-8aedc95f0bbc.Date
+
+relationship 4fad2f32-fed0-4b60-ab61-4ddef962ca4c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: vw_fact_measurements.created_at
+	toColumn: LocalDateTable_adfc46ee-38a3-4158-9acd-e3d33baec634.Date
+
+relationship 146e818d-8418-4651-b525-28854ae8bbdb
+	joinOnDateBehavior: datePartOnly
+	fromColumn: vw_fact_baselines.analysis_date
+	toColumn: LocalDateTable_cafcaa6b-33d3-475b-96c6-0f4bc6578ccf.Date
+
+relationship 9905a588-47c8-4214-be95-294aa9691e2f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: vw_fact_anomalies.detected_at
+	toColumn: LocalDateTable_b7fb9586-2039-4e76-8bb1-b695d66cf5bd.Date
+
+relationship 74a77651-c1a0-4e2e-9fa0-45fefd11309f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: vw_fact_anomalies.measurement_date
+	toColumn: LocalDateTable_e6952471-7c16-46a5-bb96-91dce5f856d6.Date
+
+relationship fa330d9b-6379-48b7-9b7c-e5a60ef3fb04
+	joinOnDateBehavior: datePartOnly
+	fromColumn: vw_long_measurements.measurement_date
+	toColumn: LocalDateTable_aec2b5a2-48a6-4d1a-bf8d-2c58df3f4f60.Date
+
+relationship AutoDetected_adc9dd6e-ccb4-4c89-9ebf-8ab3215ea58c
+	fromColumn: vw_fact_alerts.source_name
+	toColumn: vw_dim_source.source_name
+
+relationship AutoDetected_a799a1c8-58bd-4462-acdd-133e33c1ddda
+	fromColumn: vw_latest_trends_by_source_metric.source_name
+	toColumn: vw_dim_source.source_name
+
+relationship AutoDetected_f354375d-a4a0-4953-a815-14767ddbb205
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: vw_latest_baseline_by_source.source_name
+	toColumn: vw_dim_source.source_name
+
+relationship AutoDetected_ec1d8bb7-f156-4d86-a596-1cfbc24ec668
+	fromColumn: vw_fact_trends.source_name
+	toColumn: vw_dim_source.source_name
+
+relationship AutoDetected_3d5c6853-13ee-495b-b220-dc6d481cfd55
+	fromColumn: vw_fact_measurements.source_name
+	toColumn: vw_dim_source.source_name
+
+relationship AutoDetected_1540bb55-84de-4b38-a5f2-59ccdc0347fb
+	fromColumn: vw_fact_baselines.source_name
+	toColumn: vw_dim_source.source_name
+
+relationship AutoDetected_33e52626-ddaf-44ad-b492-c38b6a697561
+	fromColumn: vw_long_measurements.source_name
+	toColumn: vw_dim_source.source_name
+
+relationship AutoDetected_a5ea89bc-7e31-4dd7-b476-5afb1efdbfb5
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: vw_fact_alerts.metric
+	toColumn: vw_latest_trends_by_source_metric.metric
+
+relationship AutoDetected_46098c41-0532-449b-8b19-fdd26dcd6b68
+	isActive: false
+	fromColumn: vw_fact_trends.metric
+	toColumn: vw_latest_trends_by_source_metric.metric
+
+relationship AutoDetected_00ad12ac-9f54-4730-bbac-f21482a29a6f
+	isActive: false
+	fromColumn: vw_long_measurements.metric
+	toColumn: vw_latest_trends_by_source_metric.metric
+
+relationship AutoDetected_bdd6f96d-16d9-4ed8-af41-a2faacaedbe1
+	isActive: false
+	fromColumn: vw_long_measurements.measurement_id
+	toColumn: vw_fact_measurements.measurement_id
+
+relationship e35be151-105f-6f0c-c72c-3d4cbadbcd27
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: vw_dim_date.date_key
+	toColumn: vw_fact_measurements.measurement_date
+
+relationship d01932d9-1ea1-f9f8-115e-c34ec728cc14
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: vw_dim_date.date_key
+	toColumn: vw_fact_anomalies.measurement_date
+

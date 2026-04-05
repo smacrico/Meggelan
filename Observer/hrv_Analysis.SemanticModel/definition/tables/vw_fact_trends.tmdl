@@ -1,0 +1,152 @@
+table vw_fact_trends
+	lineageTag: cbb26819-7a97-4e2f-ac73-acc96f0b536f
+
+	column trend_id
+		dataType: double
+		lineageTag: 06abc803-0a60-4641-a473-60c7d7b9a87b
+		summarizeBy: sum
+		sourceColumn: trend_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column analysis_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 2421d77d-3f9d-4fbb-af15-818cd0e80f6e
+		summarizeBy: none
+		sourceColumn: analysis_date
+
+		variation Variation
+			isDefault
+			relationship: d9c46c42-7fc7-4ccc-bbe5-94ae567dc541
+			defaultHierarchy: LocalDateTable_92efc094-99ef-4268-ad03-a83b90c2e24c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column source_name
+		dataType: string
+		lineageTag: 95866c62-f6e3-42ac-8dc1-81e1d47af4d9
+		summarizeBy: none
+		sourceColumn: source_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column metric
+		dataType: string
+		lineageTag: c221ff16-5fcd-4443-af78-569a1b216c1c
+		summarizeBy: none
+		sourceColumn: metric
+
+		annotation SummarizationSetBy = Automatic
+
+	column slope
+		dataType: double
+		lineageTag: 92e1d099-dc22-4c5f-b9a7-b09b4b2c5909
+		summarizeBy: sum
+		sourceColumn: slope
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column r_value
+		dataType: double
+		lineageTag: 31228847-5d55-4140-90b6-a05343e69149
+		summarizeBy: sum
+		sourceColumn: r_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column p_value
+		dataType: double
+		lineageTag: 7e0abe73-db8c-443a-81c3-214465fba367
+		summarizeBy: sum
+		sourceColumn: p_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column trend_direction
+		dataType: string
+		lineageTag: d3e3b987-c30b-4dcf-a506-d19c3c36e451
+		summarizeBy: none
+		sourceColumn: trend_direction
+
+		annotation SummarizationSetBy = Automatic
+
+	column trend_strength
+		dataType: string
+		lineageTag: db6235f2-86e4-4894-94ad-fc483d90f9d1
+		summarizeBy: none
+		sourceColumn: trend_strength
+
+		annotation SummarizationSetBy = Automatic
+
+	column mean
+		dataType: double
+		lineageTag: 7940a925-f4e7-40de-bedb-83e830bbd379
+		summarizeBy: sum
+		sourceColumn: mean
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column std
+		dataType: double
+		lineageTag: ea1caed0-4cca-448c-987d-5c3322fbfc48
+		summarizeBy: sum
+		sourceColumn: std
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column min
+		dataType: double
+		lineageTag: 028d8878-6169-4e3f-9be9-e39ec67a1f66
+		summarizeBy: sum
+		sourceColumn: min
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column max
+		dataType: double
+		lineageTag: 3dcdd7cd-114a-4bec-a68a-5a97c783f131
+		summarizeBy: sum
+		sourceColumn: max
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column latest_ms_score
+		dataType: double
+		lineageTag: 8aba0002-c851-43a3-858c-1d926905bbe6
+		summarizeBy: sum
+		sourceColumn: latest_ms_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition vw_fact_trends = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=hrv_Analysis", [HierarchicalNavigation=true]),
+				    vw_fact_trends_View = Source{[Name="vw_fact_trends",Kind="View"]}[Data]
+				in
+				    vw_fact_trends_View
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,42 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["vw_dim_date","vw_dim_source","vw_fact_alerts","vw_latest_trends_by_source_metric","vw_latest_baseline_by_source","vw_fact_trends","vw_fact_measurements","vw_fact_baselines","vw_fact_anomalies","vw_long_measurements"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+annotation __TEdtr = 1
+
+ref table vw_dim_date
+ref table vw_dim_source
+ref table vw_fact_alerts
+ref table DateTableTemplate_591a4512-c0de-41b8-91e3-f515717aebcd
+ref table LocalDateTable_83504809-f7b7-4229-ab45-cb49c3f2814f
+ref table LocalDateTable_a101c327-fa32-48f0-a2d8-8191d7304456
+ref table vw_latest_trends_by_source_metric
+ref table LocalDateTable_b2e19227-cecc-43b3-a6fb-bad023d3ef4d
+ref table vw_latest_baseline_by_source
+ref table LocalDateTable_551959ae-e408-4833-98e9-c02e9f216490
+ref table vw_fact_trends
+ref table LocalDateTable_92efc094-99ef-4268-ad03-a83b90c2e24c
+ref table vw_fact_measurements
+ref table LocalDateTable_ff1cec5d-914f-45ab-a7bf-8aedc95f0bbc
+ref table LocalDateTable_adfc46ee-38a3-4158-9acd-e3d33baec634
+ref table vw_fact_baselines
+ref table LocalDateTable_cafcaa6b-33d3-475b-96c6-0f4bc6578ccf
+ref table vw_fact_anomalies
+ref table LocalDateTable_b7fb9586-2039-4e76-8bb1-b695d66cf5bd
+ref table LocalDateTable_e6952471-7c16-46a5-bb96-91dce5f856d6
+ref table vw_long_measurements
+ref table LocalDateTable_aec2b5a2-48a6-4d1a-bf8d-2c58df3f4f60
+ref table 'Measures 1'
+
+ref cultureInfo en-US
+

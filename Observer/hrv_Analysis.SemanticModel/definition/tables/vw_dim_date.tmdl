@@ -1,0 +1,76 @@
+table vw_dim_date
+	lineageTag: 0219e90f-0c63-4033-9988-b694fe8b35e0
+
+	column date_key
+		dataType: string
+		lineageTag: c9f9e302-e569-492a-880e-244b1d08dff2
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: double
+		lineageTag: dd0348dd-29c0-4d97-a574-cb0ef1678aca
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column month_num
+		dataType: double
+		lineageTag: 9000db66-6298-4797-8440-3c63f701ce87
+		summarizeBy: sum
+		sourceColumn: month_num
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column month_label
+		dataType: string
+		lineageTag: 19e7e70d-22a9-468f-8d69-c549da53e6ec
+		summarizeBy: none
+		sourceColumn: month_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_num
+		dataType: double
+		lineageTag: 84f5aad9-3e3f-43dc-bd6c-fd683992c518
+		summarizeBy: sum
+		sourceColumn: day_num
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column quarter_num
+		dataType: string
+		lineageTag: c448a725-671e-46f7-8bf7-25248975f447
+		summarizeBy: none
+		sourceColumn: quarter_num
+
+		annotation SummarizationSetBy = Automatic
+
+	column weekday_name
+		dataType: string
+		lineageTag: eff2cbc6-cd8c-4cdc-9b38-149e988bca19
+		summarizeBy: none
+		sourceColumn: weekday_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition vw_dim_date = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=hrv_Analysis", [HierarchicalNavigation=true]),
+				    vw_dim_date_View = Source{[Name="vw_dim_date",Kind="View"]}[Data]
+				in
+				    vw_dim_date_View
+
+	annotation PBI_ResultType = Table
+

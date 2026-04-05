@@ -1,29 +1,31 @@
 #!/usr/bin/env python3
 """
-garmin_hrv_batch_analysis_v3.py
+garmin_hrv_batch_analysis_v4.py
 
-Batch HRV extraction + charts + fatigue + TRIMP + athlete config
+Batch HRV extraction + charts + fatigue + TRIMP + athlete config + SQLite summaries
 
 Features
 1. Extract RR intervals from Garmin FIT record developer field: "hrv btb (ms)"
 2. Compute per-file HRV metrics
 3. Compute TRIMP using athlete config (resting_hr, max_hr, sex)
-4. Weekly / monthly HRV trends
+4. Daily / weekly / monthly HRV trends
 5. Fatigue / readiness model
 6. Automatic matplotlib charts
+7. Store daily / weekly / monthly summaries in SQLite (hydra.db)
 
 Dependencies:
     pip install fitdecode pandas numpy matplotlib
 
 Usage:
-    python garmin_hrv_batch_analysis_v3.py input_folder --config athlete_config.json
-    python garmin_hrv_batch_analysis_v3.py input_folder --config athlete_config.json --athlete stelios
+    python garmin_hrv_batch_analysis_v4.py input_folder --config athlete_config.json
+    python garmin_hrv_batch_analysis_v4.py input_folder --config athlete_config.json --athlete stelios
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import sqlite3
 from dataclasses import dataclass, asdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -190,7 +192,10 @@ def is_hrv_btb_field(field_name: str) -> bool:
     return name in candidates or ("hrv" in name and "btb" in name)
 
 
-def extract_rr_points_and_hr(fit_path: Path, debug_record_fields: bool = False) -> tuple[List[RRPoint], List[dict]]:
+def extract_rr_points_and_hr(
+    fit_path: Path,
+    debug_record_fields: bool = False,
+) -> tuple[List[RRPoint], List[dict]]:
     rr_points: List[RRPoint] = []
     hr_rows: List[dict] = []
 
@@ -219,7 +224,7 @@ def extract_rr_points_and_hr(fit_path: Path, debug_record_fields: bool = False) 
                     record_timestamp = fit_timestamp_to_datetime(field.value)
                     continue
 
-                if field_name == "heart_rate" or field_name == "heart rate":
+                if field_name in {"heart_rate", "heart rate"}:
                     heart_rate = safe_float(field.value)
                     continue
 
@@ -479,6 +484,45 @@ def combined_readiness_model(df: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
+def make_daily_trends(df: pd.DataFrame) -> pd.DataFrame:
+    out = df.copy()
+    out["date"] = pd.to_datetime(out["date"], errors="coerce")
+
+    out = out[out["date"].notna()].copy()
+    if out.empty:
+        return pd.DataFrame(
+            columns=[
+                "summary_date",
+                "sessions",
+                "avg_rmssd",
+                "avg_sdnn",
+                "avg_mean_hr",
+                "total_trimp",
+                "avg_fatigue",
+                "avg_readiness",
+            ]
+        )
+
+    out["summary_date"] = out["date"].dt.strftime("%Y-%m-%d")
+
+    daily = (
+        out.groupby("summary_date", as_index=False)
+        .agg(
+            sessions=("file", "count"),
+            avg_rmssd=("rmssd", "mean"),
+            avg_sdnn=("sdnn", "mean"),
+            avg_mean_hr=("mean_hr", "mean"),
+            total_trimp=("trimp", "sum"),
+            avg_fatigue=("fatigue_score", "mean"),
+            avg_readiness=("readiness_score", "mean"),
+        )
+        .sort_values("summary_date")
+        .reset_index(drop=True)
+    )
+
+    return daily
+
+
 def make_weekly_monthly_trends(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     weekly = (
         df.groupby("week", as_index=False)
@@ -492,6 +536,7 @@ def make_weekly_monthly_trends(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataF
             avg_readiness=("readiness_score", "mean"),
         )
         .sort_values("week")
+        .reset_index(drop=True)
     )
 
     monthly = (
@@ -506,9 +551,116 @@ def make_weekly_monthly_trends(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataF
             avg_readiness=("readiness_score", "mean"),
         )
         .sort_values("month")
+        .reset_index(drop=True)
     )
 
     return weekly, monthly
+
+
+def connect_db(db_path: Path) -> sqlite3.Connection:
+    conn = sqlite3.connect(str(db_path))
+    conn.execute("PRAGMA journal_mode=WAL;")
+    conn.execute("PRAGMA foreign_keys=ON;")
+    return conn
+
+
+def create_summary_tables(conn: sqlite3.Connection) -> None:
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS daily_summary (
+            summary_date TEXT PRIMARY KEY,
+            sessions INTEGER,
+            avg_rmssd REAL,
+            avg_sdnn REAL,
+            avg_mean_hr REAL,
+            total_trimp REAL,
+            avg_fatigue REAL,
+            avg_readiness REAL,
+            created_at TEXT DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS weekly_summary (
+            week TEXT PRIMARY KEY,
+            sessions INTEGER,
+            avg_rmssd REAL,
+            avg_sdnn REAL,
+            avg_mean_hr REAL,
+            total_trimp REAL,
+            avg_fatigue REAL,
+            avg_readiness REAL,
+            created_at TEXT DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS monthly_summary (
+            month TEXT PRIMARY KEY,
+            sessions INTEGER,
+            avg_rmssd REAL,
+            avg_sdnn REAL,
+            avg_mean_hr REAL,
+            total_trimp REAL,
+            avg_fatigue REAL,
+            avg_readiness REAL,
+            created_at TEXT DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+
+    conn.commit()
+
+
+def upsert_dataframe(
+    conn: sqlite3.Connection,
+    df: pd.DataFrame,
+    table_name: str,
+    key_column: str,
+) -> None:
+    if df.empty:
+        return
+
+    columns = list(df.columns)
+    placeholders = ", ".join(["?"] * len(columns))
+    col_list = ", ".join(columns)
+
+    update_cols = [c for c in columns if c != key_column]
+    update_clause = ", ".join([f"{c}=excluded.{c}" for c in update_cols])
+
+    sql = f"""
+        INSERT INTO {table_name} ({col_list})
+        VALUES ({placeholders})
+        ON CONFLICT({key_column}) DO UPDATE SET
+        {update_clause}
+    """
+
+    rows = []
+    for _, row in df.iterrows():
+        values = []
+        for col in columns:
+            value = row[col]
+            if pd.isna(value):
+                value = None
+            values.append(value)
+        rows.append(tuple(values))
+
+    conn.executemany(sql, rows)
+    conn.commit()
+
+
+def save_summaries_to_hydra_db(
+    db_path: Path,
+    daily_df: pd.DataFrame,
+    weekly_df: pd.DataFrame,
+    monthly_df: pd.DataFrame,
+) -> None:
+    conn = connect_db(db_path)
+    try:
+        create_summary_tables(conn)
+        upsert_dataframe(conn, daily_df, "daily_summary", "summary_date")
+        upsert_dataframe(conn, weekly_df, "weekly_summary", "week")
+        upsert_dataframe(conn, monthly_df, "monthly_summary", "month")
+    finally:
+        conn.close()
 
 
 def save_plot(output_path: Path) -> None:
@@ -517,7 +669,12 @@ def save_plot(output_path: Path) -> None:
     plt.close()
 
 
-def generate_charts(summary_df: pd.DataFrame, weekly_df: pd.DataFrame, monthly_df: pd.DataFrame, output_dir: Path) -> None:
+def generate_charts(
+    summary_df: pd.DataFrame,
+    weekly_df: pd.DataFrame,
+    monthly_df: pd.DataFrame,
+    output_dir: Path,
+) -> None:
     charts_dir = output_dir / "charts"
     charts_dir.mkdir(parents=True, exist_ok=True)
 
@@ -586,7 +743,9 @@ def generate_charts(summary_df: pd.DataFrame, weekly_df: pd.DataFrame, monthly_d
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Batch HRV extraction + charts + fatigue + TRIMP + athlete config")
+    parser = argparse.ArgumentParser(
+        description="Batch HRV extraction + charts + fatigue + TRIMP + athlete config + SQLite"
+    )
     parser.add_argument("input_path", type=Path, help="Folder containing FIT files")
     parser.add_argument("--config", type=Path, default=None, help="Path to athlete JSON config")
     parser.add_argument("--athlete", type=str, default=None, help="Athlete profile name from config")
@@ -594,6 +753,12 @@ def main() -> None:
     parser.add_argument("--step-seconds", type=int, default=10)
     parser.add_argument("--output-dir", type=Path, default=None)
     parser.add_argument("--debug-record-fields", action="store_true")
+    parser.add_argument(
+        "--db-path",
+        type=Path,
+        default=Path("c:/smakrykoDBs/Hydra.db"),
+        help="Path to SQLite database file",
+    )
     args = parser.parse_args()
 
     athlete_cfg = load_config(args.config, args.athlete)
@@ -635,15 +800,25 @@ def main() -> None:
     summary_df = fatigue_score_model(summary_df)
     summary_df = combined_readiness_model(summary_df)
 
+    daily_df = make_daily_trends(summary_df)
     weekly_df, monthly_df = make_weekly_monthly_trends(summary_df)
 
     summary_path = output_dir / "batch_summary_with_fatigue_readiness_trimp.csv"
+    daily_path = output_dir / "daily_hrv_trends.csv"
     weekly_path = output_dir / "weekly_hrv_trends.csv"
     monthly_path = output_dir / "monthly_hrv_trends.csv"
 
     summary_df.to_csv(summary_path, index=False)
+    daily_df.to_csv(daily_path, index=False)
     weekly_df.to_csv(weekly_path, index=False)
     monthly_df.to_csv(monthly_path, index=False)
+
+    save_summaries_to_hydra_db(
+        db_path=args.db_path,
+        daily_df=daily_df,
+        weekly_df=weekly_df,
+        monthly_df=monthly_df,
+    )
 
     generate_charts(summary_df, weekly_df, monthly_df, output_dir)
 
@@ -667,17 +842,24 @@ def main() -> None:
         ].to_string(index=False)
     )
 
-    print("\n=== WEEKLY HRV TRENDS ===\n")
+    print("\n=== DAILY SUMMARY ===\n")
+    print(daily_df.to_string(index=False))
+
+    print("\n=== WEEKLY SUMMARY ===\n")
     print(weekly_df.to_string(index=False))
 
-    print("\n=== MONTHLY HRV TRENDS ===\n")
+    print("\n=== MONTHLY SUMMARY ===\n")
     print(monthly_df.to_string(index=False))
-    
+
     print("\nSaved files:")
     print(summary_path)
+    print(daily_path)
     print(weekly_path)
     print(monthly_path)
     print(output_dir / "charts")
+
+    print("\nSQLite database updated:")
+    print(args.db_path)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,172 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "a55d982bfdc2a39f58f8",
+  "position": {
+    "x": 483.86593920498825,
+    "y": 41.901792673421667,
+    "z": 1,
+    "height": 386.095089633671,
+    "width": 644.489477786438,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "vw_latest_trends_by_source_metric"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "analysis_date"
+                        }
+                      },
+                      "Hierarchy": "Date Hierarchy"
+                    }
+                  },
+                  "Level": "Month"
+                }
+              },
+              "queryRef": "vw_latest_trends_by_source_metric.analysis_date.Variation.Date Hierarchy.Month",
+              "nativeQueryRef": "analysis_date Month",
+              "active": true
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "vw_latest_trends_by_source_metric"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "analysis_date"
+                        }
+                      },
+                      "Hierarchy": "Date Hierarchy"
+                    }
+                  },
+                  "Level": "Day"
+                }
+              },
+              "queryRef": "vw_latest_trends_by_source_metric.analysis_date.Variation.Date Hierarchy.Day",
+              "nativeQueryRef": "analysis_date Day",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "vw_latest_trends_by_source_metric"
+                        }
+                      },
+                      "Property": "latest_ms_score"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(vw_latest_trends_by_source_metric.latest_ms_score)",
+              "nativeQueryRef": "Average of latest_ms_score"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "b1395568e25e9096f06e",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "PropertyVariationSource": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "vw_latest_trends_by_source_metric"
+                      }
+                    },
+                    "Name": "Variation",
+                    "Property": "analysis_date"
+                  }
+                },
+                "Hierarchy": "Date Hierarchy"
+              }
+            },
+            "Level": "Month"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "5d7c056923da2049ddf9",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "PropertyVariationSource": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "vw_latest_trends_by_source_metric"
+                      }
+                    },
+                    "Name": "Variation",
+                    "Property": "analysis_date"
+                  }
+                },
+                "Hierarchy": "Date Hierarchy"
+              }
+            },
+            "Level": "Day"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "777595b84f214737abb5",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "vw_latest_trends_by_source_metric"
+                  }
+                },
+                "Property": "latest_ms_score"
+              }
+            },
+            "Function": 1
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

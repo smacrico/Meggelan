@@ -17,6 +17,7 @@ class RunningRepository:
     def load_running_sessions(self) -> pd.DataFrame:
         query = """
         SELECT
+            rowid,
             date,
             COALESCE(running_economy, 0) AS running_economy,
             COALESCE(vo2max, 0) AS vo2max,
@@ -31,15 +32,28 @@ class RunningRepository:
         """
 
         with self.connect() as conn:
-            df = pd.read_sql_query(query, conn)
+            raw_df = pd.read_sql_query(query, conn)
 
-        if df.empty:
+        if raw_df.empty:
             logging.warning("No running sessions found.")
             return pd.DataFrame()
 
-        df["date"] = pd.to_datetime(df["date"], errors="coerce")
-        df = df.dropna(subset=["date"]).sort_values("date").reset_index(drop=True)
-        return df
+        logging.info("Rows read from DB: %s", len(raw_df))
+
+        raw_df["date_raw"] = raw_df["date"]
+        raw_df["date"] = pd.to_datetime(raw_df["date"], errors="coerce")
+
+        invalid_dates = raw_df["date"].isna().sum()
+        if invalid_dates > 0:
+            logging.warning("Invalid dates dropped: %s", invalid_dates)
+            bad_rows = raw_df[raw_df["date"].isna()][["rowid", "date_raw"]]
+            logging.warning("Rows with invalid date values:\n%s", bad_rows.to_string(index=False))
+
+        df = raw_df.dropna(subset=["date"]).sort_values("date").reset_index(drop=True)
+        logging.info("Rows returned to app: %s", len(df))
+
+        # Keep original source date string only for debugging if needed
+        return df.drop(columns=["date_raw"])
 
     def add_session(
         self,

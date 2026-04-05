@@ -1,0 +1,142 @@
+table vw_fact_measurements
+	lineageTag: c21c9f72-7680-45fe-ba85-e5bf3b85988c
+
+	column measurement_id
+		dataType: double
+		lineageTag: 860da19c-c68b-4f68-ad56-608c98021f78
+		summarizeBy: sum
+		sourceColumn: measurement_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column measurement_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5a47deff-a868-4a4f-9966-6df1a8191625
+		summarizeBy: none
+		sourceColumn: measurement_date
+
+		variation Variation
+			isDefault
+			relationship: e32d22c6-7649-4058-9a87-ef5b2cbdcdd2
+			defaultHierarchy: LocalDateTable_ff1cec5d-914f-45ab-a7bf-8aedc95f0bbc.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column source_name
+		dataType: string
+		lineageTag: e5333c12-e611-4120-b2b2-da2c210366d3
+		summarizeBy: none
+		sourceColumn: source_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column SD1
+		dataType: double
+		lineageTag: 042af360-622c-4980-a34c-438fdadd38c7
+		summarizeBy: sum
+		sourceColumn: SD1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SD2
+		dataType: double
+		lineageTag: 83cb1193-f304-409c-9528-793bea257ff3
+		summarizeBy: sum
+		sourceColumn: SD2
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sdnn
+		dataType: double
+		lineageTag: dde014ef-63b0-4ddd-a49b-6cc47ca3ce07
+		summarizeBy: sum
+		sourceColumn: sdnn
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column rmssd
+		dataType: double
+		lineageTag: 1df60e21-0717-413a-a45c-817d9dd9b913
+		summarizeBy: sum
+		sourceColumn: rmssd
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column pNN50
+		dataType: double
+		lineageTag: 6ac9a70f-041d-4da3-b3f1-c054f25fbeb7
+		summarizeBy: sum
+		sourceColumn: pNN50
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VLF
+		dataType: double
+		lineageTag: 1097dbf9-4666-40cd-b385-b4a064dd2977
+		summarizeBy: sum
+		sourceColumn: VLF
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column LF
+		dataType: double
+		lineageTag: fed611c2-278a-4a66-8858-b7f19f86b5c5
+		summarizeBy: sum
+		sourceColumn: LF
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column HF
+		dataType: double
+		lineageTag: 8f72b8e2-0a34-4c97-ab6a-5ccd2f729717
+		summarizeBy: sum
+		sourceColumn: HF
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 48a9209e-d041-4d2a-9b2a-4e617b725dbd
+		summarizeBy: none
+		sourceColumn: created_at
+
+		variation Variation
+			isDefault
+			relationship: 4fad2f32-fed0-4b60-ab61-4ddef962ca4c
+			defaultHierarchy: LocalDateTable_adfc46ee-38a3-4158-9acd-e3d33baec634.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition vw_fact_measurements = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=hrv_Analysis", [HierarchicalNavigation=true]),
+				    vw_fact_measurements_View = Source{[Name="vw_fact_measurements",Kind="View"]}[Data]
+				in
+				    vw_fact_measurements_View
+
+	annotation PBI_ResultType = Table
+

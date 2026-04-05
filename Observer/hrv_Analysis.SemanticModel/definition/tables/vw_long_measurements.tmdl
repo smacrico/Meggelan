@@ -1,0 +1,68 @@
+table vw_long_measurements
+	lineageTag: 42a3507c-4654-44ad-8448-bdcdec7a8d5a
+
+	column measurement_id
+		dataType: double
+		lineageTag: b792cf2f-1bcf-41f4-9168-150bc334c37e
+		summarizeBy: sum
+		sourceColumn: measurement_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column measurement_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b7fdd022-007c-4024-be37-8625725dafef
+		summarizeBy: none
+		sourceColumn: measurement_date
+
+		variation Variation
+			isDefault
+			relationship: fa330d9b-6379-48b7-9b7c-e5a60ef3fb04
+			defaultHierarchy: LocalDateTable_aec2b5a2-48a6-4d1a-bf8d-2c58df3f4f60.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column source_name
+		dataType: string
+		lineageTag: c76447d5-a829-4fa7-9048-924ab199b015
+		summarizeBy: none
+		sourceColumn: source_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column metric
+		dataType: string
+		lineageTag: 2786b7de-4d10-46e9-807a-79649095f1a1
+		summarizeBy: none
+		sourceColumn: metric
+
+		annotation SummarizationSetBy = Automatic
+
+	column value
+		dataType: double
+		lineageTag: 55aeb1cf-1be2-4f06-b8b1-f6f494b5de94
+		summarizeBy: sum
+		sourceColumn: value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition vw_long_measurements = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=hrv_Analysis", [HierarchicalNavigation=true]),
+				    vw_long_measurements_View = Source{[Name="vw_long_measurements",Kind="View"]}[Data]
+				in
+				    vw_long_measurements_View
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

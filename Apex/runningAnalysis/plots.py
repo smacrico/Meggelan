@@ -15,6 +15,7 @@ class RunningPlotter:
     def _save_plot(self, filename: str) -> Path:
         path = self.output_dir / filename
         plt.savefig(path, dpi=300, bbox_inches="tight")
+        print(f"Saved: {path}")
         return path
 
     def visualize_trends(self, df: pd.DataFrame) -> None:
@@ -252,3 +253,214 @@ class RunningPlotter:
         plt.tight_layout()
         self._save_plot("hr_rs_deviation.png")
         plt.show()
+
+    def advanced_visualizations(self, df: pd.DataFrame) -> None:
+        if df.empty:
+            return
+
+        work = df.copy().sort_values("date")
+        work["cumulative_distance"] = work["distance"].cumsum()
+        work["running_economy_ma"] = work["running_economy"].rolling(window=3, min_periods=1).mean()
+        work["month"] = work["date"].dt.month
+
+        plt.figure(figsize=(20, 15))
+
+        plt.subplot(2, 3, 1)
+        plt.plot(work["date"], work["cumulative_distance"], "b-o")
+        plt.title("Cumulative Running Distance")
+        plt.xlabel("Date")
+        plt.ylabel("Total Distance (km)")
+        plt.xticks(rotation=45)
+
+        plt.subplot(2, 3, 2)
+        plt.plot(work["date"], work["running_economy"], "g-", label="Original")
+        plt.plot(work["date"], work["running_economy_ma"], "r-", label="3-Session Moving Avg")
+        plt.title("Running Economy Trend")
+        plt.xlabel("Date")
+        plt.ylabel("Running Economy")
+        plt.legend()
+        plt.xticks(rotation=45)
+
+        plt.subplot(2, 3, 3)
+        pace = np.where(work["distance"] > 0, work["time"] / work["distance"], np.nan)
+        plt.scatter(pace, work["heart_rate"], alpha=0.7)
+        plt.title("Pace vs Heart Rate")
+        plt.xlabel("Pace (min/km)")
+        plt.ylabel("Heart Rate (bpm)")
+
+        plt.subplot(2, 3, 4)
+        try:
+            if "speed_zone" in work.columns:
+                zone_counts = work["speed_zone"].astype(str).value_counts()
+                if not zone_counts.empty:
+                    plt.pie(
+                        zone_counts.values,
+                        labels=zone_counts.index,
+                        autopct="%1.1f%%",
+                    )
+                    plt.title("Training Zones Distribution")
+                else:
+                    plt.text(0.5, 0.5, "No valid zone data", ha="center", va="center")
+            else:
+                plt.text(0.5, 0.5, "No speed zone data", ha="center", va="center")
+        except Exception:
+            plt.text(0.5, 0.5, "Error creating pie chart", ha="center", va="center")
+
+        plt.subplot(2, 3, 5, polar=True)
+        metrics = [
+            "running_economy",
+            "vo2max",
+            "distance",
+            "efficiency_score",
+            "heart_rate",
+        ]
+        normalized_metrics = pd.DataFrame({
+            metric: self._normalize_metric(work[metric], higher_is_better=(metric != "heart_rate"))
+            for metric in metrics
+        })
+        avg_metrics = normalized_metrics.mean()
+
+        angles = np.linspace(0, 2 * np.pi, len(metrics), endpoint=False)
+        values = avg_metrics.values
+        values = np.concatenate((values, [values[0]]))
+        angles = np.concatenate((angles, [angles[0]]))
+
+        plt.polar(angles, values, "o-", linewidth=2)
+        plt.fill(angles, values, alpha=0.25)
+        plt.xticks(angles[:-1], metrics)
+        plt.title("Performance Metrics Radar Chart")
+
+        plt.subplot(2, 3, 6)
+        seasonal_performance = work.groupby("month")["running_economy"].mean()
+        if not seasonal_performance.empty:
+            plt.imshow([seasonal_performance.values], cmap="YlOrRd", aspect="auto")
+            plt.colorbar(label="Avg Running Economy")
+            plt.title("Seasonal Performance Heatmap")
+            plt.xlabel("Month")
+            plt.xticks(range(len(seasonal_performance)), seasonal_performance.index)
+        else:
+            plt.text(0.5, 0.5, "No seasonal data", ha="center", va="center")
+
+        plt.tight_layout()
+        self._save_plot("advanced_metrics.png")
+        plt.show()
+
+    def create_performance_dashboard(self, df: pd.DataFrame) -> None:
+        if df.empty:
+            return
+
+        fig = plt.figure(figsize=(20, 12))
+        gs = fig.add_gridspec(4, 3, hspace=0.3, wspace=0.3)
+        fig.suptitle("Comprehensive Running Performance Dashboard", fontsize=18, fontweight="bold")
+
+        ax1 = fig.add_subplot(gs[0, 0])
+        ax1.plot(df["date"], df["avg_speed"], marker="o", color="blue")
+        ax1.set_title("Average Speed Trend")
+        ax1.set_ylabel("Speed (km/h)")
+        ax1.tick_params(axis="x", rotation=45)
+        ax1.grid(True, alpha=0.3)
+
+        ax2 = fig.add_subplot(gs[0, 1])
+        ax2.plot(df["date"], df["speed_reserve"], marker="o", color="green")
+        ax2.set_title("Speed Reserve")
+        ax2.set_ylabel("km/h")
+        ax2.tick_params(axis="x", rotation=45)
+        ax2.grid(True, alpha=0.3)
+
+        ax3 = fig.add_subplot(gs[0, 2])
+        ax3.plot(df["date"], df["pace_per_km"], marker="o", color="orange")
+        ax3.set_title("Pace")
+        ax3.set_ylabel("min/km")
+        ax3.invert_yaxis()
+        ax3.tick_params(axis="x", rotation=45)
+        ax3.grid(True, alpha=0.3)
+
+        valid_hr_rs = df[df["hr_rs_deviation"] > 0]
+
+        ax4 = fig.add_subplot(gs[1, 0])
+        if not valid_hr_rs.empty:
+            ax4.plot(valid_hr_rs["date"], valid_hr_rs["hr_rs_deviation"], marker="o", color="red")
+        ax4.set_title("HR-RS Deviation Index")
+        ax4.set_ylabel("Index")
+        ax4.tick_params(axis="x", rotation=45)
+        ax4.grid(True, alpha=0.3)
+
+        ax5 = fig.add_subplot(gs[1, 1])
+        if not valid_hr_rs.empty:
+            ax5.scatter(valid_hr_rs["hr_rs_deviation"], valid_hr_rs["avg_speed"], s=100, alpha=0.6, c="purple")
+        ax5.set_title("Deviation vs Speed")
+        ax5.set_xlabel("HR-RS Deviation")
+        ax5.set_ylabel("Speed (km/h)")
+        ax5.grid(True, alpha=0.3)
+
+        ax6 = fig.add_subplot(gs[1, 2])
+        if not valid_hr_rs.empty:
+            ax6.hist(valid_hr_rs["hr_rs_deviation"], bins=15, color="purple", alpha=0.7, edgecolor="black")
+        ax6.set_title("Deviation Distribution")
+        ax6.set_xlabel("Index")
+        ax6.grid(True, alpha=0.3, axis="y")
+
+        ax7 = fig.add_subplot(gs[2, 0])
+        ax7.plot(df["date"], df["speed_efficiency"], marker="o", color="teal")
+        ax7.set_title("Speed Efficiency (Speed/HR)")
+        ax7.set_ylabel("km/h per bpm")
+        ax7.tick_params(axis="x", rotation=45)
+        ax7.grid(True, alpha=0.3)
+
+        ax8 = fig.add_subplot(gs[2, 1])
+        ax8.plot(df["date"], df["economy_at_speed"], marker="o", color="brown")
+        ax8.set_title("Economy at Speed")
+        ax8.set_ylabel("RE / Speed")
+        ax8.tick_params(axis="x", rotation=45)
+        ax8.grid(True, alpha=0.3)
+
+        ax9 = fig.add_subplot(gs[2, 2])
+        if "physio_efficiency" in df.columns:
+            valid_physio = df[df["physio_efficiency"] > 0]
+            if not valid_physio.empty:
+                ax9.plot(valid_physio["date"], valid_physio["physio_efficiency"], marker="o", color="darkgreen")
+        ax9.set_title("Physiological Efficiency")
+        ax9.set_ylabel("Composite Score")
+        ax9.tick_params(axis="x", rotation=45)
+        ax9.grid(True, alpha=0.3)
+
+        ax10 = fig.add_subplot(gs[3, :2])
+        ax10_twin = ax10.twinx()
+
+        line1 = ax10.plot(df["date"], df["avg_speed"], marker="o", color="blue", label="Avg Speed")
+        line2 = ax10_twin.plot(df["date"], df["heart_rate"], marker="s", color="red", alpha=0.6, label="Heart Rate")
+
+        ax10.set_title("Speed vs Heart Rate Over Time")
+        ax10.set_xlabel("Date")
+        ax10.set_ylabel("Speed (km/h)", color="blue")
+        ax10_twin.set_ylabel("Heart Rate (bpm)", color="red")
+        ax10.tick_params(axis="x", rotation=45)
+        ax10.grid(True, alpha=0.3)
+
+        lines = line1 + line2
+        labels = [l.get_label() for l in lines]
+        ax10.legend(lines, labels, loc="upper left")
+
+        ax11 = fig.add_subplot(gs[3, 2])
+        if "speed_zone" in df.columns:
+            zone_counts = df["speed_zone"].value_counts()
+            if not zone_counts.empty:
+                ax11.pie(zone_counts.values, labels=zone_counts.index.astype(str), autopct="%1.1f%%", startangle=90)
+        ax11.set_title("Speed Zone Distribution")
+
+        self._save_plot("performance_dashboard.png")
+        plt.show()
+
+    @staticmethod
+    def _normalize_metric(series: pd.Series, higher_is_better: bool = True) -> pd.Series:
+        series = pd.to_numeric(series, errors="coerce")
+        min_val = series.min()
+        max_val = series.max()
+        range_val = max_val - min_val
+
+        if pd.isna(range_val) or range_val == 0:
+            normalized = pd.Series(0.5, index=series.index, dtype=float)
+        else:
+            normalized = (series - min_val) / range_val
+
+        return normalized if higher_is_better else 1 - normalized

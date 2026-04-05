@@ -1,0 +1,85 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "012476e7628724fe0a1d",
+  "position": {
+    "x": 503.93700787401576,
+    "y": 498.89763779527561,
+    "z": 8,
+    "height": 220.7244094488189,
+    "width": 376.94488188976379,
+    "tabOrder": 7
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vw_fact_alerts"
+                    }
+                  },
+                  "Property": "metric"
+                }
+              },
+              "queryRef": "vw_fact_alerts.metric",
+              "nativeQueryRef": "metric",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "vw_fact_alerts"
+                        }
+                      },
+                      "Property": "alert_id"
+                    }
+                  },
+                  "Function": 5
+                }
+              },
+              "queryRef": "Sum(vw_fact_alerts.alert_id)",
+              "nativeQueryRef": "Count of alert_id"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "vw_fact_alerts"
+                      }
+                    },
+                    "Property": "alert_id"
+                  }
+                },
+                "Function": 5
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

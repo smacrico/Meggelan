@@ -1,0 +1,208 @@
+table vw_latest_baseline_by_source
+	lineageTag: 2d084ad4-de2a-4989-8fa6-b3315000ab40
+
+	column baseline_id
+		dataType: double
+		lineageTag: 5bfc9f7f-71f9-4b83-b86e-56b6eb2aa7b7
+		summarizeBy: sum
+		sourceColumn: baseline_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column analysis_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d16efc1a-5f48-4e98-aa91-e6ef3cd44c02
+		summarizeBy: none
+		sourceColumn: analysis_date
+
+		variation Variation
+			isDefault
+			relationship: e8694765-289e-4644-9309-1e6405233472
+			defaultHierarchy: LocalDateTable_551959ae-e408-4833-98e9-c02e9f216490.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column source_name
+		dataType: string
+		lineageTag: c234f43b-04ae-4e07-8371-3159fc4964f3
+		summarizeBy: none
+		sourceColumn: source_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_SD1
+		dataType: double
+		lineageTag: d3e63581-711f-48b4-a32f-f295a3c21eb6
+		summarizeBy: sum
+		sourceColumn: avg_SD1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_SD2
+		dataType: double
+		lineageTag: bee45602-6305-4959-8281-b500ea31e93f
+		summarizeBy: sum
+		sourceColumn: avg_SD2
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_sdnn
+		dataType: double
+		lineageTag: 5ea8133a-315c-4016-b8e1-80911642ce03
+		summarizeBy: sum
+		sourceColumn: avg_sdnn
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_rmssd
+		dataType: double
+		lineageTag: 21faaf48-a104-447c-a99c-6f5186d5456b
+		summarizeBy: sum
+		sourceColumn: avg_rmssd
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_pNN50
+		dataType: double
+		lineageTag: e85107db-48d8-46fb-9572-75c775d0539e
+		summarizeBy: sum
+		sourceColumn: avg_pNN50
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_VLF
+		dataType: double
+		lineageTag: b4f33deb-3d41-413c-968e-a22644158c2f
+		summarizeBy: sum
+		sourceColumn: avg_VLF
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_LF
+		dataType: double
+		lineageTag: 54b9ae15-b9ad-47a9-8a6b-dfcd66ac66be
+		summarizeBy: sum
+		sourceColumn: avg_LF
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_HF
+		dataType: double
+		lineageTag: 6a3c76be-c5e8-48dd-abbf-e5c437c13f71
+		summarizeBy: sum
+		sourceColumn: avg_HF
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column std_SD1
+		dataType: double
+		lineageTag: ab65f689-13e4-4a42-91f5-3b165a253a37
+		summarizeBy: sum
+		sourceColumn: std_SD1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column std_SD2
+		dataType: double
+		lineageTag: f2980f0a-6206-4e2f-a37e-dca986013b21
+		summarizeBy: sum
+		sourceColumn: std_SD2
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column std_sdnn
+		dataType: double
+		lineageTag: 3ef93a94-65a6-4c17-bfe7-1d4483ccc602
+		summarizeBy: sum
+		sourceColumn: std_sdnn
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column std_rmssd
+		dataType: double
+		lineageTag: da3c803d-3d7a-4984-b2e8-9895ede0e86b
+		summarizeBy: sum
+		sourceColumn: std_rmssd
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column std_pNN50
+		dataType: double
+		lineageTag: a4137fd2-266d-45ca-bc9d-b459f99d9720
+		summarizeBy: sum
+		sourceColumn: std_pNN50
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column std_VLF
+		dataType: double
+		lineageTag: af3dbd80-4106-40ca-8a3c-eef1319e2cc2
+		summarizeBy: sum
+		sourceColumn: std_VLF
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column std_LF
+		dataType: double
+		lineageTag: 5df70dd1-9b5a-4862-bf43-a60a01f79dde
+		summarizeBy: sum
+		sourceColumn: std_LF
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column std_HF
+		dataType: double
+		lineageTag: 67a54ee0-71d3-4c6e-806f-e839e7b1a899
+		summarizeBy: sum
+		sourceColumn: std_HF
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition vw_latest_baseline_by_source = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=hrv_Analysis", [HierarchicalNavigation=true]),
+				    vw_latest_baseline_by_source_View = Source{[Name="vw_latest_baseline_by_source",Kind="View"]}[Data]
+				in
+				    vw_latest_baseline_by_source_View
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,116 @@
+table vw_fact_alerts
+	lineageTag: 4e363ac6-50cf-4fd3-8518-6e1d322d1e00
+
+	column alert_id
+		dataType: double
+		lineageTag: 21073a6e-f743-4acd-a820-dc21a200023f
+		summarizeBy: sum
+		sourceColumn: alert_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column alert_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: bef0a531-105f-477f-a5c2-1fd8dc883802
+		summarizeBy: none
+		sourceColumn: alert_date
+
+		variation Variation
+			isDefault
+			relationship: 57d70b2a-a5ae-4f75-8f17-c946ba42ab69
+			defaultHierarchy: LocalDateTable_83504809-f7b7-4229-ab45-cb49c3f2814f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column source_name
+		dataType: string
+		lineageTag: b704bce5-76b0-4841-aa5d-37597e2577f4
+		summarizeBy: none
+		sourceColumn: source_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column metric
+		dataType: string
+		lineageTag: effc9a95-3132-43a5-96c5-b1c00da4b59d
+		summarizeBy: none
+		sourceColumn: metric
+
+		annotation SummarizationSetBy = Automatic
+
+	column current_value
+		dataType: double
+		lineageTag: 24ea7714-0b83-4cfc-b94a-2d61be2dfa28
+		summarizeBy: sum
+		sourceColumn: current_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column baseline_value
+		dataType: double
+		lineageTag: 2483dc01-e3df-4f27-86ba-b809cb69b82b
+		summarizeBy: sum
+		sourceColumn: baseline_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column deviation_pct
+		dataType: double
+		lineageTag: 34e56d55-b3c2-442e-b227-503dea4a1d6f
+		summarizeBy: sum
+		sourceColumn: deviation_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column alert_type
+		dataType: string
+		lineageTag: 5d3e95ea-84cd-48db-81f8-502397ab37b2
+		summarizeBy: none
+		sourceColumn: alert_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column alert_message
+		dataType: string
+		lineageTag: 8ee5350a-5d7d-40b2-ba8e-c2151f3122c8
+		summarizeBy: none
+		sourceColumn: alert_message
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 8b1f4d58-5650-4127-ae63-bc1c6d754f2b
+		summarizeBy: none
+		sourceColumn: created_at
+
+		variation Variation
+			isDefault
+			relationship: 85a3c9c0-381d-44cd-b439-69a29d206b01
+			defaultHierarchy: LocalDateTable_a101c327-fa32-48f0-a2d8-8191d7304456.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition vw_fact_alerts = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=hrv_Analysis", [HierarchicalNavigation=true]),
+				    vw_fact_alerts_View = Source{[Name="vw_fact_alerts",Kind="View"]}[Data]
+				in
+				    vw_fact_alerts_View
+
+	annotation PBI_ResultType = Table
+

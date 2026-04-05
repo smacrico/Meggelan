@@ -1,0 +1,126 @@
+table vw_fact_anomalies
+	lineageTag: 564d1f7d-86b3-4419-a9df-b7a958b9d3ce
+
+	column anomaly_id
+		dataType: double
+		lineageTag: c237c05d-c04d-4f7a-925c-a236fe7b02ea
+		summarizeBy: sum
+		sourceColumn: anomaly_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column detected_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 6a9dd947-45d0-4b72-9890-e8edd4baa8d9
+		summarizeBy: none
+		sourceColumn: detected_at
+
+		variation Variation
+			isDefault
+			relationship: 9905a588-47c8-4214-be95-294aa9691e2f
+			defaultHierarchy: LocalDateTable_b7fb9586-2039-4e76-8bb1-b695d66cf5bd.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column measurement_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e3c9fae7-d3a7-494e-b0fe-adb1a4afe8ff
+		summarizeBy: none
+		sourceColumn: measurement_date
+
+		variation Variation
+			isDefault
+			relationship: 74a77651-c1a0-4e2e-9fa0-45fefd11309f
+			defaultHierarchy: LocalDateTable_e6952471-7c16-46a5-bb96-91dce5f856d6.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column source_name
+		dataType: string
+		lineageTag: 35323d8a-2de9-4f3e-afac-63740f4f5f07
+		summarizeBy: none
+		sourceColumn: source_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column metric
+		dataType: string
+		lineageTag: 32ec1e95-897d-4c89-98df-e97ba4e11b81
+		summarizeBy: none
+		sourceColumn: metric
+
+		annotation SummarizationSetBy = Automatic
+
+	column value
+		dataType: double
+		lineageTag: ccf52416-d4bf-4237-af3b-372d968c594e
+		summarizeBy: sum
+		sourceColumn: value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column baseline_mean
+		dataType: double
+		lineageTag: f814e370-30f1-4d7a-ac5c-4cb2a76a89cd
+		summarizeBy: sum
+		sourceColumn: baseline_mean
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column baseline_std
+		dataType: double
+		lineageTag: f27d3cf0-a303-41f5-b7ad-df596e068aba
+		summarizeBy: sum
+		sourceColumn: baseline_std
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column z_score
+		dataType: double
+		lineageTag: 9cf70d3f-787f-4643-b717-7c408ff19bd5
+		summarizeBy: sum
+		sourceColumn: z_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column detector
+		dataType: string
+		lineageTag: 09efcc30-e0b3-41f2-a280-69da6b7ca36d
+		summarizeBy: none
+		sourceColumn: detector
+
+		annotation SummarizationSetBy = Automatic
+
+	column message
+		dataType: string
+		lineageTag: 7018e5e6-6f42-4781-a2a1-ecd71a160668
+		summarizeBy: none
+		sourceColumn: message
+
+		annotation SummarizationSetBy = Automatic
+
+	partition vw_fact_anomalies = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=hrv_Analysis", [HierarchicalNavigation=true]),
+				    vw_fact_anomalies_View = Source{[Name="vw_fact_anomalies",Kind="View"]}[Data]
+				in
+				    vw_fact_anomalies_View
+
+	annotation PBI_ResultType = Table
+

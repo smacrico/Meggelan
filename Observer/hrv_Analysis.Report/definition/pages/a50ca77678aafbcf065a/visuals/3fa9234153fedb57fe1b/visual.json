@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "3fa9234153fedb57fe1b",
+  "position": {
+    "x": 291.2755905511811,
+    "y": 99.779527559055111,
+    "z": 4,
+    "height": 99.779527559055111,
+    "width": 280.18897637795277,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "advanceCardE03760C5AB684758B56AA29F9E6C257B",
+    "query": {
+      "queryState": {
+        "mainMeasure": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures 1"
+                    }
+                  },
+                  "Property": "Alert Count"
+                }
+              },
+              "queryRef": "Measures 1.Alert Count",
+              "nativeQueryRef": "Alert Count"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Measures 1"
+                  }
+                },
+                "Property": "Alert Count"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,22 @@
+table vw_dim_source
+	lineageTag: 2da97f47-a3c8-468b-a3c5-c16d74c602f0
+
+	column source_name
+		dataType: string
+		lineageTag: cdb6f21b-cd60-40c3-b02a-dc0a03a3a5db
+		summarizeBy: none
+		sourceColumn: source_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition vw_dim_source = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=hrv_Analysis", [HierarchicalNavigation=true]),
+				    vw_dim_source_View = Source{[Name="vw_dim_source",Kind="View"]}[Data]
+				in
+				    vw_dim_source_View
+
+	annotation PBI_ResultType = Table
+

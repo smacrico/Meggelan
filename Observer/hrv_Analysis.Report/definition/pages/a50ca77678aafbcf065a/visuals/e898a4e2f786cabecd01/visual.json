@@ -1,0 +1,89 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "e898a4e2f786cabecd01",
+  "position": {
+    "x": 0,
+    "y": 199.55905511811022,
+    "z": 6,
+    "height": 239.8740157480315,
+    "width": 1280,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vw_dim_date"
+                    }
+                  },
+                  "Property": "date_key"
+                }
+              },
+              "queryRef": "vw_dim_date.date_key",
+              "nativeQueryRef": "date_key",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures 1"
+                    }
+                  },
+                  "Property": "Avg RMSSD"
+                }
+              },
+              "queryRef": "Measures 1.Avg RMSSD",
+              "nativeQueryRef": "Avg RMSSD"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures 1"
+                    }
+                  },
+                  "Property": "Avg SDNN"
+                }
+              },
+              "queryRef": "Measures 1.Avg SDNN",
+              "nativeQueryRef": "Avg SDNN"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Measures 1"
+                  }
+                },
+                "Property": "Avg RMSSD"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

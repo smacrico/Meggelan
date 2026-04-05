@@ -1,0 +1,165 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 165,
+        "y": 289
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1164.5317898316882,
+            "y": 475.91839305448593
+          },
+          "nodeIndex": "Measures 1",
+          "nodeLineageTag": "31027062-531b-4a29-87c9-b55e1e6e3d35",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 513.53178983168823,
+            "y": 331.91839305448593
+          },
+          "nodeIndex": "vw_dim_date",
+          "nodeLineageTag": "0219e90f-0c63-4033-9988-b694fe8b35e0",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 1067.0679870841818,
+            "y": 871.18071074928207
+          },
+          "nodeIndex": "vw_dim_source",
+          "nodeLineageTag": "2da97f47-a3c8-468b-a3c5-c16d74c602f0",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 895.03941869159439
+          },
+          "nodeIndex": "vw_fact_alerts",
+          "nodeLineageTag": "4e363ac6-50cf-4fd3-8518-6e1d322d1e00",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 1732.5317898316882,
+            "y": 475.91839305448593
+          },
+          "nodeIndex": "vw_fact_anomalies",
+          "nodeLineageTag": "564d1f7d-86b3-4419-a9df-b7a958b9d3ce",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 174.72834018558115,
+            "y": 191.53661985890153
+          },
+          "nodeIndex": "vw_fact_baselines",
+          "nodeLineageTag": "dc11ca30-39c2-4216-a924-9c50bce17203",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 930.53178983168823,
+            "y": 303.7453968831619
+          },
+          "nodeIndex": "vw_fact_measurements",
+          "nodeLineageTag": "c21c9f72-7680-45fe-ba85-e5bf3b85988c",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 462.79216075192812,
+            "y": 901.83678610897186
+          },
+          "nodeIndex": "vw_fact_trends",
+          "nodeLineageTag": "cbb26819-7a97-4e2f-ac73-acc96f0b536f",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 689.32901696912757,
+            "y": -50
+          },
+          "nodeIndex": "vw_latest_baseline_by_source",
+          "nodeLineageTag": "2d084ad4-de2a-4989-8fa6-b3315000ab40",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 165.72332962008039,
+            "y": 543.85123173648
+          },
+          "nodeIndex": "vw_latest_trends_by_source_metric",
+          "nodeLineageTag": "e5b89444-63c9-44e7-ab8e-a7002b95507a",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 749.77264974773493,
+            "y": 656.89264479488361
+          },
+          "nodeIndex": "vw_long_measurements",
+          "nodeLineageTag": "42a3507c-4654-44ad-8448-bdcdec7a8d5a",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 9
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

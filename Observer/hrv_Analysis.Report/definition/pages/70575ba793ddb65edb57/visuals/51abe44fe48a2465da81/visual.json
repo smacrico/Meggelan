@@ -1,0 +1,438 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "51abe44fe48a2465da81",
+  "position": {
+    "x": 10,
+    "y": 0,
+    "z": 0,
+    "height": 280,
+    "width": 280,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "vw_latest_baseline_by_source"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "analysis_date"
+                        }
+                      },
+                      "Hierarchy": "Date Hierarchy"
+                    }
+                  },
+                  "Level": "Month"
+                }
+              },
+              "queryRef": "vw_latest_baseline_by_source.analysis_date.Variation.Date Hierarchy.Month",
+              "nativeQueryRef": "analysis_date Month",
+              "active": true
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "vw_latest_baseline_by_source"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "analysis_date"
+                        }
+                      },
+                      "Hierarchy": "Date Hierarchy"
+                    }
+                  },
+                  "Level": "Day"
+                }
+              },
+              "queryRef": "vw_latest_baseline_by_source.analysis_date.Variation.Date Hierarchy.Day",
+              "nativeQueryRef": "analysis_date Day",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "vw_latest_baseline_by_source"
+                        }
+                      },
+                      "Property": "avg_HF"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(vw_latest_baseline_by_source.avg_HF)",
+              "nativeQueryRef": "Average of avg_HF"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "vw_latest_baseline_by_source"
+                        }
+                      },
+                      "Property": "avg_LF"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(vw_latest_baseline_by_source.avg_LF)",
+              "nativeQueryRef": "Average of avg_LF"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "vw_latest_baseline_by_source"
+                        }
+                      },
+                      "Property": "avg_pNN50"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(vw_latest_baseline_by_source.avg_pNN50)",
+              "nativeQueryRef": "Average of avg_pNN50"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "vw_latest_baseline_by_source"
+                        }
+                      },
+                      "Property": "avg_rmssd"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(vw_latest_baseline_by_source.avg_rmssd)",
+              "nativeQueryRef": "Average of avg_rmssd"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "vw_latest_baseline_by_source"
+                        }
+                      },
+                      "Property": "avg_SD1"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(vw_latest_baseline_by_source.avg_SD1)",
+              "nativeQueryRef": "Average of avg_SD1"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "vw_latest_baseline_by_source"
+                        }
+                      },
+                      "Property": "avg_SD2"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(vw_latest_baseline_by_source.avg_SD2)",
+              "nativeQueryRef": "Average of avg_SD2"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "vw_latest_baseline_by_source"
+                        }
+                      },
+                      "Property": "avg_sdnn"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(vw_latest_baseline_by_source.avg_sdnn)",
+              "nativeQueryRef": "Average of avg_sdnn"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "vw_latest_baseline_by_source"
+                        }
+                      },
+                      "Property": "avg_VLF"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(vw_latest_baseline_by_source.avg_VLF)",
+              "nativeQueryRef": "Average of avg_VLF"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "0162e12d7115dd8a47b6",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "PropertyVariationSource": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "vw_latest_baseline_by_source"
+                      }
+                    },
+                    "Name": "Variation",
+                    "Property": "analysis_date"
+                  }
+                },
+                "Hierarchy": "Date Hierarchy"
+              }
+            },
+            "Level": "Day"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "6fa42517ffd62f9fb9df",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "PropertyVariationSource": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "vw_latest_baseline_by_source"
+                      }
+                    },
+                    "Name": "Variation",
+                    "Property": "analysis_date"
+                  }
+                },
+                "Hierarchy": "Date Hierarchy"
+              }
+            },
+            "Level": "Month"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "a8f49099f25e9822479b",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "vw_latest_baseline_by_source"
+                  }
+                },
+                "Property": "avg_HF"
+              }
+            },
+            "Function": 1
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "fc155ad9340639e0b9a4",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "vw_latest_baseline_by_source"
+                  }
+                },
+                "Property": "avg_LF"
+              }
+            },
+            "Function": 1
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "a03a818875f8ed88bfd2",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "vw_latest_baseline_by_source"
+                  }
+                },
+                "Property": "avg_pNN50"
+              }
+            },
+            "Function": 1
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "3ec8b532520c2c0ca518",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "vw_latest_baseline_by_source"
+                  }
+                },
+                "Property": "avg_rmssd"
+              }
+            },
+            "Function": 1
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "88cc42916ff582102322",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "vw_latest_baseline_by_source"
+                  }
+                },
+                "Property": "avg_SD1"
+              }
+            },
+            "Function": 1
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "012a226ff8b3f0773246",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "vw_latest_baseline_by_source"
+                  }
+                },
+                "Property": "avg_SD2"
+              }
+            },
+            "Function": 1
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "674c93f7efaec5866ead",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "vw_latest_baseline_by_source"
+                  }
+                },
+                "Property": "avg_sdnn"
+              }
+            },
+            "Function": 1
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "a9893873168f67ee22e6",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "vw_latest_baseline_by_source"
+                  }
+                },
+                "Property": "avg_VLF"
+              }
+            },
+            "Function": 1
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

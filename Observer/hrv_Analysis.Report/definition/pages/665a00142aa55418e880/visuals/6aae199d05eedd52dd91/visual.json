@@ -1,0 +1,204 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "6aae199d05eedd52dd91",
+  "position": {
+    "x": 512.79812938425562,
+    "y": 422.01091192517532,
+    "z": 0,
+    "height": 280.34294621979734,
+    "width": 608.57365549493375,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "vw_long_measurements"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "measurement_date"
+                        }
+                      },
+                      "Hierarchy": "Date Hierarchy"
+                    }
+                  },
+                  "Level": "Month"
+                }
+              },
+              "queryRef": "vw_long_measurements.measurement_date.Variation.Date Hierarchy.Month",
+              "nativeQueryRef": "measurement_date Month",
+              "active": true
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "vw_long_measurements"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "measurement_date"
+                        }
+                      },
+                      "Hierarchy": "Date Hierarchy"
+                    }
+                  },
+                  "Level": "Day"
+                }
+              },
+              "queryRef": "vw_long_measurements.measurement_date.Variation.Date Hierarchy.Day",
+              "nativeQueryRef": "measurement_date Day",
+              "active": true
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vw_long_measurements"
+                    }
+                  },
+                  "Property": "metric"
+                }
+              },
+              "queryRef": "vw_long_measurements.metric",
+              "nativeQueryRef": "metric"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "vw_long_measurements"
+                        }
+                      },
+                      "Property": "value"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(vw_long_measurements.value)",
+              "nativeQueryRef": "Sum of value"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "264564150f7df36bf727",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "PropertyVariationSource": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "vw_long_measurements"
+                      }
+                    },
+                    "Name": "Variation",
+                    "Property": "measurement_date"
+                  }
+                },
+                "Hierarchy": "Date Hierarchy"
+              }
+            },
+            "Level": "Month"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "00579281d8be40bcba78",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "PropertyVariationSource": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "vw_long_measurements"
+                      }
+                    },
+                    "Name": "Variation",
+                    "Property": "measurement_date"
+                  }
+                },
+                "Hierarchy": "Date Hierarchy"
+              }
+            },
+            "Level": "Day"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "753d58eef698c27f2e44",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "vw_long_measurements"
+                  }
+                },
+                "Property": "value"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "c50c5e1994f762cc82e9",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "vw_long_measurements"
+              }
+            },
+            "Property": "metric"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

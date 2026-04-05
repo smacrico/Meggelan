@@ -1,0 +1,102 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "2e9970cc2927e368bf8d",
+  "position": {
+    "x": 880.88188976377955,
+    "y": 479.748031496063,
+    "z": 9,
+    "height": 239.8740157480315,
+    "width": 399.11811023622045,
+    "tabOrder": 8
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "vw_fact_anomalies"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "measurement_date"
+                        }
+                      },
+                      "Hierarchy": "Date Hierarchy"
+                    }
+                  },
+                  "Level": "Month"
+                }
+              },
+              "queryRef": "vw_fact_anomalies.measurement_date.Variation.Date Hierarchy.Month",
+              "nativeQueryRef": "measurement_date Month"
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "vw_fact_anomalies"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "measurement_date"
+                        }
+                      },
+                      "Hierarchy": "Date Hierarchy"
+                    }
+                  },
+                  "Level": "Day"
+                }
+              },
+              "queryRef": "vw_fact_anomalies.measurement_date.Variation.Date Hierarchy.Day",
+              "nativeQueryRef": "measurement_date Day"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vw_fact_anomalies"
+                    }
+                  },
+                  "Property": "value"
+                }
+              },
+              "queryRef": "Sum(vw_fact_anomalies.value)",
+              "nativeQueryRef": "value"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vw_fact_anomalies"
+                    }
+                  },
+                  "Property": "z_score"
+                }
+              },
+              "queryRef": "Sum(vw_fact_anomalies.z_score)",
+              "nativeQueryRef": "z_score"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

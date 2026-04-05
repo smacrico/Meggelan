@@ -7,6 +7,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from .db import Base
 
+from sqlalchemy import Text
 
 class HRVMeasurement(Base):
     __tablename__ = "hrv_measurements"
@@ -102,3 +103,55 @@ class HRVAnomaly(Base):
     z_score: Mapped[float] = mapped_column(Float, default=0.0)
     detector: Mapped[str] = mapped_column(String(50), default="z_score")
     message: Mapped[str] = mapped_column(String(500), default="")
+
+
+class CalcFileSummary(Base):
+    __tablename__ = "calc_file_summary"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    calc_run_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, index=True)
+    source_name: Mapped[str] = mapped_column(String(100), index=True)
+
+    file_name: Mapped[str] = mapped_column(String(255), default="")
+    measurement_count: Mapped[int] = mapped_column(Integer, default=0)
+    first_date: Mapped[date | None] = mapped_column(Date, nullable=True)
+    last_date: Mapped[date | None] = mapped_column(Date, nullable=True)
+
+    avg_SD1: Mapped[float] = mapped_column(Float, default=0.0)
+    avg_SD2: Mapped[float] = mapped_column(Float, default=0.0)
+    avg_sdnn: Mapped[float] = mapped_column(Float, default=0.0)
+    avg_rmssd: Mapped[float] = mapped_column(Float, default=0.0)
+    avg_pNN50: Mapped[float] = mapped_column(Float, default=0.0)
+    avg_VLF: Mapped[float] = mapped_column(Float, default=0.0)
+    avg_LF: Mapped[float] = mapped_column(Float, default=0.0)
+    avg_HF: Mapped[float] = mapped_column(Float, default=0.0)
+
+    latest_ms_score: Mapped[float] = mapped_column(Float, default=0.0)
+    notes: Mapped[str] = mapped_column(Text, default="")
+
+
+    class CalcFileSummary(Base):
+    __tablename__ = "calc_file_summary"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    calc_run_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, index=True)
+    source_name: Mapped[str] = mapped_column(String(100), index=True)
+
+    file_name: Mapped[str] = mapped_column(String(255), default="")
+    measurement_count: Mapped[int] = mapped_column(Integer, default=0)
+    first_date: Mapped[date | None] = mapped_column(Date, nullable=True)
+    last_date: Mapped[date | None] = mapped_column(Date, nullable=True)
+
+    avg_SD1: Mapped[float] = mapped_column(Float, default=0.0)
+    avg_SD2: Mapped[float] = mapped_column(Float, default=0.0)
+    avg_sdnn: Mapped[float] = mapped_column(Float, default=0.0)
+    avg_rmssd: Mapped[float] = mapped_column(Float, default=0.0)
+    avg_pNN50: Mapped[float] = mapped_column(Float, default=0.0)
+    avg_VLF: Mapped[float] = mapped_column(Float, default=0.0)
+    avg_LF: Mapped[float] = mapped_column(Float, default=0.0)
+    avg_HF: Mapped[float] = mapped_column(Float, default=0.0)
+
+    latest_ms_score: Mapped[float] = mapped_column(Float, default=0.0)
+    notes: Mapped[str] = mapped_column(Text, default="")
+
+
