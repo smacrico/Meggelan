@@ -1,0 +1,75 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "00278bb15abf93788fd4",
+  "position": {
+    "x": 10.078740157480315,
+    "y": 292.28346456692913,
+    "z": 1,
+    "height": 321.51181102362204,
+    "width": 525.10236220472439,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vw_latest_trends_by_source_metric"
+                    }
+                  },
+                  "Property": "metric"
+                }
+              },
+              "queryRef": "vw_latest_trends_by_source_metric.metric",
+              "nativeQueryRef": "metric",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures 1"
+                    }
+                  },
+                  "Property": "Trend Slope"
+                }
+              },
+              "queryRef": "Measures 1.Trend Slope",
+              "nativeQueryRef": "Trend Slope"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Measures 1"
+                  }
+                },
+                "Property": "Trend Slope"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

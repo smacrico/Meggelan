@@ -1,0 +1,57 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "5adc5ffaa13b8e72dee8",
+  "position": {
+    "x": 535,
+    "y": 292,
+    "z": 2,
+    "height": 322,
+    "width": 590,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "scatterChart",
+    "query": {
+      "queryState": {
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures 1"
+                    }
+                  },
+                  "Property": "Trend R Value"
+                }
+              },
+              "queryRef": "Measures 1.Trend R Value",
+              "nativeQueryRef": "Trend R Value",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures 1"
+                    }
+                  },
+                  "Property": "Trend Slope"
+                }
+              },
+              "queryRef": "Measures 1.Trend Slope",
+              "nativeQueryRef": "Trend Slope"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

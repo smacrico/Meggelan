@@ -1,0 +1,210 @@
+<svg width="1600" height="2100" viewBox="0 0 1600 2100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000000" flood-opacity="0.10"/>
+    </filter>
+    <style>
+      .title { font: 700 28px Inter, Segoe UI, Arial, sans-serif; fill: #FFFFFF; }
+      .h1 { font: 700 24px Inter, Segoe UI, Arial, sans-serif; fill: #323130; }
+      .h2 { font: 700 18px Inter, Segoe UI, Arial, sans-serif; fill: #323130; }
+      .body { font: 400 14px Inter, Segoe UI, Arial, sans-serif; fill: #323130; }
+      .muted { font: 400 13px Inter, Segoe UI, Arial, sans-serif; fill: #605E5C; }
+      .label { font: 600 13px Inter, Segoe UI, Arial, sans-serif; fill: #323130; }
+      .btntext { font: 700 14px Inter, Segoe UI, Arial, sans-serif; fill: #FFFFFF; }
+      .btntext2 { font: 700 14px Inter, Segoe UI, Arial, sans-serif; fill: #5B2DAB; }
+      .small { font: 400 12px Inter, Segoe UI, Arial, sans-serif; fill: #605E5C; }
+    </style>
+  </defs>
+
+  <!-- PAGE BACKGROUND -->
+  <rect x="0" y="0" width="1600" height="2100" fill="#F5F3F9"/>
+
+  <!-- SECTION LABELS -->
+  <text x="60" y="70" class="h1">Screen 1 — Event Calendar</text>
+  <text x="60" y="1080" class="h1">Screen 2 — Manage Events</text>
+
+  <!-- ===== SCREEN 1 FRAME ===== -->
+  <rect x="40" y="100" width="1440" height="900" rx="24" fill="#FFFFFF" filter="url(#shadow)"/>
+
+  <!-- Header -->
+  <rect x="40" y="100" width="1440" height="72" rx="24" fill="#5B2DAB"/>
+  <rect x="40" y="148" width="1440" height="24" fill="#5B2DAB"/>
+  <text x="80" y="145" class="title">Event Calendar</text>
+  <circle cx="1370" cy="136" r="20" fill="#EDE7F6"/>
+  <text x="1310" y="141" class="body">A. User</text>
+
+  <!-- Sidebar -->
+  <rect x="40" y="172" width="220" height="828" fill="#F3F2F1"/>
+  <text x="72" y="230" class="label">Navigation</text>
+
+  <rect x="56" y="258" width="188" height="44" rx="10" fill="#FFFFFF"/>
+  <text x="76" y="286" class="body">🏠  Home</text>
+
+  <rect x="56" y="314" width="188" height="44" rx="10" fill="#EDE7F6"/>
+  <rect x="56" y="314" width="4" height="44" rx="2" fill="#5B2DAB"/>
+  <text x="76" y="342" class="body">📅  Calendar</text>
+
+  <rect x="56" y="370" width="188" height="44" rx="10" fill="#FFFFFF"/>
+  <text x="76" y="398" class="body">➕  Submit Event</text>
+
+  <!-- Main area -->
+  <text x="292" y="220" class="h1">April 2026</text>
+
+  <!-- Month controls -->
+  <rect x="1170" y="192" width="44" height="36" rx="8" fill="#FFFFFF" stroke="#D2D0CE"/>
+  <text x="1187" y="216" class="body">‹</text>
+  <rect x="1224" y="192" width="44" height="36" rx="8" fill="#FFFFFF" stroke="#D2D0CE"/>
+  <text x="1240" y="216" class="body">›</text>
+
+  <!-- Calendar card -->
+  <rect x="292" y="248" width="760" height="620" rx="16" fill="#FFFFFF" stroke="#E1DFDD"/>
+
+  <!-- Weekday headers -->
+  <text x="326" y="292" class="label">Sun</text>
+  <text x="430" y="292" class="label">Mon</text>
+  <text x="534" y="292" class="label">Tue</text>
+  <text x="638" y="292" class="label">Wed</text>
+  <text x="742" y="292" class="label">Thu</text>
+  <text x="846" y="292" class="label">Fri</text>
+  <text x="950" y="292" class="label">Sat</text>
+
+  <!-- Calendar grid -->
+  <!-- cell metrics -->
+  <!-- x positions: 312 416 520 624 728 832 936 -->
+  <!-- y rows: 316 408 500 592 684 776 -->
+  <!-- row 1 -->
+  <rect x="312" y="316" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/>
+  <rect x="416" y="316" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="432" y="345" class="body">1</text>
+  <rect x="520" y="316" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="536" y="345" class="body">2</text>
+  <circle cx="592" cy="374" r="4" fill="#5B2DAB"/>
+  <rect x="624" y="316" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="640" y="345" class="body">3</text>
+  <rect x="728" y="316" width="88" height="76" rx="12" fill="#FFFFFF" stroke="#5B2DAB" stroke-width="2"/><text x="744" y="345" class="body">4</text>
+  <circle cx="800" cy="374" r="4" fill="#5B2DAB"/>
+  <rect x="832" y="316" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="848" y="345" class="body">5</text>
+  <rect x="936" y="316" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="952" y="345" class="body">6</text>
+
+  <!-- row 2 -->
+  <rect x="312" y="408" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="328" y="437" class="body">7</text>
+  <rect x="416" y="408" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="432" y="437" class="body">8</text><circle cx="488" cy="466" r="4" fill="#5B2DAB"/>
+  <rect x="520" y="408" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="536" y="437" class="body">9</text>
+  <rect x="624" y="408" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="640" y="437" class="body">10</text>
+  <rect x="728" y="408" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="744" y="437" class="body">11</text><circle cx="800" cy="466" r="4" fill="#5B2DAB"/>
+  <rect x="832" y="408" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="848" y="437" class="body">12</text>
+  <rect x="936" y="408" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="952" y="437" class="body">13</text>
+
+  <!-- row 3 -->
+  <rect x="312" y="500" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="328" y="529" class="body">14</text>
+  <rect x="416" y="500" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="432" y="529" class="body">15</text><circle cx="488" cy="558" r="4" fill="#5B2DAB"/>
+  <rect x="520" y="500" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="536" y="529" class="body">16</text>
+  <rect x="624" y="500" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="640" y="529" class="body">17</text>
+  <rect x="728" y="500" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="744" y="529" class="body">18</text>
+  <rect x="832" y="500" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="848" y="529" class="body">19</text>
+  <rect x="936" y="500" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="952" y="529" class="body">20</text>
+
+  <!-- row 4 -->
+  <rect x="312" y="592" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="328" y="621" class="body">21</text>
+  <rect x="416" y="592" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="432" y="621" class="body">22</text>
+  <rect x="520" y="592" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="536" y="621" class="body">23</text><circle cx="592" cy="650" r="4" fill="#5B2DAB"/>
+  <rect x="624" y="592" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="640" y="621" class="body">24</text>
+  <rect x="728" y="592" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="744" y="621" class="body">25</text>
+  <rect x="832" y="592" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="848" y="621" class="body">26</text>
+  <rect x="936" y="592" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="952" y="621" class="body">27</text>
+
+  <!-- row 5 -->
+  <rect x="312" y="684" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="328" y="713" class="body">28</text>
+  <rect x="416" y="684" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="432" y="713" class="body">29</text>
+  <rect x="520" y="684" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/><text x="536" y="713" class="body">30</text>
+  <rect x="624" y="684" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/>
+  <rect x="728" y="684" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/>
+  <rect x="832" y="684" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/>
+  <rect x="936" y="684" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/>
+
+  <!-- row 6 -->
+  <rect x="312" y="776" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/>
+  <rect x="416" y="776" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/>
+  <rect x="520" y="776" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/>
+  <rect x="624" y="776" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/>
+  <rect x="728" y="776" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/>
+  <rect x="832" y="776" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/>
+  <rect x="936" y="776" width="88" height="76" rx="12" fill="#FAF9F8" stroke="#EDEBE9"/>
+
+  <!-- Right event panel -->
+  <rect x="1076" y="248" width="360" height="620" rx="16" fill="#FAF9F8" stroke="#E1DFDD"/>
+  <text x="1100" y="288" class="h2">Events for April 4</text>
+  <text x="1100" y="312" class="muted">Selected date details</text>
+
+  <!-- Event card 1 -->
+  <rect x="1100" y="340" width="312" height="112" rx="14" fill="#FFFFFF" filter="url(#shadow)"/>
+  <text x="1120" y="372" class="h2">Community Meetup</text>
+  <text x="1120" y="400" class="body">10:00 AM – 12:00 PM</text>
+  <text x="1120" y="424" class="muted">Main Hall</text>
+
+  <!-- Event card 2 -->
+  <rect x="1100" y="472" width="312" height="112" rx="14" fill="#FFFFFF" filter="url(#shadow)"/>
+  <text x="1120" y="504" class="h2">Training Session</text>
+  <text x="1120" y="532" class="body">2:00 PM – 4:00 PM</text>
+  <text x="1120" y="556" class="muted">Room B</text>
+
+  <!-- CTA -->
+  <rect x="1100" y="800" width="160" height="44" rx="10" fill="#5B2DAB"/>
+  <text x="1130" y="828" class="btntext">+ Create Event</text>
+
+  <!-- ===== SCREEN 2 FRAME ===== -->
+  <rect x="40" y="1110" width="1440" height="900" rx="24" fill="#FFFFFF" filter="url(#shadow)"/>
+
+  <!-- Header -->
+  <rect x="40" y="1110" width="1440" height="72" rx="24" fill="#5B2DAB"/>
+  <rect x="40" y="1158" width="1440" height="24" fill="#5B2DAB"/>
+  <text x="80" y="1155" class="title">Manage Events</text>
+  <circle cx="1370" cy="1146" r="20" fill="#EDE7F6"/>
+  <text x="1310" y="1151" class="body">A. User</text>
+
+  <!-- form card -->
+  <rect x="360" y="1250" width="800" height="640" rx="20" fill="#FFFFFF" stroke="#E1DFDD" filter="url(#shadow)"/>
+  <text x="400" y="1300" class="h1">Create Event</text>
+  <text x="400" y="1326" class="muted">Enter event details below</text>
+
+  <!-- Left column -->
+  <text x="400" y="1376" class="label">Event Title</text>
+  <rect x="400" y="1388" width="340" height="48" rx="10" fill="#FFFFFF" stroke="#D2D0CE"/>
+  <text x="416" y="1417" class="small">Enter title</text>
+
+  <text x="400" y="1476" class="label">Start Date</text>
+  <rect x="400" y="1488" width="160" height="48" rx="10" fill="#FFFFFF" stroke="#D2D0CE"/>
+  <text x="416" y="1517" class="small">05/04/2026</text>
+
+  <text x="580" y="1476" class="label">End Date</text>
+  <rect x="580" y="1488" width="160" height="48" rx="10" fill="#FFFFFF" stroke="#D2D0CE"/>
+  <text x="596" y="1517" class="small">05/04/2026</text>
+
+  <text x="400" y="1576" class="label">Start Time</text>
+  <rect x="400" y="1588" width="160" height="48" rx="10" fill="#FFFFFF" stroke="#D2D0CE"/>
+  <text x="416" y="1617" class="small">10:00 AM</text>
+
+  <text x="580" y="1576" class="label">End Time</text>
+  <rect x="580" y="1588" width="160" height="48" rx="10" fill="#FFFFFF" stroke="#D2D0CE"/>
+  <text x="596" y="1617" class="small">12:00 PM</text>
+
+  <text x="400" y="1676" class="label">Location</text>
+  <rect x="400" y="1688" width="340" height="48" rx="10" fill="#FFFFFF" stroke="#D2D0CE"/>
+  <text x="416" y="1717" class="small">Enter location</text>
+
+  <!-- Right column -->
+  <text x="780" y="1376" class="label">Organizer</text>
+  <rect x="780" y="1388" width="340" height="48" rx="10" fill="#FFFFFF" stroke="#D2D0CE"/>
+  <text x="796" y="1417" class="small">Select organizer</text>
+
+  <text x="780" y="1476" class="label">Description</text>
+  <rect x="780" y="1488" width="340" height="248" rx="10" fill="#FFFFFF" stroke="#D2D0CE"/>
+  <text x="796" y="1517" class="small">Enter event description</text>
+
+  <!-- buttons -->
+  <rect x="860" y="1810" width="120" height="44" rx="10" fill="#FFFFFF" stroke="#5B2DAB"/>
+  <text x="898" y="1838" class="btntext2">Cancel</text>
+
+  <rect x="996" y="1810" width="124" height="44" rx="10" fill="#5B2DAB"/>
+  <text x="1018" y="1838" class="btntext">Submit</text>
+
+  <!-- annotation hints -->
+  <text x="60" y="2038" class="muted">Import tip: after placing in Figma, use Ungroup and rename layers to convert sections into components.</text>
+</svg>
