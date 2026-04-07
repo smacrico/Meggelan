@@ -272,3 +272,70 @@ class RunningMetricsService:
             "medium_risk_latest": bool(out.iloc[-1]["risk_level"] == "Medium"),
         }
         return out, summary
+    
+    def classify_acwr_risk(self, acwr: float) -> str:
+        if pd.isna(acwr) or acwr == 0:
+            return "Unknown"
+        if acwr < 0.8:
+            return "Low Load"
+        if 0.8 <= acwr <= 1.3:
+            return "Optimal"
+        return "High Risk"
+
+    def generate_last_workout_insight(self, df: pd.DataFrame) -> str:
+        if df.empty:
+            return "No workout data available."
+
+        latest = df.sort_values("date").iloc[-1]
+
+        insights = []
+
+        risk = latest.get("risk_level", "Low")
+        recovery = latest.get("recovery_score", np.nan)
+        readiness = latest.get("readiness_score", np.nan)
+        acwr = latest.get("acwr", np.nan)
+        pace = latest.get("pace_per_km", np.nan)
+        avg_speed = latest.get("avg_speed", np.nan)
+        hr_rs = latest.get("hr_rs_deviation", np.nan)
+        trimp = latest.get("TRIMP", np.nan)
+
+        if risk == "High":
+            insights.append("High overtraining risk detected.")
+        elif risk == "Medium":
+            insights.append("Moderate fatigue risk detected.")
+        else:
+            insights.append("Workout risk appears low.")
+
+        if not pd.isna(recovery):
+            if recovery < 0.45:
+                insights.append("Recovery score is low, so extra rest may help.")
+            elif recovery > 0.75:
+                insights.append("Recovery score looks strong.")
+
+        if not pd.isna(readiness):
+            if readiness < 0.50:
+                insights.append("Readiness is below ideal for a hard session.")
+            elif readiness > 0.75:
+                insights.append("Readiness suggests you may tolerate quality work well.")
+
+        if not pd.isna(acwr):
+            acwr_risk = self.classify_acwr_risk(acwr)
+            if acwr_risk == "High Risk":
+                insights.append("ACWR is above the recommended range.")
+            elif acwr_risk == "Low Load":
+                insights.append("Training load may be lower than your recent baseline.")
+            elif acwr_risk == "Optimal":
+                insights.append("ACWR is in a healthy range.")
+
+        if not pd.isna(hr_rs):
+            if hr_rs > df["hr_rs_deviation"].quantile(0.90):
+                insights.append("HR-RS deviation is unusually high, which can signal fatigue or reduced efficiency.")
+
+        if not pd.isna(trimp):
+            if trimp > df["TRIMP"].quantile(0.90):
+                insights.append("This was a high-load workout.")
+
+        if not pd.isna(pace) and not pd.isna(avg_speed):
+            insights.append(f"Latest session pace was {pace:.2f} min/km at {avg_speed:.2f} km/h average speed.")
+
+        return " ".join(insights)

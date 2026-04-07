@@ -1,0 +1,273 @@
+-- Create an empty Measures table first, then paste these measures
+
+Sessions =
+COUNTROWS ( 'FactTrainingLogs' )
+
+Total Distance KM =
+SUM ( 'FactTrainingLogs'[distance] )
+
+Average Distance KM =
+AVERAGE ( 'FactTrainingLogs'[distance] )
+
+Average Duration Min =
+AVERAGE ( 'FactTrainingLogs'[duration_min] )
+
+Average HR =
+AVERAGE ( 'FactTrainingLogs'[heart_rate] )
+
+Average Running Economy =
+AVERAGE ( 'FactTrainingLogs'[running_economy] )
+
+Average VO2max =
+AVERAGE ( 'FactTrainingLogs'[vo2max] )
+
+Average Avg Speed =
+AVERAGE ( 'FactTrainingLogs'[avg_speed] )
+
+Average Max Speed =
+AVERAGE ( 'FactTrainingLogs'[max_speed] )
+
+Average Pace Per KM =
+AVERAGE ( 'FactTrainingLogs'[pace_per_km] )
+
+Average Speed Efficiency =
+AVERAGE ( 'FactTrainingLogs'[speed_efficiency] )
+
+Average Economy At Speed =
+AVERAGE ( 'FactTrainingLogs'[economy_at_speed] )
+
+Average Speed Reserve =
+AVERAGE ( 'FactTrainingLogs'[speed_reserve] )
+
+Average Speed Consistency =
+AVERAGE ( 'FactTrainingLogs'[speed_consistency] )
+
+Average HR-RS Deviation =
+AVERAGE ( 'FactTrainingLogs'[hr_rs_deviation] )
+
+Average Cardiac Drift =
+AVERAGE ( 'FactTrainingLogs'[cardiac_drift] )
+
+Average TRIMP =
+AVERAGE ( 'FactTrainingLogs'[TRIMP] )
+
+Total TRIMP =
+SUM ( 'FactTrainingLogs'[TRIMP] )
+
+Average Recovery Score =
+AVERAGE ( 'FactTrainingLogs'[recovery_score] )
+
+Average Readiness Score =
+AVERAGE ( 'FactTrainingLogs'[readiness_score] )
+
+Average Physio Efficiency =
+AVERAGE ( 'FactTrainingLogs'[physio_efficiency] )
+
+Average Fatigue Index =
+AVERAGE ( 'FactTrainingLogs'[fatigue_index] )
+
+Overall Score Latest =
+VAR LatestDate =
+    MAX ( 'FactMetricsBreakdown'[snapshot_date] )
+RETURN
+    CALCULATE (
+        MAX ( 'FactMetricsBreakdown'[overall_score] ),
+        'FactMetricsBreakdown'[snapshot_date] = LatestDate
+    )
+
+Running Economy Trend Latest =
+VAR LatestDate =
+    MAX ( 'FactMetricsBreakdown'[snapshot_date] )
+RETURN
+    CALCULATE (
+        MAX ( 'FactMetricsBreakdown'[running_economy_trend] ),
+        'FactMetricsBreakdown'[snapshot_date] = LatestDate
+    )
+
+Distance Progression Latest =
+VAR LatestDate =
+    MAX ( 'FactMetricsBreakdown'[snapshot_date] )
+RETURN
+    CALCULATE (
+        MAX ( 'FactMetricsBreakdown'[distance_progression] ),
+        'FactMetricsBreakdown'[snapshot_date] = LatestDate
+    )
+
+Sessions MTD =
+TOTALMTD ( [Sessions], 'DimDate'[date] )
+
+Distance KM MTD =
+TOTALMTD ( [Total Distance KM], 'DimDate'[date] )
+
+TRIMP MTD =
+TOTALMTD ( [Total TRIMP], 'DimDate'[date] )
+
+Distance KM YTD =
+TOTALYTD ( [Total Distance KM], 'DimDate'[date] )
+
+TRIMP YTD =
+TOTALYTD ( [Total TRIMP], 'DimDate'[date] )
+
+Previous Month Distance KM =
+CALCULATE (
+    [Total Distance KM],
+    DATEADD ( 'DimDate'[date], -1, MONTH )
+)
+
+Distance KM MoM % =
+DIVIDE ( [Total Distance KM] - [Previous Month Distance KM], [Previous Month Distance KM] )
+
+Previous Month Avg Speed =
+CALCULATE (
+    [Average Avg Speed],
+    DATEADD ( 'DimDate'[date], -1, MONTH )
+)
+
+Average Speed MoM % =
+DIVIDE ( [Average Avg Speed] - [Previous Month Avg Speed], [Previous Month Avg Speed] )
+
+Previous Month TRIMP =
+CALCULATE (
+    [Total TRIMP],
+    DATEADD ( 'DimDate'[date], -1, MONTH )
+)
+
+TRIMP MoM % =
+DIVIDE ( [Total TRIMP] - [Previous Month TRIMP], [Previous Month TRIMP] )
+
+Last Session Date =
+MAX ( 'FactTrainingLogs'[session_date] )
+
+Last Session Distance KM =
+VAR LastDate = [Last Session Date]
+RETURN
+    CALCULATE (
+        MAX ( 'FactTrainingLogs'[distance] ),
+        'FactTrainingLogs'[session_date] = LastDate
+    )
+
+Last Session Avg Speed =
+VAR LastDate = [Last Session Date]
+RETURN
+    CALCULATE (
+        MAX ( 'FactTrainingLogs'[avg_speed] ),
+        'FactTrainingLogs'[session_date] = LastDate
+    )
+
+Last Session Pace =
+VAR LastDate = [Last Session Date]
+RETURN
+    CALCULATE (
+        MAX ( 'FactTrainingLogs'[pace_per_km] ),
+        'FactTrainingLogs'[session_date] = LastDate
+    )
+
+Last Session TRIMP =
+VAR LastDate = [Last Session Date]
+RETURN
+    CALCULATE (
+        MAX ( 'FactTrainingLogs'[TRIMP] ),
+        'FactTrainingLogs'[session_date] = LastDate
+    )
+
+Last Session Recovery =
+VAR LastDate = [Last Session Date]
+RETURN
+    CALCULATE (
+        MAX ( 'FactTrainingLogs'[recovery_score] ),
+        'FactTrainingLogs'[session_date] = LastDate
+    )
+
+Last Session Readiness =
+VAR LastDate = [Last Session Date]
+RETURN
+    CALCULATE (
+        MAX ( 'FactTrainingLogs'[readiness_score] ),
+        'FactTrainingLogs'[session_date] = LastDate
+    )
+
+High Fatigue Sessions =
+COUNTROWS (
+    FILTER (
+        'FactTrainingLogs',
+        'FactTrainingLogs'[fatigue_index] >
+            CALCULATE (
+                PERCENTILEX.INC ( 'FactTrainingLogs', 'FactTrainingLogs'[fatigue_index], 0.9 ),
+                ALL ( 'FactTrainingLogs' )
+            )
+    )
+)
+
+High HR-RS Sessions =
+COUNTROWS (
+    FILTER (
+        'FactTrainingLogs',
+        'FactTrainingLogs'[hr_rs_deviation] >
+            CALCULATE (
+                PERCENTILEX.INC ( 'FactTrainingLogs', 'FactTrainingLogs'[hr_rs_deviation], 0.9 ),
+                ALL ( 'FactTrainingLogs' )
+            )
+    )
+)
+
+ACWR Approx =
+VAR Acute =
+    [Total TRIMP]
+VAR Chronic =
+    CALCULATE (
+        [Average TRIMP],
+        DATESINPERIOD ( 'DimDate'[date], MAX ( 'DimDate'[date] ), -28, DAY )
+    )
+RETURN
+    DIVIDE ( Acute, Chronic )
+
+ACWR Risk Band =
+VAR v = [ACWR Approx]
+RETURN
+    SWITCH (
+        TRUE (),
+        ISBLANK ( v ), "Unknown",
+        v < 0.8, "Low Load",
+        v <= 1.3, "Optimal",
+        "High Risk"
+    )
+
+Score Contribution Running Economy Latest =
+VAR LatestDate = MAX ( 'FactMetricsBreakdown'[snapshot_date] )
+RETURN
+    CALCULATE (
+        MAX ( 'FactMetricsBreakdown'[running_economy_weighted] ),
+        'FactMetricsBreakdown'[snapshot_date] = LatestDate
+    )
+
+Score Contribution VO2max Latest =
+VAR LatestDate = MAX ( 'FactMetricsBreakdown'[snapshot_date] )
+RETURN
+    CALCULATE (
+        MAX ( 'FactMetricsBreakdown'[vo2max_weighted] ),
+        'FactMetricsBreakdown'[snapshot_date] = LatestDate
+    )
+
+Score Contribution Distance Latest =
+VAR LatestDate = MAX ( 'FactMetricsBreakdown'[snapshot_date] )
+RETURN
+    CALCULATE (
+        MAX ( 'FactMetricsBreakdown'[distance_weighted] ),
+        'FactMetricsBreakdown'[snapshot_date] = LatestDate
+    )
+
+Score Contribution Efficiency Latest =
+VAR LatestDate = MAX ( 'FactMetricsBreakdown'[snapshot_date] )
+RETURN
+    CALCULATE (
+        MAX ( 'FactMetricsBreakdown'[efficiency_score_weighted] ),
+        'FactMetricsBreakdown'[snapshot_date] = LatestDate
+    )
+
+Score Contribution Heart Rate Latest =
+VAR LatestDate = MAX ( 'FactMetricsBreakdown'[snapshot_date] )
+RETURN
+    CALCULATE (
+        MAX ( 'FactMetricsBreakdown'[heart_rate_weighted] ),
+        'FactMetricsBreakdown'[snapshot_date] = LatestDate
+    )

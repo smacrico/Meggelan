@@ -1,8 +1,8 @@
-
 from __future__ import annotations
 
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -32,17 +32,26 @@ def pct_delta(current: float, baseline: float) -> str:
 def flatten_monthly(monthly: pd.DataFrame | None) -> pd.DataFrame:
     if monthly is None or monthly.empty:
         return pd.DataFrame()
+
     out = monthly.copy()
     out.columns = ["_".join([str(x) for x in col if str(x)]) for col in out.columns]
-    return out.reset_index()
+    out = out.reset_index()
+
+    if "year_month" in out.columns:
+        out["year_month"] = out["year_month"].astype(str)
+
+    return out
 
 
-def export_figure_assets(fig, output_dir: str | Path, base_name: str) -> tuple[Path, Path | None]:
+def export_figure_assets(fig, output_dir: str | Path, base_name: str):
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
+
     html_path = output_dir / f"{base_name}.html"
     png_path = output_dir / f"{base_name}.png"
+
     fig.write_html(str(html_path), include_plotlyjs="cdn")
+
     try:
         fig.write_image(str(png_path), width=1400, height=800, scale=2)
         return html_path, png_path
@@ -50,11 +59,52 @@ def export_figure_assets(fig, output_dir: str | Path, base_name: str) -> tuple[P
         return html_path, None
 
 
+def color_risk_rows(row):
+    risk = row.get("risk_level", "Low")
+    if risk == "High":
+        return ["background-color: #f8d7da"] * len(row)
+    if risk == "Medium":
+        return ["background-color: #fff3cd"] * len(row)
+    if risk == "Low":
+        return ["background-color: #d1e7dd"] * len(row)
+    return [""] * len(row)
+
+
+def build_acwr_gauge(acwr_value: float):
+    if pd.isna(acwr_value):
+        acwr_value = 0.0
+
+    fig = go.Figure(
+        go.Indicator(
+            mode="gauge+number",
+            value=acwr_value,
+            title={"text": "ACWR Risk Gauge"},
+            gauge={
+                "axis": {"range": [0, 2]},
+                "bar": {"color": "black"},
+                "steps": [
+                    {"range": [0, 0.8], "color": "lightblue"},
+                    {"range": [0.8, 1.3], "color": "lightgreen"},
+                    {"range": [1.3, 2.0], "color": "lightcoral"},
+                ],
+                "threshold": {
+                    "line": {"color": "red", "width": 4},
+                    "thickness": 0.75,
+                    "value": acwr_value,
+                },
+            },
+        )
+    )
+    fig.update_layout(height=350)
+    return fig
+
+
 @st.cache_data(show_spinner=False)
 def load_dashboard_data(db_path: str, rest_hr: int, max_hr: int):
     repo = RunningRepository(db_path=db_path)
     svc = RunningMetricsService(repository=repo, rest_hr=rest_hr, max_hr=max_hr)
     df, weekly = svc.load_training_log()
+
     if not df.empty:
         df = svc.calculate_recovery_and_readiness(df)
         session_scores = svc.calculate_session_scores(df)
@@ -66,6 +116,7 @@ def load_dashboard_data(db_path: str, rest_hr: int, max_hr: int):
         training_score = None
         monthly = None
         anomaly_summary = {}
+
     return svc, df, weekly, session_scores, training_score, monthly, anomaly_summary
 
 
@@ -91,13 +142,24 @@ max_date = df["date"].max().date()
 
 with st.sidebar:
     st.header("Filters")
-    date_range = st.date_input("Date range", value=(min_date, max_date), min_value=min_date, max_value=max_date)
-    if isinstance(date_range, tuple) and len(date_range) == 2:
-        start_date, end_date = pd.to_datetime(date_range[0]), pd.to_datetime(date_range[1])
-    else:
-        start_date, end_date = pd.to_datetime(min_date), pd.to_datetime(max_date)
+    date_range = st.date_input(
+        "Date range",
+        value=(min_date, max_date),
+        min_value=min_date,
+        max_value=max_date,
+    )
 
-filtered = df[(df["date"] >= start_date) & (df["date"] <= end_date)].copy()
+if isinstance(date_range, tuple) and len(date_range) == 2:
+    start_date = date_range[0]
+    end_date = date_range[1]
+else:
+    start_date = min_date
+    end_date = max_date
+
+filtered = df[
+    (df["date"].dt.date >= start_date) &
+    (df["date"].dt.date <= end_date)
+].copy()
 
 with st.sidebar:
     speed_zones = sorted(filtered["speed_zone"].dropna().astype(str).unique().tolist())
@@ -118,17 +180,18 @@ filtered, filtered_anomalies = svc.detect_anomalies(filtered, filtered_weekly)
 
 latest = filtered.iloc[-1]
 previous = filtered.iloc[-2] if len(filtered) > 1 else latest
+last_workout_insight = svc.generate_last_workout_insight(filtered)
 
 k1, k2, k3, k4 = st.columns(4)
 k1.metric("Sessions", f"{len(filtered)}")
 k2.metric("Overall Score", f"{(filtered_training_score or {}).get('overall_score', 0):.1f}")
-k3.metric("Average Speed", f"{filtered['avg_speed'].mean():.2f} km/h", pct_delta(filtered['avg_speed'].mean(), df['avg_speed'].mean()))
-k4.metric("Average TRIMP", f"{filtered['TRIMP'].mean():.1f}", pct_delta(filtered['TRIMP'].mean(), df['TRIMP'].mean()))
+k3.metric("Average Speed", f"{filtered['avg_speed'].mean():.2f} km/h", pct_delta(filtered["avg_speed"].mean(), df["avg_speed"].mean()))
+k4.metric("Average TRIMP", f"{filtered['TRIMP'].mean():.1f}", pct_delta(filtered["TRIMP"].mean(), df["TRIMP"].mean()))
 
 k5, k6, k7, k8 = st.columns(4)
 k5.metric("Latest Pace", f"{latest['pace_per_km']:.2f} min/km")
-k6.metric("Latest Recovery", f"{latest['recovery_score']:.2f}", pct_delta(latest['recovery_score'], previous['recovery_score']))
-k7.metric("Latest Readiness", f"{latest['readiness_score']:.2f}", pct_delta(latest['readiness_score'], previous['readiness_score']))
+k6.metric("Latest Recovery", f"{latest['recovery_score']:.2f}", pct_delta(latest["recovery_score"], previous["recovery_score"]))
+k7.metric("Latest Readiness", f"{latest['readiness_score']:.2f}", pct_delta(latest["readiness_score"], previous["readiness_score"]))
 k8.metric("Latest Risk", str(latest["risk_level"]))
 
 if filtered_anomalies.get("high_risk_latest"):
@@ -137,6 +200,9 @@ elif filtered_anomalies.get("medium_risk_latest"):
     st.warning("Medium fatigue risk detected in the latest session.")
 else:
     st.success("Latest session risk is low.")
+
+st.subheader("Coach Insight")
+st.info(last_workout_insight)
 
 tabs = st.tabs([
     "Overview",
@@ -197,6 +263,17 @@ with tabs[1]:
             fig_weekly.update_layout(title="Weekly Load and ACWR", height=420)
             st.plotly_chart(fig_weekly, use_container_width=True)
             figures["Weekly Load and ACWR"] = fig_weekly
+        else:
+            st.info("No weekly data available for the selected range.")
+
+    latest_acwr = filtered_weekly["acwr"].iloc[-1] if not filtered_weekly.empty else np.nan
+    fig_acwr = build_acwr_gauge(latest_acwr)
+    st.plotly_chart(fig_acwr, use_container_width=True)
+    figures["ACWR Risk Gauge"] = fig_acwr
+
+    if not pd.isna(latest_acwr):
+        acwr_label = svc.classify_acwr_risk(latest_acwr)
+        st.info(f"Current ACWR: {latest_acwr:.2f} ({acwr_label})")
 
     monthly_flat = flatten_monthly(filtered_monthly)
     if not monthly_flat.empty and "TRIMP_mean" in monthly_flat.columns:
@@ -262,6 +339,8 @@ with tabs[4]:
             fig_hr_rs = px.line(valid, x="date", y="hr_rs_deviation", markers=True, color="risk_level", title="HR-RS Deviation Trend")
             st.plotly_chart(fig_hr_rs, use_container_width=True)
             figures["HR-RS Deviation Trend"] = fig_hr_rs
+        else:
+            st.info("No HR-RS data available.")
 
     with c2:
         valid = filtered[filtered["hr_rs_deviation"] > 0]
@@ -269,6 +348,8 @@ with tabs[4]:
             fig_hr_rs_speed = px.scatter(valid, x="hr_rs_deviation", y="avg_speed", color="risk_level", hover_data=["date"], title="HR-RS vs Speed")
             st.plotly_chart(fig_hr_rs_speed, use_container_width=True)
             figures["HR-RS vs Speed"] = fig_hr_rs_speed
+        else:
+            st.info("No HR-RS data available.")
 
     c3, c4 = st.columns(2)
     with c3:
@@ -280,13 +361,15 @@ with tabs[4]:
         st.plotly_chart(fig_fatigue, use_container_width=True)
         figures["Fatigue Index Monitor"] = fig_fatigue
 
-    st.subheader("Anomaly Flags")
+    st.subheader("Session-Level Anomaly Flags")
     anomaly_view = filtered[[
         "date", "avg_speed", "TRIMP", "recovery_score", "readiness_score",
         "hr_rs_deviation", "fatigue_index", "acwr", "risk_level",
         "fatigue_flag", "overtraining_flag"
     ]].sort_values("date", ascending=False)
-    st.dataframe(anomaly_view, use_container_width=True)
+
+    styled_anomaly_view = anomaly_view.style.apply(color_risk_rows, axis=1)
+    st.dataframe(styled_anomaly_view, use_container_width=True)
 
 with tabs[5]:
     st.subheader("Training Score Breakdown")
@@ -298,7 +381,8 @@ with tabs[5]:
     st.dataframe(monthly_flat, use_container_width=True)
 
     st.subheader("Filtered Raw Data")
-    st.dataframe(filtered, use_container_width=True)
+    styled_filtered = filtered.style.apply(color_risk_rows, axis=1)
+    st.dataframe(styled_filtered, use_container_width=True)
 
     export_col1, export_col2, export_col3 = st.columns(3)
 
@@ -319,8 +403,9 @@ with tabs[5]:
                 "Anomaly Flags": anomaly_view,
             }
             notes = [
-                f"Filtered date range: {start_date.date()} to {end_date.date()}",
+                f"Filtered date range: {start_date} to {end_date}",
                 f"Selected speed zones: {', '.join(selected_zones) if selected_zones else 'All'}",
+                f"Coach Insight: {last_workout_insight}",
             ]
             html_path = build_dashboard_html(
                 output_dir=output_dir,

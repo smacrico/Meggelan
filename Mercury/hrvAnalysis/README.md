@@ -465,3 +465,16 @@ You now have:
 If you want next step, I’d go straight to:
 
 👉 **Docker + Postgres + automated ingestion (true production setup)**
+
+
+## Api Exposed endPoints
+
+
+GET /api/summary
+GET /api/trends
+GET /api/anomalies
+GET /api/ms-flare-risk
+GET /api/ms-flare-risk/history
+POST /api/import/artemis
+GET /api/import/artemis/preview
+WS /ws/live

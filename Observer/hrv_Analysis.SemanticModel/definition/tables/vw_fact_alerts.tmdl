@@ -3,6 +3,7 @@ table vw_fact_alerts
 
 	column alert_id
 		dataType: double
+		isKey
 		lineageTag: 21073a6e-f743-4acd-a820-dc21a200023f
 		summarizeBy: sum
 		sourceColumn: alert_id
@@ -37,6 +38,7 @@ table vw_fact_alerts
 
 	column metric
 		dataType: string
+		isNullable: false
 		lineageTag: effc9a95-3132-43a5-96c5-b1c00da4b59d
 		summarizeBy: none
 		sourceColumn: metric

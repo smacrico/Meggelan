@@ -8,7 +8,7 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["vw_dim_date","vw_dim_source","vw_fact_alerts","vw_latest_trends_by_source_metric","vw_latest_baseline_by_source","vw_fact_trends","vw_fact_measurements","vw_fact_baselines","vw_fact_anomalies","vw_long_measurements"]
+annotation PBI_QueryOrder = ["vw_dim_date","vw_dim_source","vw_fact_alerts","vw_latest_trends_by_source_metric","vw_latest_baseline_by_source","vw_fact_trends","vw_fact_measurements","vw_fact_baselines","vw_fact_anomalies","vw_long_measurements","vw_ms_risk_predictions"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
@@ -37,6 +37,8 @@ ref table LocalDateTable_e6952471-7c16-46a5-bb96-91dce5f856d6
 ref table vw_long_measurements
 ref table LocalDateTable_aec2b5a2-48a6-4d1a-bf8d-2c58df3f4f60
 ref table 'Measures 1'
+ref table vw_ms_risk_predictions
+ref table LocalDateTable_075fae64-fa11-417e-bbbd-9ad7325e6e43
 
 ref cultureInfo en-US
 

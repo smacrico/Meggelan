@@ -1,0 +1,158 @@
+table vw_ms_risk_predictions
+	lineageTag: bbca5b1f-ccd4-4a42-a34e-f590ff1196d7
+
+	column id
+		dataType: double
+		lineageTag: 69f1696e-75b0-4aec-81d5-59bf9fac2c5a
+		summarizeBy: sum
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column prediction_timestamp
+		dataType: string
+		lineageTag: 35ec69fd-12a6-4f4c-92a3-58fda6efca91
+		summarizeBy: none
+		sourceColumn: prediction_timestamp
+
+		annotation SummarizationSetBy = Automatic
+
+	column prediction_date
+		dataType: string
+		lineageTag: 12242b18-a9a0-4cfc-8f0c-2b38d88cd405
+		summarizeBy: none
+		sourceColumn: prediction_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column source_name
+		dataType: string
+		lineageTag: 08b89143-6eb6-42fd-ab96-d11016da5542
+		summarizeBy: none
+		sourceColumn: source_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column overall_risk_score
+		dataType: double
+		lineageTag: c5bcb254-7e73-4be5-a4c7-527df0eba7bf
+		summarizeBy: sum
+		sourceColumn: overall_risk_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column hrv_component
+		dataType: double
+		lineageTag: b339e7c9-3c88-4fbc-8d15-8eff22163167
+		summarizeBy: sum
+		sourceColumn: hrv_component
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column trend_component
+		dataType: double
+		lineageTag: 46c995dd-fe00-445a-b6e6-2f5883211a33
+		summarizeBy: sum
+		sourceColumn: trend_component
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column alert_component
+		dataType: double
+		lineageTag: bdb8dc60-a85d-4a93-9020-2fcdd34d7b66
+		summarizeBy: sum
+		sourceColumn: alert_component
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column anomaly_component
+		dataType: double
+		lineageTag: 7b6da1b0-b652-457c-994f-e5e55234eb67
+		summarizeBy: sum
+		sourceColumn: anomaly_component
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column symptom_component
+		dataType: double
+		lineageTag: 2b0baceb-61c6-4e12-84c9-425483ad3eb9
+		summarizeBy: sum
+		sourceColumn: symptom_component
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column medication_component
+		dataType: double
+		lineageTag: 284db311-64b8-45bc-99ed-ed931f86aa33
+		summarizeBy: sum
+		sourceColumn: medication_component
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column risk_level
+		dataType: string
+		lineageTag: 86a92b06-cc8a-42cb-98fe-0b1a281654df
+		summarizeBy: none
+		sourceColumn: risk_level
+
+		annotation SummarizationSetBy = Automatic
+
+	column recommendations
+		dataType: string
+		lineageTag: 267723bb-2af9-4bc3-b0c6-4992aebffdc1
+		summarizeBy: none
+		sourceColumn: recommendations
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_quality_notes
+		dataType: string
+		lineageTag: 410b3e43-1c2e-4374-b4b1-a4d94b7fb40d
+		summarizeBy: none
+		sourceColumn: data_quality_notes
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 623cbf5e-4050-4a95-afc2-cd382099aeb2
+		summarizeBy: none
+		sourceColumn: created_at
+
+		variation Variation
+			isDefault
+			relationship: 2fa89f76-fcdf-4ab9-a5a9-8af97a54f188
+			defaultHierarchy: LocalDateTable_075fae64-fa11-417e-bbbd-9ad7325e6e43.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition vw_ms_risk_predictions = m
+		mode: import
+		source =
+				let
+				    Source = Odbc.DataSource("dsn=hrv_Analysis", [HierarchicalNavigation=true]),
+				    vw_ms_risk_latest_by_source_View = Source{[Name="vw_ms_risk_latest_by_source",Kind="View"]}[Data]
+				in
+				    vw_ms_risk_latest_by_source_View
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

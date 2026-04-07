@@ -56,6 +56,8 @@
         <div class="card"><h3>MS score</h3><div id="msScore">-</div></div>
         <div class="card"><h3>Date range</h3><div id="dateRange">-</div></div>
         <div class="card"><h3>Alert count</h3><div id="alertCount">-</div></div>
+        <div class="card"><h3>MS Flare Risk</h3><div id="msFlareRisk">-</div></div>
+          
     </div>
 
     <div class="grid">
@@ -101,6 +103,32 @@
             <tbody></tbody>
         </table>
     </div>
+    <div class="card" style="margin-top:20px;">
+    <h3>MS Flare Risk Recommendations</h3>
+    <pre id="msFlareRecommendations">-</pre>
+</div>
+
+<div class="card" style="margin-top:20px;">
+    <h3>MS Flare Risk History</h3>
+    <table id="msRiskHistoryTable">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Score</th>
+                <th>Level</th>
+                <th>HRV</th>
+                <th>Trend</th>
+                <th>Alerts</th>
+                <th>Anomalies</th>
+                <th>Symptoms</th>
+                <th>Medication</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+
 </div>
 
 <script>
@@ -112,6 +140,29 @@ function setMessage(text, kind = 'small') {
   const el = document.getElementById('message');
   el.textContent = text || '';
   el.className = `message ${kind}`;
+}
+
+async function loadMsFlareRiskHistory() {
+  const sourceName = encodeURIComponent(getSourceName());
+  const data = await fetchJson(`/api/ms-flare-risk/history?source_name=${sourceName}&days=30`);
+  const tbody = document.querySelector('#msRiskHistoryTable tbody');
+  tbody.innerHTML = '';
+
+  for (const item of data) {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${item.prediction_date ?? ''}</td>
+      <td>${Number(item.overall_risk_score ?? 0).toFixed(3)}</td>
+      <td>${item.risk_level ?? ''}</td>
+      <td>${Number(item.hrv_component ?? 0).toFixed(3)}</td>
+      <td>${Number(item.trend_component ?? 0).toFixed(3)}</td>
+      <td>${Number(item.alert_component ?? 0).toFixed(3)}</td>
+      <td>${Number(item.anomaly_component ?? 0).toFixed(3)}</td>
+      <td>${Number(item.symptom_component ?? 0).toFixed(3)}</td>
+      <td>${Number(item.medication_component ?? 0).toFixed(3)}</td>
+    `;
+    tbody.appendChild(row);
+  }
 }
 
 async function fetchJson(url, options = {}) {
@@ -186,7 +237,7 @@ async function loadAnomalies() {
 async function refreshAll() {
   try {
     setMessage('Loading data...', 'message small');
-    await Promise.all([loadSummary(), loadTrends(), loadAnomalies()]);
+    await Promise.all([loadSummary(), loadTrends(), loadAnomalies(), loadMsFlareRisk(), loadMsFlareRiskHistory()]);
     setMessage('Dashboard updated.', 'message small ok');
   } catch (err) {
     setMessage(`Load failed: ${err.message}`, 'message bad');
@@ -206,6 +257,22 @@ async function syncArtemis() {
   } catch (err) {
     setMessage(`Sync failed: ${err.message}`, 'message bad');
   }
+}
+
+
+async function loadMsFlareRisk() {
+  const sourceName = encodeURIComponent(getSourceName());
+  const data = await fetchJson(`/api/ms-flare-risk?source_name=${sourceName}`);
+
+  document.getElementById('msFlareRisk').textContent =
+    `${data.risk_level ?? '-'} (${Number(data.overall_risk_score ?? 0).toFixed(3)})`;
+
+  document.getElementById('msFlareRecommendations').textContent =
+    JSON.stringify({
+      components: data.components ?? {},
+      recommendations: data.recommendations ?? [],
+      data_quality_notes: data.data_quality_notes ?? []
+    }, null, 2);
 }
 
 async function previewArtemis() {

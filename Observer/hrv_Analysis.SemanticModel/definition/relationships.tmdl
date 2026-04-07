@@ -117,3 +117,8 @@ relationship d01932d9-1ea1-f9f8-115e-c34ec728cc14
 	fromColumn: vw_dim_date.date_key
 	toColumn: vw_fact_anomalies.measurement_date
 
+relationship 2fa89f76-fcdf-4ab9-a5a9-8af97a54f188
+	joinOnDateBehavior: datePartOnly
+	fromColumn: vw_ms_risk_predictions.created_at
+	toColumn: LocalDateTable_075fae64-fa11-417e-bbbd-9ad7325e6e43.Date
+

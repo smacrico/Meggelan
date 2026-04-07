@@ -13,6 +13,7 @@ from .routes import router
 from .summary import router as summary_router
 from .trends import router as trends_router
 
+from .ms_flare_risk import router as ms_flare_risk_router
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 TEMPLATE_DASHBOARD = BASE_DIR / "templates" / "dashboard.html"
@@ -32,6 +33,7 @@ app.include_router(router)
 app.include_router(summary_router)
 app.include_router(trends_router)
 app.include_router(anomalies_router)
+app.include_router(ms_flare_risk_router)
 
 
 @app.get("/")
