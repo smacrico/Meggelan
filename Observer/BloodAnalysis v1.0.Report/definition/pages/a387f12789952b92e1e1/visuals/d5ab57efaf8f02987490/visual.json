@@ -1,0 +1,111 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "d5ab57efaf8f02987490",
+  "position": {
+    "x": 960,
+    "y": 251.02473498233215,
+    "z": 29000,
+    "height": 100.63604240282686,
+    "width": 169.61130742049468,
+    "tabOrder": 29000
+  },
+  "visual": {
+    "visualType": "multiRowCard",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid AIP Trend Direction"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid AIP Trend Direction",
+              "nativeQueryRef": "Lipid AIP Trend Direction"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid AIP Trend"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid AIP Trend",
+              "nativeQueryRef": "Lipid AIP Trend"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_LipidMetrics"
+                  }
+                },
+                "Property": "Lipid AIP Trend Direction"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "dataLabels": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryLabels": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "cardTitle": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

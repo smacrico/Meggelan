@@ -1,0 +1,80 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "93e784b1da6d75682575",
+  "position": {
+    "x": 381.21739130434781,
+    "y": 101.56521739130434,
+    "z": 6000,
+    "height": 70,
+    "width": 190,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo HOMA-IR"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo HOMA-IR",
+              "nativeQueryRef": "Endo HOMA-IR"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Fact_EndoMetrics"
+                        }
+                      },
+                      "Property": "Endo Composite Color Hex"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "1f7ca9779d434734aba0",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_EndoMetrics"
+              }
+            },
+            "Property": "Endo HOMA-IR"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

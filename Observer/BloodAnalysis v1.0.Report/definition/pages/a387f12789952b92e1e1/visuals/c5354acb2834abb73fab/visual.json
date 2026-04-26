@@ -1,0 +1,82 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "c5354acb2834abb73fab",
+  "position": {
+    "x": 144.73498233215548,
+    "y": 139.08127208480565,
+    "z": 17000,
+    "height": 80.2826855123675,
+    "width": 119.85865724381625,
+    "tabOrder": 17000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid Remnant Indicator"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid Remnant Indicator",
+              "nativeQueryRef": "Lipid Remnant Indicator"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Fact_LipidMetrics"
+                        }
+                      },
+                      "Property": "Lipid Remnant Color Hex"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryLabels": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,224 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "c23d00bbe82bd415d067",
+  "position": {
+    "x": 518.85714285714289,
+    "y": 573.71428571428567,
+    "z": 5006,
+    "height": 146.28571428571428,
+    "width": 761.14285714285711,
+    "tabOrder": 5006
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Exam Selector"
+                    }
+                  },
+                  "Property": "ExamDate"
+                }
+              },
+              "queryRef": "Exam Selector.ExamDate",
+              "nativeQueryRef": "ExamDate"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid AIP"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid AIP",
+              "nativeQueryRef": "Lipid AIP"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid TG/HDL"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid TG/HDL",
+              "nativeQueryRef": "Lipid TG/HDL"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo HOMA-IR"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo HOMA-IR",
+              "nativeQueryRef": "Endo HOMA-IR"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo HbA1c"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo HbA1c",
+              "nativeQueryRef": "Endo HbA1c"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Combined Metabolic Risk Score"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Combined Metabolic Risk Score",
+              "nativeQueryRef": "Combined Metabolic Risk Score"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Combined Metabolic KPI"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Combined Metabolic KPI",
+              "nativeQueryRef": "Combined Metabolic KPI"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "41f4552ce05064bbe8fc",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_LipidMetrics"
+              }
+            },
+            "Property": "Lipid AIP"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "56d473f4847910f53710",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_LipidMetrics"
+              }
+            },
+            "Property": "Lipid TG/HDL"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "7b75b3abca5fe00b9a82",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_EndoMetrics"
+              }
+            },
+            "Property": "Endo HOMA-IR"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "79b589a283f2194f3214",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_EndoMetrics"
+              }
+            },
+            "Property": "Endo HbA1c"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "9b7c41d211d21270e6b5",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_LipidMetrics"
+              }
+            },
+            "Property": "Combined Metabolic Risk Score"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "a92cc2bfbadc9469566d",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_LipidMetrics"
+              }
+            },
+            "Property": "Combined Metabolic KPI"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "937362d6269307ed253e",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Exam Selector"
+              }
+            },
+            "Property": "ExamDate"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

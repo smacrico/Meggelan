@@ -1,0 +1,21 @@
+{
+  "name": "HRV Platform Opinionated Theme",
+  "textClasses": {
+    "title": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 16
+    },
+    "header": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 12
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "fontSize": 10
+    },
+    "callout": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 24
+    }
+  }
+}

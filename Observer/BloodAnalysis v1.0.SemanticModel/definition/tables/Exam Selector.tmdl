@@ -1,0 +1,37 @@
+table 'Exam Selector'
+	lineageTag: 6e82b111-5b71-44e7-86e9-55b4073d8a55
+
+	measure 'Selected Anchor Calendar Date' =
+			
+			SELECTEDVALUE('Exam Selector'[ExamDate])
+		lineageTag: 2a9e2ad2-9447-48bd-ba31-854b4a1ecdca
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ExamDate
+		formatString: dd/mm/yyyy
+		lineageTag: 68befd0c-1a61-4362-8c71-8b49f8e008ec
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [ExamDate]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	partition 'Exam Selector' = calculated
+		mode: import
+		source =
+				
+				DISTINCT(
+				    UNION(
+				        SELECTCOLUMNS(Fact_LipidMetrics, "ExamDate", Fact_LipidMetrics[exam_date]),
+				        SELECTCOLUMNS(Fact_EndoMetrics, "ExamDate", Fact_EndoMetrics[exam_date]),
+				        SELECTCOLUMNS(Fact_LiverMetrics, "ExamDate", Fact_LiverMetrics[exam_date])
+				    )
+				)
+
+	annotation PBI_Id = 678a582e97b246c38f689979ff6e3b6a
+

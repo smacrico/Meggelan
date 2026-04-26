@@ -1,0 +1,35 @@
+table Dim_Profile
+	lineageTag: c5cc08fa-ca0f-4978-a876-38552fe36762
+
+	column ProfileKey
+		lineageTag: b892a6c0-7a7e-4e7f-b2bc-e537babd441a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [ProfileKey]
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProfileName
+		lineageTag: 56525642-ef0b-49c7-a3a3-33e50920acf4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [ProfileName]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Profile = calculated
+		mode: import
+		source = ```
+				
+				DATATABLE( 
+				   "ProfileKey", STRING, 
+				   "ProfileName", STRING, 
+				   { 
+				       {"LIPID", "Lipidemic"}, 
+				       {"ENDO", "Endocrinology"} 
+				   } 
+				)
+				```
+
+	annotation PBI_Id = de0db07f8bf84afcb8092db7da0ecf7a
+

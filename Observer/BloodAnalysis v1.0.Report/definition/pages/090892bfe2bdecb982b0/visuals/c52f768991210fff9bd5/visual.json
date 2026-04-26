@@ -1,0 +1,57 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "c52f768991210fff9bd5",
+  "position": {
+    "x": 833.543599257885,
+    "y": 173.35807050092765,
+    "z": 30000,
+    "height": 85.491651205936918,
+    "width": 223.22820037105751,
+    "tabOrder": 30000
+  },
+  "visual": {
+    "visualType": "card",
+    "autoSelectVisualType": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo Latest HOMA-IR"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo Latest HOMA-IR",
+              "nativeQueryRef": "Endo Latest HOMA-IR"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_EndoMetrics"
+                  }
+                },
+                "Property": "Endo Latest HOMA-IR"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

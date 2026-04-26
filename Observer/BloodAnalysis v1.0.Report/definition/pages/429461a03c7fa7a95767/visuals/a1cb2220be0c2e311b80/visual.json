@@ -1,0 +1,132 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "a1cb2220be0c2e311b80",
+  "position": {
+    "x": 542.85714285714289,
+    "y": 380.57142857142856,
+    "z": 14000,
+    "height": 185.14285714285714,
+    "width": 430.85714285714283,
+    "tabOrder": 14000
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "exam_date"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.exam_date",
+              "nativeQueryRef": "exam_date",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo HOMA-IR Stability KPI"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo HOMA-IR Stability KPI",
+              "nativeQueryRef": "Endo HOMA-IR Stability KPI"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo QUICKI Stability KPI"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo QUICKI Stability KPI",
+              "nativeQueryRef": "Endo QUICKI Stability KPI"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo HbA1c Stability KPI"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo HbA1c Stability KPI",
+              "nativeQueryRef": "Endo HbA1c Stability KPI"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo Vitamin D Stability KPI"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo Vitamin D Stability KPI",
+              "nativeQueryRef": "Endo Vitamin D Stability KPI"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_EndoMetrics"
+                  }
+                },
+                "Property": "exam_date"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Stability'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

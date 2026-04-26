@@ -1,0 +1,176 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "b8974794db1f2c041d0c",
+  "position": {
+    "x": 499.42857142857144,
+    "y": 472,
+    "z": 5005,
+    "height": 101.71428571428571,
+    "width": 677.71428571428567,
+    "tabOrder": 5005
+  },
+  "visual": {
+    "visualType": "multiRowCard",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid AIP Stability KPI"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid AIP Stability KPI",
+              "nativeQueryRef": "Lipid AIP Stability KPI"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo HOMA-IR Stability KPI"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo HOMA-IR Stability KPI",
+              "nativeQueryRef": "Endo HOMA-IR Stability KPI"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo HbA1c Stability KPI"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo HbA1c Stability KPI",
+              "nativeQueryRef": "Endo HbA1c Stability KPI"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_LipidMetrics"
+                  }
+                },
+                "Property": "Lipid AIP Stability KPI"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "dataLabels": [
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Fact_LipidMetrics"
+                        }
+                      },
+                      "Property": "Combined KPI Status Color Hex"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Stability Panel'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "81615c72fef56e88b2bc",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_LipidMetrics"
+              }
+            },
+            "Property": "Lipid AIP Stability KPI"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "f1cb1fae67ad6c821e60",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_EndoMetrics"
+              }
+            },
+            "Property": "Endo HOMA-IR Stability KPI"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "28987998783db1798102",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_EndoMetrics"
+              }
+            },
+            "Property": "Endo HbA1c Stability KPI"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

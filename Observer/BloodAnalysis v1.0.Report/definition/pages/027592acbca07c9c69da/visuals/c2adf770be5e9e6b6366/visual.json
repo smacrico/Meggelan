@@ -1,0 +1,62 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "c2adf770be5e9e6b6366",
+  "position": {
+    "x": 770.02105263157875,
+    "y": 102.06315789473682,
+    "z": 8000,
+    "height": 69.726315789473688,
+    "width": 189.97894736842105,
+    "tabOrder": 8000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid Non-HDL"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid Non-HDL",
+              "nativeQueryRef": "Lipid Non-HDL"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Fact_LipidMetrics"
+                        }
+                      },
+                      "Property": "Lipid Composite Color Hex"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "c8b6abec55c101eb5127",
+  "position": {
+    "x": 5.9259259259259256,
+    "y": 437.33333333333331,
+    "z": 13000,
+    "height": 135.11111111111111,
+    "width": 1226.6666666666667,
+    "tabOrder": 13000
+  },
+  "visual": {
+    "visualType": "scatterChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "exam_date"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.exam_date",
+              "nativeQueryRef": "exam_date",
+              "active": true
+            }
+          ]
+        },
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid AIP Trend"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid AIP Trend",
+              "nativeQueryRef": "Lipid AIP Trend",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid TG Trend"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid TG Trend",
+              "nativeQueryRef": "Lipid TG Trend"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

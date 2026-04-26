@@ -7,7 +7,7 @@ model Model
 		legacyRedirects
 		returnErrorValuesAsNull
 
-annotation __PBI_TimeIntelligenceEnabled = 1
+annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBI_QueryOrder = ["Fact_EndoMetrics","Fact_LipidMetrics","Fact_LiverMetrics"]
 
@@ -16,13 +16,12 @@ annotation PBI_ProTooling = ["DevMode"]
 annotation __TEdtr = 1
 
 ref table Dim_Date
-ref table DateTableTemplate_40905365-bf94-403a-a1fd-4d0359b0aeb3
 ref table Fact_EndoMetrics
-ref table LocalDateTable_47668c12-7c4a-46fb-9d12-92e9801944b0
-ref table LocalDateTable_87b9a9b9-6ce9-4ee1-addb-f24510a013ef
 ref table Fact_LipidMetrics
 ref table Fact_LiverMetrics
 ref table 'Trend View'
+ref table Dim_Profile
+ref table 'Exam Selector'
 
 ref cultureInfo en-US
 

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "f7bf0dd446689fe7ff29",
+  "position": {
+    "x": 720.7421150278293,
+    "y": 283.78478664192949,
+    "z": 15000,
+    "height": 84.304267161410024,
+    "width": 224.41558441558442,
+    "tabOrder": 15000
+  },
+  "visual": {
+    "visualType": "card",
+    "autoSelectVisualType": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo Vitamin D Indicator"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo Vitamin D Indicator",
+              "nativeQueryRef": "Endo Vitamin D Indicator"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

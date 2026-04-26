@@ -2,11 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
   "name": "9d643b0aebf38f56ec0b",
   "position": {
-    "x": 931.81605611847226,
-    "y": 70.833982852689,
+    "x": 1060.3339517625232,
+    "y": 434.582560296846,
     "z": 0,
-    "height": 123.71005455962586,
-    "width": 300.29618082618862
+    "height": 86.679035250463826,
+    "width": 189.98144712430428,
+    "tabOrder": 4000
   },
   "visual": {
     "visualType": "card",
@@ -34,23 +35,5 @@
       }
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "d647c9f4b80b25f235d0",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Dim_Date"
-              }
-            },
-            "Property": "Test Count"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

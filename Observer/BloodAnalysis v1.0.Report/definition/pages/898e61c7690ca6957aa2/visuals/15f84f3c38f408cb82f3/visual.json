@@ -1,0 +1,62 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "15f84f3c38f408cb82f3",
+  "position": {
+    "x": 10.285714285714286,
+    "y": 44.571428571428569,
+    "z": 2000,
+    "height": 115.42857142857143,
+    "width": 220.57142857142858,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid Composite Risk Score"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid Composite Risk Score",
+              "nativeQueryRef": "Lipid Composite Risk Score"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Fact_LipidMetrics"
+                        }
+                      },
+                      "Property": "Combined Metabolic Color Hex"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

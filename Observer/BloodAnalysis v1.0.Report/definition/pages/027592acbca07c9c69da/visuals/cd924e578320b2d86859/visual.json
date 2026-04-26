@@ -1,0 +1,146 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "cd924e578320b2d86859",
+  "position": {
+    "x": 677.925925925926,
+    "y": 177.77777777777777,
+    "z": 12000,
+    "height": 182.5185185185185,
+    "width": 562.96296296296293,
+    "tabOrder": 12000
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "exam_date"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.exam_date",
+              "nativeQueryRef": "exam_date",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid AIP Trend"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid AIP Trend",
+              "nativeQueryRef": "Lipid AIP Trend"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid AIP Anchor Marker"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid AIP Anchor Marker",
+              "nativeQueryRef": "Lipid AIP Anchor Marker"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid AIP Low Risk Ceiling"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid AIP Low Risk Ceiling",
+              "nativeQueryRef": "Lipid AIP Low Risk Ceiling"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid AIP Intermediate Risk Ceiling"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid AIP Intermediate Risk Ceiling",
+              "nativeQueryRef": "Lipid AIP Intermediate Risk Ceiling"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_LipidMetrics"
+                  }
+                },
+                "Property": "exam_date"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "y2Axis": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Metabolic Relation'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

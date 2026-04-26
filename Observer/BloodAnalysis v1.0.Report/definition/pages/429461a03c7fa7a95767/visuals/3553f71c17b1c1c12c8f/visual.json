@@ -1,0 +1,160 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "3553f71c17b1c1c12c8f",
+  "position": {
+    "x": 9.1428571428571423,
+    "y": 380.57142857142856,
+    "z": 13000,
+    "height": 185.14285714285714,
+    "width": 499.42857142857144,
+    "tabOrder": 13000
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "exam_date"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.exam_date",
+              "nativeQueryRef": "exam_date",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo Glucose Trend"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo Glucose Trend",
+              "nativeQueryRef": "Endo Glucose Trend"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo HbA1c Trend"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo HbA1c Trend",
+              "nativeQueryRef": "Endo HbA1c Trend"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo eAG Trend"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo eAG Trend",
+              "nativeQueryRef": "Endo eAG Trend"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo Glucose Anchor Marker"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo Glucose Anchor Marker",
+              "nativeQueryRef": "Endo Glucose Anchor Marker"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo HbA1c Anchor Marker"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo HbA1c Anchor Marker",
+              "nativeQueryRef": "Endo HbA1c Anchor Marker"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo eAG Anchor Marker"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo eAG Anchor Marker",
+              "nativeQueryRef": "Endo eAG Anchor Marker"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_EndoMetrics"
+                  }
+                },
+                "Property": "exam_date"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Glucose Control'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

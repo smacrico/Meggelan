@@ -1,0 +1,80 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "1e6a67093dd83b9840a8",
+  "position": {
+    "x": 578,
+    "y": 87,
+    "z": 7000,
+    "height": 70,
+    "width": 190,
+    "tabOrder": 7000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo QUICKI"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo QUICKI",
+              "nativeQueryRef": "Endo QUICKI"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Fact_EndoMetrics"
+                        }
+                      },
+                      "Property": "Endo Composite Color Hex"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "a21f7afe1b7050e8d909",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_EndoMetrics"
+              }
+            },
+            "Property": "Endo QUICKI"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

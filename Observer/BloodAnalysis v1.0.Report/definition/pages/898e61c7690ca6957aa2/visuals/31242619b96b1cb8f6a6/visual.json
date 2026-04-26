@@ -1,0 +1,70 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "31242619b96b1cb8f6a6",
+  "position": {
+    "x": 10.285714285714286,
+    "y": 243.42857142857142,
+    "z": 5001,
+    "height": 204.57142857142858,
+    "width": 489.14285714285717,
+    "tabOrder": 5001
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid AIP Trend"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid AIP Trend",
+              "nativeQueryRef": "Lipid AIP Trend"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo HOMA-IR Trend"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo HOMA-IR Trend",
+              "nativeQueryRef": "Endo HOMA-IR Trend"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_LipidMetrics"
+                  }
+                },
+                "Property": "Lipid AIP Trend"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

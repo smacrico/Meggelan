@@ -9,6 +9,15 @@
         "page": "2.3.0"
       },
       "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "HRV_Platform_Opinionated_Theme37991866694137133.json",
+      "reportVersionAtImport": {
+        "visual": "2.6.0",
+        "report": "3.1.0",
+        "page": "2.3.0"
+      },
+      "type": "RegisteredResources"
     }
   },
   "objects": {
@@ -24,8 +33,26 @@
           }
         }
       }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "true"
+              }
+            }
+          }
+        }
+      }
     ]
   },
+  "publicCustomVisuals": [
+    "advanceCardE03760C5AB684758B56AA29F9E6C257B",
+    "powerKPIMatrixEB2381CC88A8425FBEB1B07FF57784E6",
+    "PBI_CV_73744D90_4DC9_4F18_8BA5_EE8FA5C98035"
+  ],
   "resourcePackages": [
     {
       "name": "SharedResources",
@@ -35,6 +62,17 @@
           "name": "CY26SU02",
           "path": "BaseThemes/CY26SU02.json",
           "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "HRV_Platform_Opinionated_Theme37991866694137133.json",
+          "path": "HRV_Platform_Opinionated_Theme37991866694137133.json",
+          "type": "CustomTheme"
         }
       ]
     }

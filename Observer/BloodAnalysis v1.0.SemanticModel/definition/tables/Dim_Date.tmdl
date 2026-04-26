@@ -30,6 +30,29 @@ table Dim_Date
 		displayFolder: _Common
 		lineageTag: ea67d2cf-106e-43f3-8f22-065243c60ea1
 
+	measure 'Latest Selected Calendar Date' = MAX(Dim_Date[Date])
+		formatString: yyyy-mm-dd
+		displayFolder: _Common
+		lineageTag: 806f3e50-369c-4a2a-b0b5-3a6d9f8829d2
+
+	measure 'Previous Selected Calendar Date' =
+			
+			CALCULATE(
+			    MAX(Dim_Date[Date]),
+			    FILTER(
+			        ALLSELECTED(Dim_Date[Date]),
+			        Dim_Date[Date] < [Latest Selected Calendar Date]
+			    )
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: _Common
+		lineageTag: f21f1cd8-9534-4874-81d1-0e970548897c
+
+	measure 'Selected Anchor Calendar Date 1' = SELECTEDVALUE('Exam Selector'[ExamDate])
+		formatString: yyyy-mm-dd
+		displayFolder: _Common
+		lineageTag: cadc91d0-8dbd-4ee7-9db7-6b732ed20709
+
 	column Date
 		isKey
 		formatString: dd/mm/yyyy

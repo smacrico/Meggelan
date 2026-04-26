@@ -1,0 +1,57 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "74240cbfffa529343213",
+  "position": {
+    "x": 0,
+    "y": 409.32862190812722,
+    "z": 32000,
+    "height": 150.38869257950529,
+    "width": 249.89399293286218,
+    "tabOrder": 32000
+  },
+  "visual": {
+    "visualType": "scatterChart",
+    "query": {
+      "queryState": {
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid TG/HDL Trend"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid TG/HDL Trend",
+              "nativeQueryRef": "Lipid TG/HDL Trend",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid AIP Trend"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid AIP Trend",
+              "nativeQueryRef": "Lipid AIP Trend"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "81cba5a8b8941c206af3",
+  "position": {
+    "x": 0,
+    "y": 72.430426716141,
+    "z": 3000,
+    "height": 84.304267161410024,
+    "width": 219.66604823747682,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "advanceCardE03760C5AB684758B56AA29F9E6C257B",
+    "query": {
+      "queryState": {
+        "mainMeasure": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid Composite KPI"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid Composite KPI",
+              "nativeQueryRef": "Lipid Composite KPI"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

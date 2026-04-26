@@ -1,0 +1,118 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "5023af35bff79c74038d",
+  "position": {
+    "x": 0,
+    "y": 292.57142857142856,
+    "z": 11000,
+    "height": 113.14285714285714,
+    "width": 930.28571428571433,
+    "tabOrder": 11000
+  },
+  "visual": {
+    "visualType": "multiRowCard",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo HOMA-IR Indicator"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo HOMA-IR Indicator",
+              "nativeQueryRef": "Endo HOMA-IR Indicator"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo QUICKI Indicator"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo QUICKI Indicator",
+              "nativeQueryRef": "Endo QUICKI Indicator"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo Glucose Indicator"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo Glucose Indicator",
+              "nativeQueryRef": "Endo Glucose Indicator"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo HbA1c Indicator"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo HbA1c Indicator",
+              "nativeQueryRef": "Endo HbA1c Indicator"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo Vitamin D Indicator"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo Vitamin D Indicator",
+              "nativeQueryRef": "Endo Vitamin D Indicator"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "dataLabels": [
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Fact_EndoMetrics"
+                        }
+                      },
+                      "Property": "Endo Composite Color Hex"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

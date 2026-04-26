@@ -1,0 +1,42 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "229cd86baefa278baf96",
+  "position": {
+    "x": 10,
+    "y": 471.5,
+    "z": 5003,
+    "height": 205,
+    "width": 489,
+    "tabOrder": 5003
+  },
+  "visual": {
+    "visualType": "scatterChart",
+    "query": {
+      "queryState": {
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo HOMA-IR Trend"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo HOMA-IR Trend",
+              "nativeQueryRef": "Endo HOMA-IR Trend",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": []
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

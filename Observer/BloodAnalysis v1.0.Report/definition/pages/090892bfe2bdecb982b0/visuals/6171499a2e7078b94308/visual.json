@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "6171499a2e7078b94308",
+  "position": {
+    "x": 8.3116883116883127,
+    "y": 267.16141001855289,
+    "z": 12000,
+    "height": 92.615955473098339,
+    "width": 223.22820037105751,
+    "tabOrder": 12000
+  },
+  "visual": {
+    "visualType": "advanceCardE03760C5AB684758B56AA29F9E6C257B",
+    "query": {
+      "queryState": {
+        "mainMeasure": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid AIP Indicator"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid AIP Indicator",
+              "nativeQueryRef": "Lipid AIP Indicator"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

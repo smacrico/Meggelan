@@ -1,0 +1,6 @@
+[build]
+dockerfilePath = "deploy/pipeline/Dockerfile"
+
+[deploy]
+startCommand = "python scripts/run_pipeline.py"
+restartPolicyType = "NEVER"
