@@ -1,0 +1,155 @@
+{
+  "properties": {
+    "description": "Ingest lipid blood test workbook to Bronze Lakehouse, transform to Silver Delta, model Gold star schema, and refresh Power BI semantic model.",
+    "activities": [
+      {
+        "name": "Copy_XLSX_To_Bronze_Files",
+        "type": "Copy",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 2,
+          "retryIntervalInSeconds": 60,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "source": {
+            "type": "BinarySource",
+            "storeSettings": {
+              "type": "<SourceReadSettingsType>"
+            },
+            "formatSettings": {
+              "type": "BinaryReadSettings"
+            }
+          },
+          "sink": {
+            "type": "BinarySink",
+            "storeSettings": {
+              "type": "LakehouseWriteSettings",
+              "copyBehavior": "PreserveHierarchy"
+            }
+          },
+          "enableStaging": false
+        },
+        "inputs": [
+          {
+            "referenceName": "ds_lipid_xlsx_source",
+            "type": "DatasetReference"
+          }
+        ],
+        "outputs": [
+          {
+            "referenceName": "ds_bronze_lakehouse_raw_xlsx",
+            "type": "DatasetReference"
+          }
+        ]
+      },
+      {
+        "name": "Notebook_01_Parse_Bronze_XLSX",
+        "type": "TridentNotebook",
+        "dependsOn": [
+          {
+            "activity": "Copy_XLSX_To_Bronze_Files",
+            "dependencyConditions": ["Succeeded"]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 60,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "<NOTEBOOK_01_BRONZE_ID>",
+          "workspaceId": "<WORKSPACE_ID>",
+          "parameters": {
+            "source_file_path": {
+              "value": "abfss://<WORKSPACE_NAME>@onelake.dfs.fabric.microsoft.com/lh_bronze_health.Lakehouse/Files/blood_tests/lipids/raw/Lipid_Derived_Markers_Trends_March2026.xlsx",
+              "type": "string"
+            },
+            "ingest_run_id": {
+              "value": "@{pipeline().RunId}",
+              "type": "string"
+            }
+          }
+        }
+      },
+      {
+        "name": "Notebook_02_Bronze_To_Silver",
+        "type": "TridentNotebook",
+        "dependsOn": [
+          {
+            "activity": "Notebook_01_Parse_Bronze_XLSX",
+            "dependencyConditions": ["Succeeded"]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 60,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "<NOTEBOOK_02_SILVER_ID>",
+          "workspaceId": "<WORKSPACE_ID>"
+        }
+      },
+      {
+        "name": "Notebook_03_Silver_To_Gold",
+        "type": "TridentNotebook",
+        "dependsOn": [
+          {
+            "activity": "Notebook_02_Bronze_To_Silver",
+            "dependencyConditions": ["Succeeded"]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 60,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "<NOTEBOOK_03_GOLD_ID>",
+          "workspaceId": "<WORKSPACE_ID>"
+        }
+      },
+      {
+        "name": "Refresh_PowerBI_Semantic_Model",
+        "type": "PBISemanticModelRefresh",
+        "dependsOn": [
+          {
+            "activity": "Notebook_03_Silver_To_Gold",
+            "dependencyConditions": ["Succeeded"]
+          }
+        ],
+        "userProperties": [],
+        "typeProperties": {
+          "method": "POST",
+          "groupId": "<WORKSPACE_ID>",
+          "datasetId": "<SEMANTIC_MODEL_ID>",
+          "type": "Full",
+          "commitMode": "transactional",
+          "maxParallelism": 2,
+          "retryCount": 1,
+          "waitOnCompletion": true,
+          "operationType": "RefreshDataset"
+        },
+        "externalReferences": {
+          "connection": "<POWER_BI_CONNECTION_ID>"
+        },
+        "policy": {
+          "timeout": "7.00:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+Latest Exam Date =
+MAX ( 'dim_date'[date] )
+
+Latest Marker Value =
+VAR LastDate = CALCULATE ( MAX ( 'dim_date'[date] ), ALLSELECTED ( 'dim_date'[date] ) )
+RETURN
+CALCULATE ( MAX ( 'fact_lipid_result'[result_value] ), 'dim_date'[date] = LastDate )
+
+Previous Marker Value =
+VAR LastDate = CALCULATE ( MAX ( 'dim_date'[date] ), ALLSELECTED ( 'dim_date'[date] ) )
+VAR PrevDate =
+    CALCULATE (
+        MAX ( 'dim_date'[date] ),
+        FILTER ( ALLSELECTED ( 'dim_date'[date] ), 'dim_date'[date] < LastDate )
+    )
+RETURN
+CALCULATE ( MAX ( 'fact_lipid_result'[result_value] ), 'dim_date'[date] = PrevDate )
+
+Marker Absolute Change =
+[Latest Marker Value] - [Previous Marker Value]
+
+Marker Percent Change =
+DIVIDE ( [Marker Absolute Change], [Previous Marker Value] )
+
+Result Count =
+COUNTROWS ( 'fact_lipid_result' )
+
+Complete Panel Count =
+CALCULATE ( COUNTROWS ( 'fact_lipid_panel' ), 'fact_lipid_panel'[is_complete_basic_panel] = TRUE () )
+
+Latest Data Quality Status =
+VAR LastDate = CALCULATE ( MAX ( 'dim_date'[date] ), ALLSELECTED ( 'dim_date'[date] ) )
+RETURN
+CALCULATE ( SELECTEDVALUE ( 'fact_lipid_panel'[data_quality_status] ), 'dim_date'[date] = LastDate )
