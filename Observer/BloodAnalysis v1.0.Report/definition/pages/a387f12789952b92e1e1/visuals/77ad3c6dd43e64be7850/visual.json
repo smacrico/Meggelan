@@ -1,0 +1,392 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "77ad3c6dd43e64be7850",
+  "position": {
+    "x": 15.830388692579504,
+    "y": 619.64664310954061,
+    "z": 11000,
+    "height": 100.63604240282686,
+    "width": 901.20141342756176,
+    "tabOrder": 11000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "exam_date"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.exam_date",
+              "nativeQueryRef": "exam_date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "total_cholesterol"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.total_cholesterol",
+              "nativeQueryRef": "total_cholesterol"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "total_cholesterol_delta"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.total_cholesterol_delta",
+              "nativeQueryRef": "total_cholesterol_delta"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "hdl"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.hdl",
+              "nativeQueryRef": "hdl"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "hdl_delta"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.hdl_delta",
+              "nativeQueryRef": "hdl_delta"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "ldl_hdl_risk"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.ldl_hdl_risk",
+              "nativeQueryRef": "ldl_hdl_risk"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "ldl_final"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.ldl_final",
+              "nativeQueryRef": "ldl_final"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "ldl_final_delta"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.ldl_final_delta",
+              "nativeQueryRef": "ldl_final_delta"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "triglycerides"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.triglycerides",
+              "nativeQueryRef": "triglycerides"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "triglycerides_delta"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.triglycerides_delta",
+              "nativeQueryRef": "triglycerides_delta"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "non_hdl_final"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.non_hdl_final",
+              "nativeQueryRef": "non_hdl_final"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "non_hdl_final_delta"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.non_hdl_final_delta",
+              "nativeQueryRef": "non_hdl_final_delta"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "non_hdl_risk"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.non_hdl_risk",
+              "nativeQueryRef": "non_hdl_risk"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "tc_hdl_ratio"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.tc_hdl_ratio",
+              "nativeQueryRef": "tc_hdl_ratio"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "tc_hdl_ratio_delta"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.tc_hdl_ratio_delta",
+              "nativeQueryRef": "tc_hdl_ratio_delta"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "tc_hdl_risk"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.tc_hdl_risk",
+              "nativeQueryRef": "tc_hdl_risk"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "tg_hdl_ratio"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.tg_hdl_ratio",
+              "nativeQueryRef": "tg_hdl_ratio"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "tg_hdl_ratio_delta"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.tg_hdl_ratio_delta",
+              "nativeQueryRef": "tg_hdl_ratio_delta"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "tg_hdl_risk"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.tg_hdl_risk",
+              "nativeQueryRef": "tg_hdl_risk"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "aip"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.aip",
+              "nativeQueryRef": "aip"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "aip_delta"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.aip_delta",
+              "nativeQueryRef": "aip_delta"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "aip_risk"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.aip_risk",
+              "nativeQueryRef": "aip_risk"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "remnant_cholesterol"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.remnant_cholesterol",
+              "nativeQueryRef": "remnant_cholesterol"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "remnant_cholesterol_delta"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.remnant_cholesterol_delta",
+              "nativeQueryRef": "remnant_cholesterol_delta"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "remnant_risk"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.remnant_risk",
+              "nativeQueryRef": "remnant_risk"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_LipidMetrics"
+                  }
+                },
+                "Property": "exam_date"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

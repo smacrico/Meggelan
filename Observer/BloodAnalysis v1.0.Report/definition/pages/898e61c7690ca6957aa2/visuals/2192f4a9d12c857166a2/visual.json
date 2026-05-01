@@ -1,0 +1,127 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "2192f4a9d12c857166a2",
+  "position": {
+    "x": 499.47826086956519,
+    "y": 243.47826086956522,
+    "z": 5004,
+    "height": 204.52173913043478,
+    "width": 468.86956521739131,
+    "tabOrder": 5004
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid AIP Score"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid AIP Score",
+              "nativeQueryRef": "Lipid AIP Score"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid TG/HDL Score"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid TG/HDL Score",
+              "nativeQueryRef": "Lipid TG/HDL Score"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo HOMA-IR Score"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo HOMA-IR Score",
+              "nativeQueryRef": "Endo HOMA-IR Score"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo HbA1c Score"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo HbA1c Score",
+              "nativeQueryRef": "Endo HbA1c Score"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo Glucose Score"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo Glucose Score",
+              "nativeQueryRef": "Endo Glucose Score"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_LipidMetrics"
+                  }
+                },
+                "Property": "Lipid AIP Score"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Risk Drivers'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

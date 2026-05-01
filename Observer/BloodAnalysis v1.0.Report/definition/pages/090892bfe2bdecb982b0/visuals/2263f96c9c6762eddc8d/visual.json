@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "2263f96c9c6762eddc8d",
+  "position": {
+    "x": 455.95547309833023,
+    "y": 283.78478664192949,
+    "z": 14000,
+    "height": 84.304267161410024,
+    "width": 223.22820037105751,
+    "tabOrder": 14000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo HOMA-IR Indicator"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo HOMA-IR Indicator",
+              "nativeQueryRef": "Endo HOMA-IR Indicator"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

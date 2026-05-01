@@ -1,0 +1,39 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "3691c609715c8a91647d",
+  "position": {
+    "x": 223.22820037105751,
+    "y": 72.430426716141,
+    "z": 4000,
+    "height": 84.304267161410024,
+    "width": 219.66604823747682,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "card",
+    "autoSelectVisualType": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo Composite KPI"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo Composite KPI",
+              "nativeQueryRef": "Endo Composite KPI"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

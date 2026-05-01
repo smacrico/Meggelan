@@ -1,0 +1,42 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "870ec7e93438758de1a5",
+  "position": {
+    "x": 778.92393320964754,
+    "y": 8.3116883116883127,
+    "z": 28000,
+    "height": 72.430426716141,
+    "width": 174.54545454545456,
+    "tabOrder": 28000
+  },
+  "visual": {
+    "visualType": "card",
+    "autoSelectVisualType": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid Latest Data Date"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid Latest Data Date",
+              "nativeQueryRef": "Lipid Latest Data Date"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

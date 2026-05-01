@@ -150,6 +150,19 @@
             "width": 234
           },
           "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 1966.5317898316882,
+            "y": 475.91839305448593
+          },
+          "nodeIndex": "vw_ms_risk_predictions",
+          "nodeLineageTag": "bbca5b1f-ccd4-4a42-a34e-f590ff1196d7",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",

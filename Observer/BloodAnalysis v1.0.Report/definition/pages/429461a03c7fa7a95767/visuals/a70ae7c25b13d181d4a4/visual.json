@@ -1,0 +1,267 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "a70ae7c25b13d181d4a4",
+  "position": {
+    "x": 0,
+    "y": 183,
+    "z": 10000,
+    "height": 165,
+    "width": 866,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "exam_date"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.exam_date",
+              "nativeQueryRef": "exam_date",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo HOMA-IR Trend"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo HOMA-IR Trend",
+              "nativeQueryRef": "Endo HOMA-IR Trend"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo QUICKI Trend"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo QUICKI Trend",
+              "nativeQueryRef": "Endo QUICKI Trend"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo HbA1c Trend"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo HbA1c Trend",
+              "nativeQueryRef": "Endo HbA1c Trend"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo HOMA-IR Anchor Marker"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo HOMA-IR Anchor Marker",
+              "nativeQueryRef": "Endo HOMA-IR Anchor Marker"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo QUICKI Anchor Marker"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo QUICKI Anchor Marker",
+              "nativeQueryRef": "Endo QUICKI Anchor Marker"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo HbA1c Anchor Marker"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo HbA1c Anchor Marker",
+              "nativeQueryRef": "Endo HbA1c Anchor Marker"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_EndoMetrics"
+                  }
+                },
+                "Property": "exam_date"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo HOMA-IR Trend Title"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "14964cef113a4685ebdc",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_EndoMetrics"
+              }
+            },
+            "Property": "exam_date"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "7d313f6467c522a06660",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_EndoMetrics"
+              }
+            },
+            "Property": "Endo HOMA-IR Trend"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "79c8ce72b40062450c99",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_EndoMetrics"
+              }
+            },
+            "Property": "Endo QUICKI Trend"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "5bb2ef3b456b10933c05",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_EndoMetrics"
+              }
+            },
+            "Property": "Endo HbA1c Trend"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "11576e9289abe19ba4da",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_EndoMetrics"
+              }
+            },
+            "Property": "Endo HOMA-IR Anchor Marker"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "a6bf50dc90356b8146b0",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_EndoMetrics"
+              }
+            },
+            "Property": "Endo QUICKI Anchor Marker"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "284ea50abe9b9cb03e30",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_EndoMetrics"
+              }
+            },
+            "Property": "Endo HbA1c Anchor Marker"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "fad441be1554f3593331",
+  "position": {
+    "x": 428.64564007421154,
+    "y": 72.430426716141,
+    "z": 5000,
+    "height": 85.491651205936918,
+    "width": 219.66604823747682,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "card",
+    "autoSelectVisualType": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Combined Metabolic KPI"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Combined Metabolic KPI",
+              "nativeQueryRef": "Combined Metabolic KPI"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

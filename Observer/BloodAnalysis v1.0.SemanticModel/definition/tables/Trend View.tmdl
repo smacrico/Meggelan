@@ -12,7 +12,7 @@ table 'Trend View'
 		/// Shows previous value for supported latest measures.
 		calculationItem Previous =
 				SWITCH(TRUE(),
-				    ISSELECTEDMEASURE([Lipid Latest Total Cholesterol]), [Lipid Previous Total Cholesterol],
+				    ISSELECTEDMEASURE([Lipid Total Cholesterol]), [Lipid Previous Total Cholesterol],
 				    ISSELECTEDMEASURE([Lipid Latest HDL]), [Lipid Previous HDL],
 				    ISSELECTEDMEASURE([Lipid Latest LDL Final]), [Lipid Previous LDL Final],
 				    ISSELECTEDMEASURE([Lipid Latest TG]), [Lipid Previous TG],
@@ -41,7 +41,7 @@ table 'Trend View'
 		/// Shows delta for supported latest measures.
 		calculationItem Delta =
 				SWITCH(TRUE(),
-				    ISSELECTEDMEASURE([Lipid Latest Total Cholesterol]), [Lipid Total Cholesterol Delta],
+				    ISSELECTEDMEASURE([Lipid Total Cholesterol]), [Lipid Total Cholesterol Delta],
 				    ISSELECTEDMEASURE([Lipid Latest HDL]), [Lipid HDL Delta],
 				    ISSELECTEDMEASURE([Lipid Latest LDL Final]), [Lipid LDL Final Delta],
 				    ISSELECTEDMEASURE([Lipid Latest TG]), [Lipid TG Delta],
@@ -70,7 +70,7 @@ table 'Trend View'
 		/// Shows delta percent for supported latest measures.
 		calculationItem 'Delta %' =
 				SWITCH(TRUE(),
-				    ISSELECTEDMEASURE([Lipid Latest Total Cholesterol]), [Lipid Total Cholesterol Delta %],
+				    ISSELECTEDMEASURE([Lipid Total Cholesterol]), [Lipid Total Cholesterol Delta %],
 				    ISSELECTEDMEASURE([Lipid Latest HDL]), [Lipid HDL Delta %],
 				    ISSELECTEDMEASURE([Lipid Latest LDL Final]), [Lipid LDL Final Delta %],
 				    ISSELECTEDMEASURE([Lipid Latest TG]), [Lipid TG Delta %],
@@ -99,7 +99,7 @@ table 'Trend View'
 		/// Shows rolling 3 average for supported latest measures.
 		calculationItem 'Rolling 3 Avg' =
 				SWITCH(TRUE(),
-				    ISSELECTEDMEASURE([Lipid Latest Total Cholesterol]), [Lipid Total Cholesterol Rolling 3],
+				    ISSELECTEDMEASURE([Lipid Total Cholesterol]), [Lipid Total Cholesterol Rolling 3],
 				    ISSELECTEDMEASURE([Lipid Latest HDL]), [Lipid HDL Rolling 3],
 				    ISSELECTEDMEASURE([Lipid Latest LDL Final]), [Lipid LDL Final Rolling 3],
 				    ISSELECTEDMEASURE([Lipid Latest TG]), [Lipid TG Rolling 3],

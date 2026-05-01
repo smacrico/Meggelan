@@ -1,0 +1,94 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "04676570292e27c7fb26",
+  "position": {
+    "x": 0,
+    "y": 360.2962962962963,
+    "z": 11000,
+    "height": 77.037037037037038,
+    "width": 1240.8888888888889,
+    "tabOrder": 11000
+  },
+  "visual": {
+    "visualType": "multiRowCard",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid AIP Indicator"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid AIP Indicator",
+              "nativeQueryRef": "Lipid AIP Indicator"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid TG/HDL Indicator"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid TG/HDL Indicator",
+              "nativeQueryRef": "Lipid TG/HDL Indicator"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid Remnant Indicator"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid Remnant Indicator",
+              "nativeQueryRef": "Lipid Remnant Indicator"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid TC/HDL Indicator"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid TC/HDL Indicator",
+              "nativeQueryRef": "Lipid TC/HDL Indicator"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid LDL/HDL Indicator"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid LDL/HDL Indicator",
+              "nativeQueryRef": "Lipid LDL/HDL Indicator"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

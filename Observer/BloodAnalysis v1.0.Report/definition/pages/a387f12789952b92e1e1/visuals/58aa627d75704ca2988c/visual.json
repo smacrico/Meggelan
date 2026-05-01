@@ -1,0 +1,167 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "58aa627d75704ca2988c",
+  "position": {
+    "x": 507.7031802120141,
+    "y": 218.23321554770317,
+    "z": 10000,
+    "height": 185.44169611307419,
+    "width": 249.89399293286218,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "exam_date"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.exam_date",
+              "nativeQueryRef": "exam_date",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid TC/HDL Trend"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid Tc/HDL Trend",
+              "nativeQueryRef": "Lipid TC/HDL Trend"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid LDL/HDL Trend"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid LDL/HDL Trend",
+              "nativeQueryRef": "Lipid LDL/HDL Trend"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid TG/HDL Trend"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid TG/HDL Trend",
+              "nativeQueryRef": "Lipid TG/HDL Trend"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid LDL/HDL Anchor Marker"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid LDL/HDL Anchor Marker",
+              "nativeQueryRef": "Lipid LDL/HDL Anchor Marker"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid TC/HDL Anchor Marker"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid TC/HDL Anchor Marker",
+              "nativeQueryRef": "Lipid TC/HDL Anchor Marker"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid TG/HDL Anchor Marker"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid TG/HDL Anchor Marker",
+              "nativeQueryRef": "Lipid TG/HDL Anchor Marker"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_LipidMetrics"
+                  }
+                },
+                "Property": "exam_date"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'TC/HDL LDL/HDL,TG/HDL'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

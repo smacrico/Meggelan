@@ -1,0 +1,94 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "d56916541bba75ad18f7",
+  "position": {
+    "x": 0,
+    "y": 531.948051948052,
+    "z": 20000,
+    "height": 187.60667903525047,
+    "width": 463.07977736549168,
+    "tabOrder": 20000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid Latest LDL/HDL Data Date"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid Latest LDL/HDL Data Date",
+              "nativeQueryRef": "Lipid Latest LDL/HDL Data Date"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid LDL/HDL Indicator"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid LDL/HDL Indicator",
+              "nativeQueryRef": "Lipid LDL/HDL Indicator"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid Latest LDL/HDL"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid Latest LDL/HDL",
+              "nativeQueryRef": "Lipid Latest LDL/HDL"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid LDL/HDL Delta %"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid LDL/HDL Delta %",
+              "nativeQueryRef": "Lipid LDL/HDL Delta %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid LDL/HDL Delta"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid LDL/HDL Delta",
+              "nativeQueryRef": "Lipid LDL/HDL Delta"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

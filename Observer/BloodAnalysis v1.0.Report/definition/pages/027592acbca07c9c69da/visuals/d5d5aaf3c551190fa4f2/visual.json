@@ -1,0 +1,136 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "d5d5aaf3c551190fa4f2",
+  "position": {
+    "x": 10.666666666666666,
+    "y": 572.44444444444446,
+    "z": 14000,
+    "height": 148.14814814814815,
+    "width": 1230.2222222222222,
+    "tabOrder": 14000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "exam_date"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.exam_date",
+              "nativeQueryRef": "exam_date"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid Total Cholesterol Trend"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid Total Cholesterol Trend",
+              "nativeQueryRef": "Lipid Total Cholesterol Trend"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid HDL Trend"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid HDL Trend",
+              "nativeQueryRef": "Lipid HDL Trend"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid LDL Final Trend"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid LDL Final Trend",
+              "nativeQueryRef": "Lipid LDL Final Trend"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid TG Trend"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid TG Trend",
+              "nativeQueryRef": "Lipid TG Trend"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid AIP Trend"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid AIP Trend",
+              "nativeQueryRef": "Lipid AIP Trend"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid TG/HDL Trend"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid TG/HDL Trend",
+              "nativeQueryRef": "Lipid TG/HDL Trend"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid Composite KPI"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid Composite KPI",
+              "nativeQueryRef": "Lipid Composite KPI"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

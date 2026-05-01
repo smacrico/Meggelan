@@ -1,0 +1,197 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "28fa40fa9f6cceddaf15",
+  "position": {
+    "x": 0,
+    "y": 171.85185185185185,
+    "z": 10000,
+    "height": 182.5185185185185,
+    "width": 675.55555555555554,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "exam_date"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.exam_date",
+              "nativeQueryRef": "exam_date",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid Total Cholesterol Trend"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid Total Cholesterol Trend",
+              "nativeQueryRef": "Lipid Total Cholesterol Trend"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid HDL Trend"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid HDL Trend",
+              "nativeQueryRef": "Lipid HDL Trend"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid LDL Final Trend"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid LDL Final Trend",
+              "nativeQueryRef": "Lipid LDL Final Trend"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid Total Cholesterol Anchor Marker"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid Total Cholesterol Anchor Marker",
+              "nativeQueryRef": "Lipid Total Cholesterol Anchor Marker"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid HDL Anchor Marker"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid HDL Anchor Marker",
+              "nativeQueryRef": "Lipid HDL Anchor Marker"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid LDL Final Anchor Marker"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid LDL Final Anchor Marker",
+              "nativeQueryRef": "Lipid LDL Final Anchor Marker"
+            }
+          ]
+        },
+        "Y2": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid TG Trend"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid TG Trend",
+              "nativeQueryRef": "Lipid TG Trend"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_LipidMetrics"
+                  }
+                },
+                "Property": "exam_date"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "y2Axis": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid Total Cholesterol Trend Title"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

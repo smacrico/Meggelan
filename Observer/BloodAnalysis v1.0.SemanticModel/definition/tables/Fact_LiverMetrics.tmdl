@@ -1,9 +1,1789 @@
 table Fact_LiverMetrics
 	lineageTag: a741aadb-c537-4a38-88ba-ec7d8611132a
 
+	measure 'Liver Anchor Exam Date' =
+			
+			VAR SelectedDate = [Selected Anchor Calendar Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(SelectedDate),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            Fact_LiverMetrics[exam_date] <= SelectedDate
+			                && NOT ISBLANK(Fact_LiverMetrics[ast])
+			        ),
+			        Fact_LiverMetrics[exam_date]
+			    ),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            NOT ISBLANK(Fact_LiverMetrics[ast])
+			        ),
+			        Fact_LiverMetrics[exam_date]
+			    )
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Liver - Data Dates
+		lineageTag: a21a77f8-9b84-44c4-b35e-6aa1da21e12d
+
+	measure 'Liver Previous Exam Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] < [Liver Anchor Exam Date]
+			            && NOT ISBLANK(Fact_LiverMetrics[ast])
+			    ),
+			    Fact_LiverMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Liver - Data Dates
+		lineageTag: 6bb55a4c-bbef-4bf2-85c6-96567aacaf49
+
+	measure 'Liver Anchor AST Data Date' =
+			
+			VAR SelectedDate = [Selected Anchor Calendar Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(SelectedDate),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            Fact_LiverMetrics[exam_date] <= SelectedDate
+			                && NOT ISBLANK(Fact_LiverMetrics[ast])
+			        ),
+			        Fact_LiverMetrics[exam_date]
+			    ),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            NOT ISBLANK(Fact_LiverMetrics[ast])
+			        ),
+			        Fact_LiverMetrics[exam_date]
+			    )
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Liver - Data Dates
+		lineageTag: 779a972d-8324-402f-a8ec-e2df933a3e05
+
+	measure 'Liver Previous AST Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] < [Liver Anchor AST Data Date]
+			            && NOT ISBLANK(Fact_LiverMetrics[ast])
+			    ),
+			    Fact_LiverMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Liver - Data Dates
+		lineageTag: 9a68e60b-383e-4496-a481-4a105cc03f7d
+
+	measure 'Liver AST' =
+			
+			CALCULATE(
+			    MAX(Fact_LiverMetrics[ast]),
+			    FILTER(
+			        ALL(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] = [Liver Anchor AST Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Liver - Latest
+		lineageTag: e01358d2-6643-46f9-9142-828bc9e7133a
+
+	measure 'Liver Previous AST' =
+			
+			CALCULATE(
+			    MAX(Fact_LiverMetrics[ast]),
+			    FILTER(
+			        ALL(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] = [Liver Previous AST Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Liver - Previous
+		lineageTag: b5d6b8dd-f9d5-4995-8883-43842c06ebeb
+
+	measure 'Liver AST Delta' = [Liver AST] - [Liver Previous AST]
+		formatString: 0.00
+		displayFolder: Liver - Delta
+		lineageTag: a8926793-fd3e-4509-bfb2-4735d10f5312
+
+	measure 'Liver AST Delta %' = DIVIDE([Liver AST Delta], [Liver Previous AST])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Liver - Delta %
+		lineageTag: 05cc18a9-0466-4f96-8144-649a4dffcef1
+
+	measure 'Liver AST Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            Fact_LiverMetrics[exam_date] <= [Liver Anchor AST Data Date]
+			                && NOT ISBLANK(Fact_LiverMetrics[ast])
+			        ),
+			        Fact_LiverMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_LiverMetrics[ast]))
+			)
+		formatString: 0.00
+		displayFolder: Liver - Rolling 3
+		lineageTag: 2a74b27b-48ec-45c6-8129-f544c39bea93
+
+	measure 'Liver AST Trend Direction' =
+			
+			VAR d = [Liver AST Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Liver - Trend
+		lineageTag: 0090d574-8a07-4b54-8588-978db27bf25d
+
+	measure 'Liver Anchor ALT Data Date' =
+			
+			VAR SelectedDate = [Selected Anchor Calendar Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(SelectedDate),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            Fact_LiverMetrics[exam_date] <= SelectedDate
+			                && NOT ISBLANK(Fact_LiverMetrics[alt])
+			        ),
+			        Fact_LiverMetrics[exam_date]
+			    ),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            NOT ISBLANK(Fact_LiverMetrics[alt])
+			        ),
+			        Fact_LiverMetrics[exam_date]
+			    )
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Liver - Data Dates
+		lineageTag: 98b603d0-1ade-4317-9b62-aa8fb39c636d
+
+	measure 'Liver Previous ALT Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] < [Liver Anchor ALT Data Date]
+			            && NOT ISBLANK(Fact_LiverMetrics[alt])
+			    ),
+			    Fact_LiverMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Liver - Data Dates
+		lineageTag: 9a3a2b3c-08f7-4e73-bb78-d119d4b006dc
+
+	measure 'Liver ALT' =
+			
+			CALCULATE(
+			    MAX(Fact_LiverMetrics[alt]),
+			    FILTER(
+			        ALL(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] = [Liver Anchor ALT Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Liver - Latest
+		lineageTag: a4a0dab6-5fae-41fd-b603-5416b07ef205
+
+	measure 'Liver Previous ALT' =
+			
+			CALCULATE(
+			    MAX(Fact_LiverMetrics[alt]),
+			    FILTER(
+			        ALL(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] = [Liver Previous ALT Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Liver - Previous
+		lineageTag: 75cf62c4-06b8-4b85-8e45-b65dfe7ef815
+
+	measure 'Liver ALT Delta' = [Liver ALT] - [Liver Previous ALT]
+		formatString: 0.00
+		displayFolder: Liver - Delta
+		lineageTag: fb1f0eee-219d-43d7-8a4e-8477eefeb5c7
+
+	measure 'Liver ALT Delta %' = DIVIDE([Liver ALT Delta], [Liver Previous ALT])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Liver - Delta %
+		lineageTag: 3632f33e-6895-4d42-9f70-a13240e3ca00
+
+	measure 'Liver ALT Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            Fact_LiverMetrics[exam_date] <= [Liver Anchor ALT Data Date]
+			                && NOT ISBLANK(Fact_LiverMetrics[alt])
+			        ),
+			        Fact_LiverMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_LiverMetrics[alt]))
+			)
+		formatString: 0.00
+		displayFolder: Liver - Rolling 3
+		lineageTag: 68bf56b1-665a-4dd2-87c5-20cbe22e01c7
+
+	measure 'Liver ALT Trend Direction' =
+			
+			VAR d = [Liver ALT Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Liver - Trend
+		lineageTag: f592e986-7fab-40aa-a3dc-0fda80501aa5
+
+	measure 'Liver Anchor GGT Data Date' =
+			
+			VAR SelectedDate = [Selected Anchor Calendar Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(SelectedDate),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            Fact_LiverMetrics[exam_date] <= SelectedDate
+			                && NOT ISBLANK(Fact_LiverMetrics[ggt])
+			        ),
+			        Fact_LiverMetrics[exam_date]
+			    ),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            NOT ISBLANK(Fact_LiverMetrics[ggt])
+			        ),
+			        Fact_LiverMetrics[exam_date]
+			    )
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Liver - Data Dates
+		lineageTag: 0a52b3c7-6b4d-4f7a-855f-4da3faac704a
+
+	measure 'Liver Previous GGT Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] < [Liver Anchor GGT Data Date]
+			            && NOT ISBLANK(Fact_LiverMetrics[ggt])
+			    ),
+			    Fact_LiverMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Liver - Data Dates
+		lineageTag: 459d1f8f-5c07-40ce-969d-098e1bd87e80
+
+	measure 'Liver GGT' =
+			
+			CALCULATE(
+			    MAX(Fact_LiverMetrics[ggt]),
+			    FILTER(
+			        ALL(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] = [Liver Anchor GGT Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Liver - Latest
+		lineageTag: 2f671180-8496-42dd-9b5a-7e4f4376d6b7
+
+	measure 'Liver Previous GGT' =
+			
+			CALCULATE(
+			    MAX(Fact_LiverMetrics[ggt]),
+			    FILTER(
+			        ALL(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] = [Liver Previous GGT Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Liver - Previous
+		lineageTag: 4f370041-275f-4d63-8efc-dfce94c92812
+
+	measure 'Liver GGT Delta' = [Liver GGT] - [Liver Previous GGT]
+		formatString: 0.00
+		displayFolder: Liver - Delta
+		lineageTag: d72d11af-39e2-4e93-ad47-ae160d4a0b3b
+
+	measure 'Liver GGT Delta %' = DIVIDE([Liver GGT Delta], [Liver Previous GGT])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Liver - Delta %
+		lineageTag: 96c88697-9a15-4113-b4c3-402909d1c60b
+
+	measure 'Liver GGT Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            Fact_LiverMetrics[exam_date] <= [Liver Anchor GGT Data Date]
+			                && NOT ISBLANK(Fact_LiverMetrics[ggt])
+			        ),
+			        Fact_LiverMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_LiverMetrics[ggt]))
+			)
+		formatString: 0.00
+		displayFolder: Liver - Rolling 3
+		lineageTag: f78dffa8-a098-433b-93fc-d4f36344d984
+
+	measure 'Liver GGT Trend Direction' =
+			
+			VAR d = [Liver GGT Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Liver - Trend
+		lineageTag: c19fe526-a999-461a-9791-4da886cfcbda
+
+	measure 'Liver Anchor ALP Data Date' =
+			
+			VAR SelectedDate = [Selected Anchor Calendar Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(SelectedDate),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            Fact_LiverMetrics[exam_date] <= SelectedDate
+			                && NOT ISBLANK(Fact_LiverMetrics[alp])
+			        ),
+			        Fact_LiverMetrics[exam_date]
+			    ),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            NOT ISBLANK(Fact_LiverMetrics[alp])
+			        ),
+			        Fact_LiverMetrics[exam_date]
+			    )
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Liver - Data Dates
+		lineageTag: dfead072-4900-4244-8754-d9158fd49361
+
+	measure 'Liver Previous ALP Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] < [Liver Anchor ALP Data Date]
+			            && NOT ISBLANK(Fact_LiverMetrics[alp])
+			    ),
+			    Fact_LiverMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Liver - Data Dates
+		lineageTag: e69c5a06-b3da-4268-9db7-7ee10389fb17
+
+	measure 'Liver ALP' =
+			
+			CALCULATE(
+			    MAX(Fact_LiverMetrics[alp]),
+			    FILTER(
+			        ALL(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] = [Liver Anchor ALP Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Liver - Latest
+		lineageTag: 3d50a237-f35c-483a-9c28-719c51d4dc95
+
+	measure 'Liver Previous ALP' =
+			
+			CALCULATE(
+			    MAX(Fact_LiverMetrics[alp]),
+			    FILTER(
+			        ALL(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] = [Liver Previous ALP Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Liver - Previous
+		lineageTag: c35f65f0-7fbb-4438-9507-b976bd7eea38
+
+	measure 'Liver ALP Delta' = [Liver ALP] - [Liver Previous ALP]
+		formatString: 0.00
+		displayFolder: Liver - Delta
+		lineageTag: 2823c57b-c2bb-4f13-a179-c5d807452d44
+
+	measure 'Liver ALP Delta %' = DIVIDE([Liver ALP Delta], [Liver Previous ALP])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Liver - Delta %
+		lineageTag: 010de157-85fc-4f2b-81f1-0dd2bc624c5e
+
+	measure 'Liver ALP Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            Fact_LiverMetrics[exam_date] <= [Liver Anchor ALP Data Date]
+			                && NOT ISBLANK(Fact_LiverMetrics[alp])
+			        ),
+			        Fact_LiverMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_LiverMetrics[alp]))
+			)
+		formatString: 0.00
+		displayFolder: Liver - Rolling 3
+		lineageTag: 4e5dd342-ec21-4669-b49e-8c30f1c5f92b
+
+	measure 'Liver ALP Trend Direction' =
+			
+			VAR d = [Liver ALP Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Liver - Trend
+		lineageTag: dbb9af1d-7ad7-4b34-965c-85b25d823c0c
+
+	measure 'Liver Anchor Total Bilirubin Data Date' =
+			
+			VAR SelectedDate = [Selected Anchor Calendar Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(SelectedDate),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            Fact_LiverMetrics[exam_date] <= SelectedDate
+			                && NOT ISBLANK(Fact_LiverMetrics[total_bilirubin])
+			        ),
+			        Fact_LiverMetrics[exam_date]
+			    ),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            NOT ISBLANK(Fact_LiverMetrics[total_bilirubin])
+			        ),
+			        Fact_LiverMetrics[exam_date]
+			    )
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Liver - Data Dates
+		lineageTag: 33256d51-6849-4fa3-971b-83a6bcd3c1a3
+
+	measure 'Liver Previous Total Bilirubin Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] < [Liver Anchor Total Bilirubin Data Date]
+			            && NOT ISBLANK(Fact_LiverMetrics[total_bilirubin])
+			    ),
+			    Fact_LiverMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Liver - Data Dates
+		lineageTag: f0f8cd01-87b3-474d-bf79-a4a6f11e28d2
+
+	measure 'Liver Total Bilirubin' =
+			
+			CALCULATE(
+			    MAX(Fact_LiverMetrics[total_bilirubin]),
+			    FILTER(
+			        ALL(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] = [Liver Anchor Total Bilirubin Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Liver - Latest
+		lineageTag: d9051818-2f1c-4230-9996-8f0ead8950dc
+
+	measure 'Liver Previous Total Bilirubin' =
+			
+			CALCULATE(
+			    MAX(Fact_LiverMetrics[total_bilirubin]),
+			    FILTER(
+			        ALL(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] = [Liver Previous Total Bilirubin Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Liver - Previous
+		lineageTag: bcc58e38-2ed0-43e2-8043-f2bfd757b0ea
+
+	measure 'Liver Total Bilirubin Delta' = [Liver Total Bilirubin] - [Liver Previous Total Bilirubin]
+		formatString: 0.00
+		displayFolder: Liver - Delta
+		lineageTag: 9df6f211-1a27-4433-85f9-a77f3cbe8102
+
+	measure 'Liver Total Bilirubin Delta %' = DIVIDE([Liver Total Bilirubin Delta], [Liver Previous Total Bilirubin])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Liver - Delta %
+		lineageTag: 9c616734-cf6b-4202-8a81-3a2876bb7f9d
+
+	measure 'Liver Total Bilirubin Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            Fact_LiverMetrics[exam_date] <= [Liver Anchor Total Bilirubin Data Date]
+			                && NOT ISBLANK(Fact_LiverMetrics[total_bilirubin])
+			        ),
+			        Fact_LiverMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_LiverMetrics[total_bilirubin]))
+			)
+		formatString: 0.00
+		displayFolder: Liver - Rolling 3
+		lineageTag: f6b845cb-fb1a-4157-b82d-5f81f32281ff
+
+	measure 'Liver Total Bilirubin Trend Direction' =
+			
+			VAR d = [Liver Total Bilirubin Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Liver - Trend
+		lineageTag: 1336cde7-3a65-4945-ba38-9bb0a38341d0
+
+	measure 'Liver Anchor Direct Bilirubin Data Date' =
+			
+			VAR SelectedDate = [Selected Anchor Calendar Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(SelectedDate),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            Fact_LiverMetrics[exam_date] <= SelectedDate
+			                && NOT ISBLANK(Fact_LiverMetrics[direct_bilirubin])
+			        ),
+			        Fact_LiverMetrics[exam_date]
+			    ),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            NOT ISBLANK(Fact_LiverMetrics[direct_bilirubin])
+			        ),
+			        Fact_LiverMetrics[exam_date]
+			    )
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Liver - Data Dates
+		lineageTag: db1c8efe-9e50-4654-b5f1-98db44d0a9fb
+
+	measure 'Liver Previous Direct Bilirubin Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] < [Liver Anchor Direct Bilirubin Data Date]
+			            && NOT ISBLANK(Fact_LiverMetrics[direct_bilirubin])
+			    ),
+			    Fact_LiverMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Liver - Data Dates
+		lineageTag: 13516ad9-ece1-41fb-91c6-f5012e578368
+
+	measure 'Liver Direct Bilirubin' =
+			
+			CALCULATE(
+			    MAX(Fact_LiverMetrics[direct_bilirubin]),
+			    FILTER(
+			        ALL(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] = [Liver Anchor Direct Bilirubin Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Liver - Latest
+		lineageTag: 8f4f705d-0e0b-418d-91f3-982cedf6b53e
+
+	measure 'Liver Previous Direct Bilirubin' =
+			
+			CALCULATE(
+			    MAX(Fact_LiverMetrics[direct_bilirubin]),
+			    FILTER(
+			        ALL(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] = [Liver Previous Direct Bilirubin Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Liver - Previous
+		lineageTag: dbed2991-f3e7-43d8-bf85-8dff30760e95
+
+	measure 'Liver Direct Bilirubin Delta' = [Liver Direct Bilirubin] - [Liver Previous Direct Bilirubin]
+		formatString: 0.00
+		displayFolder: Liver - Delta
+		lineageTag: 96e83f40-0f42-4f90-9de5-f46c68a6069a
+
+	measure 'Liver Direct Bilirubin Delta %' = DIVIDE([Liver Direct Bilirubin Delta], [Liver Previous Direct Bilirubin])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Liver - Delta %
+		lineageTag: b3230b9d-d556-46fa-b834-7e1c65c81711
+
+	measure 'Liver Direct Bilirubin Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            Fact_LiverMetrics[exam_date] <= [Liver Anchor Direct Bilirubin Data Date]
+			                && NOT ISBLANK(Fact_LiverMetrics[direct_bilirubin])
+			        ),
+			        Fact_LiverMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_LiverMetrics[direct_bilirubin]))
+			)
+		formatString: 0.00
+		displayFolder: Liver - Rolling 3
+		lineageTag: 63284654-02c4-473a-8383-157c000dc771
+
+	measure 'Liver Direct Bilirubin Trend Direction' =
+			
+			VAR d = [Liver Direct Bilirubin Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Liver - Trend
+		lineageTag: 3e2209a6-8944-4159-9408-63902a721a61
+
+	measure 'Liver Anchor Indirect Bilirubin Data Date' =
+			
+			VAR SelectedDate = [Selected Anchor Calendar Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(SelectedDate),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            Fact_LiverMetrics[exam_date] <= SelectedDate
+			                && NOT ISBLANK(Fact_LiverMetrics[indirect_bilirubin])
+			        ),
+			        Fact_LiverMetrics[exam_date]
+			    ),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            NOT ISBLANK(Fact_LiverMetrics[indirect_bilirubin])
+			        ),
+			        Fact_LiverMetrics[exam_date]
+			    )
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Liver - Data Dates
+		lineageTag: 4d3d2f48-8571-4f55-a844-d661a744093e
+
+	measure 'Liver Previous Indirect Bilirubin Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] < [Liver Anchor Indirect Bilirubin Data Date]
+			            && NOT ISBLANK(Fact_LiverMetrics[indirect_bilirubin])
+			    ),
+			    Fact_LiverMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Liver - Data Dates
+		lineageTag: f25c8876-fb29-43a1-affd-d87b3ea78c51
+
+	measure 'Liver Indirect Bilirubin' =
+			
+			CALCULATE(
+			    MAX(Fact_LiverMetrics[indirect_bilirubin]),
+			    FILTER(
+			        ALL(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] = [Liver Anchor Indirect Bilirubin Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Liver - Latest
+		lineageTag: adbe9956-ae34-404e-8b06-dd323edcb87e
+
+	measure 'Liver Previous Indirect Bilirubin' =
+			
+			CALCULATE(
+			    MAX(Fact_LiverMetrics[indirect_bilirubin]),
+			    FILTER(
+			        ALL(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] = [Liver Previous Indirect Bilirubin Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Liver - Previous
+		lineageTag: b3e5fc92-2a2e-46ae-ab37-f5d589d2a8ee
+
+	measure 'Liver Indirect Bilirubin Delta' = [Liver Indirect Bilirubin] - [Liver Previous Indirect Bilirubin]
+		formatString: 0.00
+		displayFolder: Liver - Delta
+		lineageTag: ded06b32-f974-4197-a254-21e1e71f0c03
+
+	measure 'Liver Indirect Bilirubin Delta %' = DIVIDE([Liver Indirect Bilirubin Delta], [Liver Previous Indirect Bilirubin])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Liver - Delta %
+		lineageTag: a49b5728-eb84-4e13-8779-596b943c9059
+
+	measure 'Liver Indirect Bilirubin Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            Fact_LiverMetrics[exam_date] <= [Liver Anchor Indirect Bilirubin Data Date]
+			                && NOT ISBLANK(Fact_LiverMetrics[indirect_bilirubin])
+			        ),
+			        Fact_LiverMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_LiverMetrics[indirect_bilirubin]))
+			)
+		formatString: 0.00
+		displayFolder: Liver - Rolling 3
+		lineageTag: db0754b2-241e-4ad3-859d-cc3bd4063fbc
+
+	measure 'Liver Indirect Bilirubin Trend Direction' =
+			
+			VAR d = [Liver Indirect Bilirubin Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Liver - Trend
+		lineageTag: b1f16852-b129-444a-8620-8f49b0df79f7
+
+	measure 'Liver Anchor Direct/Total Bilirubin % Data Date' =
+			
+			VAR SelectedDate = [Selected Anchor Calendar Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(SelectedDate),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            Fact_LiverMetrics[exam_date] <= SelectedDate
+			                && NOT ISBLANK(Fact_LiverMetrics[direct_total_bilirubin_pct])
+			        ),
+			        Fact_LiverMetrics[exam_date]
+			    ),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            NOT ISBLANK(Fact_LiverMetrics[direct_total_bilirubin_pct])
+			        ),
+			        Fact_LiverMetrics[exam_date]
+			    )
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Liver - Data Dates
+		lineageTag: 632d4b63-ed3c-40c3-b9a9-26672a778976
+
+	measure 'Liver Previous Direct/Total Bilirubin % Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] < [Liver Anchor Direct/Total Bilirubin % Data Date]
+			            && NOT ISBLANK(Fact_LiverMetrics[direct_total_bilirubin_pct])
+			    ),
+			    Fact_LiverMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Liver - Data Dates
+		lineageTag: c943225b-cf21-4336-8052-f0badc1dee9b
+
+	measure 'Liver Direct/Total Bilirubin %' =
+			
+			CALCULATE(
+			    MAX(Fact_LiverMetrics[direct_total_bilirubin_pct]),
+			    FILTER(
+			        ALL(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] = [Liver Anchor Direct/Total Bilirubin % Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Liver - Latest
+		lineageTag: e0f016ac-55e0-44f6-b309-c7c1144f7cee
+
+	measure 'Liver Previous Direct/Total Bilirubin %' =
+			
+			CALCULATE(
+			    MAX(Fact_LiverMetrics[direct_total_bilirubin_pct]),
+			    FILTER(
+			        ALL(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] = [Liver Previous Direct/Total Bilirubin % Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Liver - Previous
+		lineageTag: 06d4415d-5240-42f3-8494-85aa287428a0
+
+	measure 'Liver Direct/Total Bilirubin % Delta' = [Liver Direct/Total Bilirubin %] - [Liver Previous Direct/Total Bilirubin %]
+		formatString: 0.00
+		displayFolder: Liver - Delta
+		lineageTag: e95ed347-8ad6-4a03-af3c-0d55dfb2d499
+
+	measure 'Liver Direct/Total Bilirubin % Delta %' = DIVIDE([Liver Direct/Total Bilirubin % Delta], [Liver Previous Direct/Total Bilirubin %])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Liver - Delta %
+		lineageTag: de6ee6fe-d801-4048-905f-21074a65af27
+
+	measure 'Liver Direct/Total Bilirubin % Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            Fact_LiverMetrics[exam_date] <= [Liver Anchor Direct/Total Bilirubin % Data Date]
+			                && NOT ISBLANK(Fact_LiverMetrics[direct_total_bilirubin_pct])
+			        ),
+			        Fact_LiverMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_LiverMetrics[direct_total_bilirubin_pct]))
+			)
+		formatString: 0.00
+		displayFolder: Liver - Rolling 3
+		lineageTag: 1b0f75e1-b114-413a-b956-858164869f42
+
+	measure 'Liver Direct/Total Bilirubin % Trend Direction' =
+			
+			VAR d = [Liver Direct/Total Bilirubin % Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Liver - Trend
+		lineageTag: 6522e32f-2c47-4c3b-bd5d-99beecbdd4e5
+
+	measure 'Liver Anchor AST/ALT Ratio Data Date' =
+			
+			VAR SelectedDate = [Selected Anchor Calendar Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(SelectedDate),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            Fact_LiverMetrics[exam_date] <= SelectedDate
+			                && NOT ISBLANK(Fact_LiverMetrics[ast_alt_ratio])
+			        ),
+			        Fact_LiverMetrics[exam_date]
+			    ),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            NOT ISBLANK(Fact_LiverMetrics[ast_alt_ratio])
+			        ),
+			        Fact_LiverMetrics[exam_date]
+			    )
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Liver - Data Dates
+		lineageTag: 9840d5c3-cdc4-40f8-a879-5b5bbebd4f98
+
+	measure 'Liver Previous AST/ALT Ratio Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] < [Liver Anchor AST/ALT Ratio Data Date]
+			            && NOT ISBLANK(Fact_LiverMetrics[ast_alt_ratio])
+			    ),
+			    Fact_LiverMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Liver - Data Dates
+		lineageTag: fa63b626-818c-4fa5-9c52-72e888d24cbc
+
+	measure 'Liver AST/ALT Ratio' =
+			
+			CALCULATE(
+			    MAX(Fact_LiverMetrics[ast_alt_ratio]),
+			    FILTER(
+			        ALL(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] = [Liver Anchor AST/ALT Ratio Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Liver - Latest
+		lineageTag: 266d4689-0a87-4cd3-ad5c-269b93a0b7b2
+
+	measure 'Liver Previous AST/ALT Ratio' =
+			
+			CALCULATE(
+			    MAX(Fact_LiverMetrics[ast_alt_ratio]),
+			    FILTER(
+			        ALL(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] = [Liver Previous AST/ALT Ratio Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Liver - Previous
+		lineageTag: dd0ffd50-a968-48b2-8ded-5c7c438642a5
+
+	measure 'Liver AST/ALT Ratio Delta' = [Liver AST/ALT Ratio] - [Liver Previous AST/ALT Ratio]
+		formatString: 0.00
+		displayFolder: Liver - Delta
+		lineageTag: 76b755a5-9c05-4a58-9066-884158cf5f78
+
+	measure 'Liver AST/ALT Ratio Delta %' = DIVIDE([Liver AST/ALT Ratio Delta], [Liver Previous AST/ALT Ratio])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Liver - Delta %
+		lineageTag: ea661e79-0775-4b37-9f3f-c5a158f55d67
+
+	measure 'Liver AST/ALT Ratio Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            Fact_LiverMetrics[exam_date] <= [Liver Anchor AST/ALT Ratio Data Date]
+			                && NOT ISBLANK(Fact_LiverMetrics[ast_alt_ratio])
+			        ),
+			        Fact_LiverMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_LiverMetrics[ast_alt_ratio]))
+			)
+		formatString: 0.00
+		displayFolder: Liver - Rolling 3
+		lineageTag: 7e8d4364-b4df-4021-a72a-5a52110c42f4
+
+	measure 'Liver AST/ALT Ratio Trend Direction' =
+			
+			VAR d = [Liver AST/ALT Ratio Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Liver - Trend
+		lineageTag: 495503a6-aa72-4868-9740-82fc5705501a
+
+	measure 'Liver Anchor Albumin Data Date' =
+			
+			VAR SelectedDate = [Selected Anchor Calendar Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(SelectedDate),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            Fact_LiverMetrics[exam_date] <= SelectedDate
+			                && NOT ISBLANK(Fact_LiverMetrics[albumin])
+			        ),
+			        Fact_LiverMetrics[exam_date]
+			    ),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            NOT ISBLANK(Fact_LiverMetrics[albumin])
+			        ),
+			        Fact_LiverMetrics[exam_date]
+			    )
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Liver - Data Dates
+		lineageTag: 48f0c917-e1e9-4b4f-a2d5-6e29dde199e1
+
+	measure 'Liver Previous Albumin Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] < [Liver Anchor Albumin Data Date]
+			            && NOT ISBLANK(Fact_LiverMetrics[albumin])
+			    ),
+			    Fact_LiverMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Liver - Data Dates
+		lineageTag: f6e8a1e3-2148-4fed-888e-fdfa8749cffa
+
+	measure 'Liver Albumin' =
+			
+			CALCULATE(
+			    MAX(Fact_LiverMetrics[albumin]),
+			    FILTER(
+			        ALL(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] = [Liver Anchor Albumin Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Liver - Latest
+		lineageTag: 07e5ba03-ab12-4ca5-a045-3e5dece06554
+
+	measure 'Liver Previous Albumin' =
+			
+			CALCULATE(
+			    MAX(Fact_LiverMetrics[albumin]),
+			    FILTER(
+			        ALL(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] = [Liver Previous Albumin Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Liver - Previous
+		lineageTag: 9d631049-4c02-41df-8d65-d638b6d264c9
+
+	measure 'Liver Albumin Delta' = [Liver Albumin] - [Liver Previous Albumin]
+		formatString: 0.00
+		displayFolder: Liver - Delta
+		lineageTag: 91945ced-fd8b-44ab-8070-cf4ab86997b2
+
+	measure 'Liver Albumin Delta %' = DIVIDE([Liver Albumin Delta], [Liver Previous Albumin])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Liver - Delta %
+		lineageTag: f9558626-dd08-4a19-89cc-fb4db5766726
+
+	measure 'Liver Albumin Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            Fact_LiverMetrics[exam_date] <= [Liver Anchor Albumin Data Date]
+			                && NOT ISBLANK(Fact_LiverMetrics[albumin])
+			        ),
+			        Fact_LiverMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_LiverMetrics[albumin]))
+			)
+		formatString: 0.00
+		displayFolder: Liver - Rolling 3
+		lineageTag: d773bbdf-2ba5-4853-9417-09ce7df3da4a
+
+	measure 'Liver Albumin Trend Direction' =
+			
+			VAR d = [Liver Albumin Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d > 0, "Improving",
+			    d < 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Liver - Trend
+		lineageTag: 1c44c62f-e76f-4fb2-9de8-454c6b89a7fb
+
+	measure 'Liver Anchor LDH Data Date' =
+			
+			VAR SelectedDate = [Selected Anchor Calendar Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(SelectedDate),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            Fact_LiverMetrics[exam_date] <= SelectedDate
+			                && NOT ISBLANK(Fact_LiverMetrics[ldh])
+			        ),
+			        Fact_LiverMetrics[exam_date]
+			    ),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            NOT ISBLANK(Fact_LiverMetrics[ldh])
+			        ),
+			        Fact_LiverMetrics[exam_date]
+			    )
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Liver - Data Dates
+		lineageTag: fe2277db-6242-4e7f-8069-ad08536bb1d0
+
+	measure 'Liver Previous LDH Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] < [Liver Anchor LDH Data Date]
+			            && NOT ISBLANK(Fact_LiverMetrics[ldh])
+			    ),
+			    Fact_LiverMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Liver - Data Dates
+		lineageTag: 50fb3ccb-12a2-49ff-9209-973bb1fe3bab
+
+	measure 'Liver LDH' =
+			
+			CALCULATE(
+			    MAX(Fact_LiverMetrics[ldh]),
+			    FILTER(
+			        ALL(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] = [Liver Anchor LDH Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Liver - Latest
+		lineageTag: d8abf988-326e-4688-82e7-5a91a46c3402
+
+	measure 'Liver Previous LDH' =
+			
+			CALCULATE(
+			    MAX(Fact_LiverMetrics[ldh]),
+			    FILTER(
+			        ALL(Fact_LiverMetrics),
+			        Fact_LiverMetrics[exam_date] = [Liver Previous LDH Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Liver - Previous
+		lineageTag: c590469f-27e7-4152-951e-e7c97b157fa0
+
+	measure 'Liver LDH Delta' = [Liver LDH] - [Liver Previous LDH]
+		formatString: 0.00
+		displayFolder: Liver - Delta
+		lineageTag: b15f3d3d-3a0f-48f7-a0f7-1a5b65eb2e71
+
+	measure 'Liver LDH Delta %' = DIVIDE([Liver LDH Delta], [Liver Previous LDH])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Liver - Delta %
+		lineageTag: ba98160f-0eee-44e2-a953-30ef6c3d7b93
+
+	measure 'Liver LDH Rolling 3' =
+			
+			AVERAGEX(
+			    TOPN(
+			        3,
+			        FILTER(
+			            ALLSELECTED(Fact_LiverMetrics),
+			            Fact_LiverMetrics[exam_date] <= [Liver Anchor LDH Data Date]
+			                && NOT ISBLANK(Fact_LiverMetrics[ldh])
+			        ),
+			        Fact_LiverMetrics[exam_date], DESC
+			    ),
+			    CALCULATE(MAX(Fact_LiverMetrics[ldh]))
+			)
+		formatString: 0.00
+		displayFolder: Liver - Rolling 3
+		lineageTag: 58d8f5c9-96d8-4ce3-ba6c-9d83ac926ee6
+
+	measure 'Liver LDH Trend Direction' =
+			
+			VAR d = [Liver LDH Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(d), BLANK(),
+			    d < 0, "Improving",
+			    d > 0, "Worsening",
+			    "Stable"
+			)
+		displayFolder: Liver - Trend
+		lineageTag: 0dd6a9eb-d316-4b56-b88a-717fdebbfdf8
+
+	measure 'Liver Days Between Latest And Previous Test' = DATEDIFF([Liver Previous Exam Date], [Liver Anchor Exam Date], DAY)
+		formatString: 0
+		displayFolder: Liver - Data Dates
+		lineageTag: a4318bc2-5b33-4cd0-ba7c-71e9d5d0f78e
+
+	measure 'Liver AST/ALT Pattern Indicator' =
+			
+			VAR x = [Liver AST/ALT Ratio]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x < 0.5, "ALT-predominant",
+			    x >= 0.7 && x <= 1.2, "Balanced",
+			    x > 1.2 && x <= 2.0, "Borderline pattern",
+			    x > 2.0, "AST-predominant / stronger concern",
+			    "Borderline pattern"
+			)
+		displayFolder: Liver - KPI
+		lineageTag: 685ae849-c689-44e2-acac-a06c303d8225
+
+	measure 'Liver Direct Bilirubin % Indicator' =
+			
+			VAR x = [Liver Direct/Total Bilirubin %]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x < 20, "Low direct fraction",
+			    x < 30, "Balanced",
+			    x <= 40, "Borderline direct-predominant",
+			    "Higher direct-predominant pattern"
+			)
+		displayFolder: Liver - KPI
+		lineageTag: f6688d5a-a467-48ac-b1de-46b589d6627d
+
+	measure 'Liver AST/ALT Score' =
+			
+			VAR x = [Liver AST/ALT Ratio]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x >= 0.7 && x <= 1.2, 1,
+			    (x >= 0.5 && x < 0.7) || (x > 1.2 && x <= 2.0), 2,
+			    3
+			)
+		formatString: 0
+		displayFolder: Liver - KPI
+		lineageTag: e6c29317-3439-4dc3-b7e8-1f04c5d3c8d7
+
+	measure 'Liver Direct Bilirubin % Score' =
+			
+			VAR x = [Liver Direct/Total Bilirubin %]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x < 30, 1,
+			    x <= 40, 2,
+			    3
+			)
+		formatString: 0
+		displayFolder: Liver - KPI
+		lineageTag: 421d3d92-f740-40a2-a452-86fc26213fd4
+
+	measure 'Liver Composite Risk Score' =
+			
+			AVERAGEX(
+			    {
+			        [Liver AST/ALT Score],
+			        [Liver Direct Bilirubin % Score]
+			    },
+			    [Value]
+			)
+		formatString: 0.00
+		displayFolder: Liver - KPI
+		lineageTag: 0b7d8bad-8529-4ce8-8f3b-1083f988a95e
+
+	measure 'Liver Composite KPI' =
+			
+			VAR x = [Liver Composite Risk Score]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x <= 1.4, "Favorable",
+			    x <= 2.1, "Monitor",
+			    "Elevated liver-pattern concern"
+			)
+		displayFolder: Liver - KPI
+		lineageTag: cafb82e3-4267-493c-8025-756f6ac1c640
+
+	measure 'Liver Composite Color Hex' =
+			
+			VAR x = [Liver Composite Risk Score]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(x), BLANK(),
+			    x <= 1.4, "#2E7D32",
+			    x <= 2.1, "#F9A825",
+			    "#C62828"
+			)
+		displayFolder: Liver - KPI
+		lineageTag: 362d463c-0280-4524-8f7d-00f6e0c8d2b5
+
+	measure 'Liver AST/ALT Ratio Stability KPI' = ABS([Liver AST/ALT Ratio] - [Liver AST/ALT Ratio Rolling 3])
+		formatString: 0.00
+		displayFolder: Liver - Stability
+		lineageTag: ac298c1d-4ad9-494d-ba14-6e17480ebe43
+
+	measure 'Liver Direct/Total Bilirubin % Stability KPI' = ABS([Liver Direct/Total Bilirubin %] - [Liver Direct/Total Bilirubin % Rolling 3])
+		formatString: 0.00
+		displayFolder: Liver - Stability
+		lineageTag: 9bbaecbc-e52b-48e5-a4c3-6f31ab13cb6d
+
+	measure 'Liver Composite Background Hex' = [Liver Composite Color Hex]
+		displayFolder: Formatting - Liver
+		lineageTag: 956f9d38-f14e-4740-9326-cc25c78d1eeb
+
+	/// Use on line/scatter charts to display metric over time.
+	measure 'Liver AST Trend' = MAX(Fact_LiverMetrics[ast])
+		formatString: 0.00
+		displayFolder: Liver - Trend Series
+		lineageTag: 953e5ba9-5d25-4276-b493-d8b81a116d1f
+
+	/// Use with trend line to highlight the selected/latest anchor exam.
+	measure 'Liver AST Anchor Marker' =
+			
+			VAR CurrentAxisDate = MAX(Fact_LiverMetrics[exam_date])
+			VAR AnchorDate = [Liver Anchor AST Data Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(AnchorDate) && CurrentAxisDate = AnchorDate,
+			    MAX(Fact_LiverMetrics[ast]),
+			    BLANK()
+			)
+		formatString: 0.00
+		displayFolder: Liver - Anchor Markers
+		lineageTag: f0c09dc4-1745-4ae1-903d-855ca193b44c
+
+	/// Use on line/scatter charts to display metric over time.
+	measure 'Liver ALT Trend' = MAX(Fact_LiverMetrics[alt])
+		formatString: 0.00
+		displayFolder: Liver - Trend Series
+		lineageTag: 8fcbf147-58e8-4f59-8784-ed154c6f4e65
+
+	/// Use with trend line to highlight the selected/latest anchor exam.
+	measure 'Liver ALT Anchor Marker' =
+			
+			VAR CurrentAxisDate = MAX(Fact_LiverMetrics[exam_date])
+			VAR AnchorDate = [Liver Anchor ALT Data Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(AnchorDate) && CurrentAxisDate = AnchorDate,
+			    MAX(Fact_LiverMetrics[alt]),
+			    BLANK()
+			)
+		formatString: 0.00
+		displayFolder: Liver - Anchor Markers
+		lineageTag: 7d347c70-dee2-4ae6-90e4-78ea10aa5f66
+
+	/// Use on line/scatter charts to display metric over time.
+	measure 'Liver GGT Trend' = MAX(Fact_LiverMetrics[ggt])
+		formatString: 0.00
+		displayFolder: Liver - Trend Series
+		lineageTag: 0014d5f0-6d6c-442b-831b-7f2340780830
+
+	/// Use with trend line to highlight the selected/latest anchor exam.
+	measure 'Liver GGT Anchor Marker' =
+			
+			VAR CurrentAxisDate = MAX(Fact_LiverMetrics[exam_date])
+			VAR AnchorDate = [Liver Anchor GGT Data Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(AnchorDate) && CurrentAxisDate = AnchorDate,
+			    MAX(Fact_LiverMetrics[ggt]),
+			    BLANK()
+			)
+		formatString: 0.00
+		displayFolder: Liver - Anchor Markers
+		lineageTag: bd99ed60-823c-4534-a75c-34c0455d3f5c
+
+	/// Use on line/scatter charts to display metric over time.
+	measure 'Liver ALP Trend' = MAX(Fact_LiverMetrics[alp])
+		formatString: 0.00
+		displayFolder: Liver - Trend Series
+		lineageTag: 2f51bebe-cfff-442d-bf52-9434603b81b3
+
+	/// Use with trend line to highlight the selected/latest anchor exam.
+	measure 'Liver ALP Anchor Marker' =
+			
+			VAR CurrentAxisDate = MAX(Fact_LiverMetrics[exam_date])
+			VAR AnchorDate = [Liver Anchor ALP Data Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(AnchorDate) && CurrentAxisDate = AnchorDate,
+			    MAX(Fact_LiverMetrics[alp]),
+			    BLANK()
+			)
+		formatString: 0.00
+		displayFolder: Liver - Anchor Markers
+		lineageTag: 2212b5b0-29af-4e29-a982-c714d3037e4a
+
+	/// Use on line/scatter charts to display metric over time.
+	measure 'Liver Total Bilirubin Trend' = MAX(Fact_LiverMetrics[total_bilirubin])
+		formatString: 0.00
+		displayFolder: Liver - Trend Series
+		lineageTag: 05b998f5-4b43-4772-9f02-78a049c062ac
+
+	/// Use with trend line to highlight the selected/latest anchor exam.
+	measure 'Liver Total Bilirubin Anchor Marker' =
+			
+			VAR CurrentAxisDate = MAX(Fact_LiverMetrics[exam_date])
+			VAR AnchorDate = [Liver Anchor Total Bilirubin Data Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(AnchorDate) && CurrentAxisDate = AnchorDate,
+			    MAX(Fact_LiverMetrics[total_bilirubin]),
+			    BLANK()
+			)
+		formatString: 0.00
+		displayFolder: Liver - Anchor Markers
+		lineageTag: 054e48aa-ecf9-4a48-9016-b763b78a27d3
+
+	/// Use on line/scatter charts to display metric over time.
+	measure 'Liver Direct Bilirubin Trend' = MAX(Fact_LiverMetrics[direct_bilirubin])
+		formatString: 0.00
+		displayFolder: Liver - Trend Series
+		lineageTag: ca49c734-77be-406d-970a-993f635c40bc
+
+	/// Use with trend line to highlight the selected/latest anchor exam.
+	measure 'Liver Direct Bilirubin Anchor Marker' =
+			
+			VAR CurrentAxisDate = MAX(Fact_LiverMetrics[exam_date])
+			VAR AnchorDate = [Liver Anchor Direct Bilirubin Data Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(AnchorDate) && CurrentAxisDate = AnchorDate,
+			    MAX(Fact_LiverMetrics[direct_bilirubin]),
+			    BLANK()
+			)
+		formatString: 0.00
+		displayFolder: Liver - Anchor Markers
+		lineageTag: d0ce91e8-93cc-4744-b731-73a2463dd916
+
+	/// Use on line/scatter charts to display metric over time.
+	measure 'Liver Indirect Bilirubin Trend' = MAX(Fact_LiverMetrics[indirect_bilirubin])
+		formatString: 0.00
+		displayFolder: Liver - Trend Series
+		lineageTag: e0f4fb75-145f-4d13-bd69-96ed2905b154
+
+	/// Use with trend line to highlight the selected/latest anchor exam.
+	measure 'Liver Indirect Bilirubin Anchor Marker' =
+			
+			VAR CurrentAxisDate = MAX(Fact_LiverMetrics[exam_date])
+			VAR AnchorDate = [Liver Anchor Indirect Bilirubin Data Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(AnchorDate) && CurrentAxisDate = AnchorDate,
+			    MAX(Fact_LiverMetrics[indirect_bilirubin]),
+			    BLANK()
+			)
+		formatString: 0.00
+		displayFolder: Liver - Anchor Markers
+		lineageTag: b5ad84b2-4bdd-4ad2-a63d-53ed6134b714
+
+	/// Use on line/scatter charts to display metric over time.
+	measure 'Liver Direct/Total Bilirubin % Trend' = MAX(Fact_LiverMetrics[direct_total_bilirubin_pct])
+		formatString: 0.00
+		displayFolder: Liver - Trend Series
+		lineageTag: dc765cad-c032-4c99-96c4-2f363fe37e60
+
+	/// Use with trend line to highlight the selected/latest anchor exam.
+	measure 'Liver Direct/Total Bilirubin % Anchor Marker' =
+			
+			VAR CurrentAxisDate = MAX(Fact_LiverMetrics[exam_date])
+			VAR AnchorDate = [Liver Anchor Direct/Total Bilirubin % Data Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(AnchorDate) && CurrentAxisDate = AnchorDate,
+			    MAX(Fact_LiverMetrics[direct_total_bilirubin_pct]),
+			    BLANK()
+			)
+		formatString: 0.00
+		displayFolder: Liver - Anchor Markers
+		lineageTag: 56734e47-5325-4fd9-9282-43063936fc1e
+
+	/// Use on line/scatter charts to display metric over time.
+	measure 'Liver AST/ALT Ratio Trend' = MAX(Fact_LiverMetrics[ast_alt_ratio])
+		formatString: 0.00
+		displayFolder: Liver - Trend Series
+		lineageTag: 9586008a-0dae-49b1-8233-5b8d9fdc6ea6
+
+	/// Use with trend line to highlight the selected/latest anchor exam.
+	measure 'Liver AST/ALT Ratio Anchor Marker' =
+			
+			VAR CurrentAxisDate = MAX(Fact_LiverMetrics[exam_date])
+			VAR AnchorDate = [Liver Anchor AST/ALT Ratio Data Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(AnchorDate) && CurrentAxisDate = AnchorDate,
+			    MAX(Fact_LiverMetrics[ast_alt_ratio]),
+			    BLANK()
+			)
+		formatString: 0.00
+		displayFolder: Liver - Anchor Markers
+		lineageTag: fa2f0ad2-ab8c-412e-865f-a7d7468d14f8
+
+	/// Use on line/scatter charts to display metric over time.
+	measure 'Liver Albumin Trend' = MAX(Fact_LiverMetrics[albumin])
+		formatString: 0.00
+		displayFolder: Liver - Trend Series
+		lineageTag: cf318249-46a9-4ecb-8fd7-34289b09ec29
+
+	/// Use with trend line to highlight the selected/latest anchor exam.
+	measure 'Liver Albumin Anchor Marker' =
+			
+			VAR CurrentAxisDate = MAX(Fact_LiverMetrics[exam_date])
+			VAR AnchorDate = [Liver Anchor Albumin Data Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(AnchorDate) && CurrentAxisDate = AnchorDate,
+			    MAX(Fact_LiverMetrics[albumin]),
+			    BLANK()
+			)
+		formatString: 0.00
+		displayFolder: Liver - Anchor Markers
+		lineageTag: cf4c4596-9d1a-49d7-aa0c-5dc59dcbd1d6
+
+	/// Use on line/scatter charts to display metric over time.
+	measure 'Liver LDH Trend' = MAX(Fact_LiverMetrics[ldh])
+		formatString: 0.00
+		displayFolder: Liver - Trend Series
+		lineageTag: e0ccff66-29cf-452f-9ac2-fb3bf1f05c34
+
+	/// Use with trend line to highlight the selected/latest anchor exam.
+	measure 'Liver LDH Anchor Marker' =
+			
+			VAR CurrentAxisDate = MAX(Fact_LiverMetrics[exam_date])
+			VAR AnchorDate = [Liver Anchor LDH Data Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(AnchorDate) && CurrentAxisDate = AnchorDate,
+			    MAX(Fact_LiverMetrics[ldh]),
+			    BLANK()
+			)
+		formatString: 0.00
+		displayFolder: Liver - Anchor Markers
+		lineageTag: 86d53779-9ff9-4e61-9690-ddec4aeb5ddf
+
+	measure 'Liver Anchor Exam Date Label' = FORMAT([Liver Anchor Exam Date], "yyyy-mm-dd")
+		displayFolder: Liver - Anchor Markers
+		lineageTag: e3151557-20cb-4a83-bfbc-f915dc9e9884
+
+	/// Static target/reference line.
+	measure 'Liver AST/ALT Ratio Target' = 1.0
+		formatString: 0.00
+		displayFolder: Liver - Targets
+		lineageTag: ab4629d5-b8a4-4bf4-8437-c37efb106fa2
+
+	/// Static target/reference line.
+	measure 'Liver Direct/Total Bilirubin % Target' = 30
+		formatString: 0.00
+		displayFolder: Liver - Targets
+		lineageTag: 606a335f-cae4-4789-9d98-9b0b36a5e101
+
+	/// Static target/reference line.
+	measure 'Liver AST/ALT Balanced Lower' = 0.7
+		formatString: 0.00
+		displayFolder: Liver - Reference Bands
+		lineageTag: df393d39-0256-4041-8d0d-8ac2b6904b89
+
+	/// Static target/reference line.
+	measure 'Liver AST/ALT Balanced Upper' = 1.2
+		formatString: 0.00
+		displayFolder: Liver - Reference Bands
+		lineageTag: 14e09e87-004c-45f1-be98-a1d553f97bc3
+
+	/// Static target/reference line.
+	measure 'Liver AST/ALT Concern Ceiling' = 2.0
+		formatString: 0.00
+		displayFolder: Liver - Reference Bands
+		lineageTag: 3d273ff8-cae4-4364-b29b-9f46031efba0
+
+	/// Static target/reference line.
+	measure 'Liver Direct Bilirubin % Balanced Ceiling' = 30
+		formatString: 0.00
+		displayFolder: Liver - Reference Bands
+		lineageTag: f9455e1a-3e64-48fa-be1e-7033e36e4528
+
+	/// Static target/reference line.
+	measure 'Liver Direct Bilirubin % Borderline Ceiling' = 40
+		formatString: 0.00
+		displayFolder: Liver - Reference Bands
+		lineageTag: efe0c35a-c819-408e-bf90-922d7bebb994
+
+	/// Dynamic chart title with anchor date.
+	measure 'Liver AST Trend Title' =
+			
+			VAR AnchorDate = [Liver Anchor AST Data Date]
+			RETURN
+			"AST Trend — Anchor: " &
+			IF(
+			    ISBLANK(AnchorDate),
+			    "n/a",
+			    FORMAT(AnchorDate, "yyyy-mm-dd")
+			)
+		displayFolder: Liver - Titles
+		lineageTag: 6692e359-aee1-404c-bd99-bdd582641fd9
+
+	/// Dynamic chart title with anchor date.
+	measure 'Liver ALT Trend Title' =
+			
+			VAR AnchorDate = [Liver Anchor ALT Data Date]
+			RETURN
+			"ALT Trend — Anchor: " &
+			IF(
+			    ISBLANK(AnchorDate),
+			    "n/a",
+			    FORMAT(AnchorDate, "yyyy-mm-dd")
+			)
+		displayFolder: Liver - Titles
+		lineageTag: 082934f0-c79c-4ebe-875a-51171c599afc
+
+	/// Dynamic chart title with anchor date.
+	measure 'Liver GGT Trend Title' =
+			
+			VAR AnchorDate = [Liver Anchor GGT Data Date]
+			RETURN
+			"GGT Trend — Anchor: " &
+			IF(
+			    ISBLANK(AnchorDate),
+			    "n/a",
+			    FORMAT(AnchorDate, "yyyy-mm-dd")
+			)
+		displayFolder: Liver - Titles
+		lineageTag: fd0af235-29c3-4e81-8526-49a08dd25aa5
+
+	/// Dynamic chart title with anchor date.
+	measure 'Liver ALP Trend Title' =
+			
+			VAR AnchorDate = [Liver Anchor ALP Data Date]
+			RETURN
+			"ALP Trend — Anchor: " &
+			IF(
+			    ISBLANK(AnchorDate),
+			    "n/a",
+			    FORMAT(AnchorDate, "yyyy-mm-dd")
+			)
+		displayFolder: Liver - Titles
+		lineageTag: bf1194e0-9838-4374-944c-d2bfa2b97393
+
+	/// Dynamic chart title with anchor date.
+	measure 'Liver Total Bilirubin Trend Title' =
+			
+			VAR AnchorDate = [Liver Anchor Total Bilirubin Data Date]
+			RETURN
+			"Total Bilirubin Trend — Anchor: " &
+			IF(
+			    ISBLANK(AnchorDate),
+			    "n/a",
+			    FORMAT(AnchorDate, "yyyy-mm-dd")
+			)
+		displayFolder: Liver - Titles
+		lineageTag: 9fb18bfa-d180-46d2-83e1-276aa92b7e73
+
+	/// Dynamic chart title with anchor date.
+	measure 'Liver Direct Bilirubin Trend Title' =
+			
+			VAR AnchorDate = [Liver Anchor Direct Bilirubin Data Date]
+			RETURN
+			"Direct Bilirubin Trend — Anchor: " &
+			IF(
+			    ISBLANK(AnchorDate),
+			    "n/a",
+			    FORMAT(AnchorDate, "yyyy-mm-dd")
+			)
+		displayFolder: Liver - Titles
+		lineageTag: 5dfcaaf2-9c5e-4989-9b2b-14636681d0ce
+
+	/// Dynamic chart title with anchor date.
+	measure 'Liver Indirect Bilirubin Trend Title' =
+			
+			VAR AnchorDate = [Liver Anchor Indirect Bilirubin Data Date]
+			RETURN
+			"Indirect Bilirubin Trend — Anchor: " &
+			IF(
+			    ISBLANK(AnchorDate),
+			    "n/a",
+			    FORMAT(AnchorDate, "yyyy-mm-dd")
+			)
+		displayFolder: Liver - Titles
+		lineageTag: b884e1d7-7a83-4731-890b-645438a23518
+
+	/// Dynamic chart title with anchor date.
+	measure 'Liver AST/ALT Ratio Trend Title' =
+			
+			VAR AnchorDate = [Liver Anchor AST/ALT Ratio Data Date]
+			RETURN
+			"AST/ALT Ratio Trend — Anchor: " &
+			IF(
+			    ISBLANK(AnchorDate),
+			    "n/a",
+			    FORMAT(AnchorDate, "yyyy-mm-dd")
+			)
+		displayFolder: Liver - Titles
+		lineageTag: b6747085-a5fe-407f-bed1-176d17ccf999
+
+	/// Dynamic chart title with anchor date.
+	measure 'Liver Direct/Total Bilirubin % Trend Title' =
+			
+			VAR AnchorDate = [Liver Anchor Direct/Total Bilirubin % Data Date]
+			RETURN
+			"Direct/Total Bilirubin % Trend — Anchor: " &
+			IF(
+			    ISBLANK(AnchorDate),
+			    "n/a",
+			    FORMAT(AnchorDate, "yyyy-mm-dd")
+			)
+		displayFolder: Liver - Titles
+		lineageTag: adc56450-713f-4114-b394-8f23ccc74ffc
+
+	/// Dynamic chart title with anchor date.
+	measure 'Liver Albumin Trend Title' =
+			
+			VAR AnchorDate = [Liver Anchor Albumin Data Date]
+			RETURN
+			"Albumin Trend — Anchor: " &
+			IF(
+			    ISBLANK(AnchorDate),
+			    "n/a",
+			    FORMAT(AnchorDate, "yyyy-mm-dd")
+			)
+		displayFolder: Liver - Titles
+		lineageTag: 01a6d258-5fa2-4951-9389-8fac05ee9364
+
+	/// Dynamic chart title with anchor date.
+	measure 'Liver LDH Trend Title' =
+			
+			VAR AnchorDate = [Liver Anchor LDH Data Date]
+			RETURN
+			"LDH Trend — Anchor: " &
+			IF(
+			    ISBLANK(AnchorDate),
+			    "n/a",
+			    FORMAT(AnchorDate, "yyyy-mm-dd")
+			)
+		displayFolder: Liver - Titles
+		lineageTag: c58c00f2-6a1f-4878-a886-7edd88e35120
+
 	column exam_date
 		dataType: dateTime
-		formatString: Long Date
+		formatString: dd/mm/yyyy
 		lineageTag: 66ee601f-485e-4488-9651-680135314684
 		summarizeBy: none
 		sourceColumn: exam_date
@@ -11,6 +1791,8 @@ table Fact_LiverMetrics
 		annotation SummarizationSetBy = User
 
 		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
 
 	column ast
 		dataType: double

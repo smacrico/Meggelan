@@ -4,7 +4,7 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 0,
+        "x": 94,
         "y": 0
       },
       "nodes": [
@@ -19,7 +19,7 @@
             "height": 200,
             "width": 234
           },
-          "zIndex": 2
+          "zIndex": 6
         },
         {
           "location": {
@@ -32,11 +32,11 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 3
+          "zIndex": 4
         },
         {
           "location": {
-            "x": 402,
+            "x": 530,
             "y": 0
           },
           "nodeIndex": "Fact_LipidMetrics",
@@ -45,12 +45,12 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 4
+          "zIndex": 5
         },
         {
           "location": {
-            "x": 689,
-            "y": 220
+            "x": 530,
+            "y": 329
           },
           "nodeIndex": "Fact_LiverMetrics",
           "nodeLineageTag": "a741aadb-c537-4a38-88ba-ec7d8611132a",
@@ -58,7 +58,46 @@
             "height": 300,
             "width": 234
           },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 864,
+            "y": 36
+          },
+          "nodeIndex": "Trend View",
+          "nodeLineageTag": "138c8482-84a0-4279-9702-70bc4c950302",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
           "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 893,
+            "y": 285
+          },
+          "nodeIndex": "Dim_Profile",
+          "nodeLineageTag": "c5cc08fa-ca0f-4978-a876-38552fe36762",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 847,
+            "y": 499
+          },
+          "nodeIndex": "Exam Selector",
+          "nodeLineageTag": "6e82b111-5b71-44e7-86e9-55b4073d8a55",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 7
         }
       ],
       "name": "All tables",

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "25efc7490db5822ea0d4",
+  "position": {
+    "x": 416.77179962894252,
+    "y": 172.17068645640074,
+    "z": 7000,
+    "height": 85.491651205936918,
+    "width": 223.22820037105751,
+    "tabOrder": 7000
+  },
+  "visual": {
+    "visualType": "card",
+    "autoSelectVisualType": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_LipidMetrics"
+                    }
+                  },
+                  "Property": "Lipid Latest LDL/HDL"
+                }
+              },
+              "queryRef": "Fact_LipidMetrics.Lipid Latest LDL/HDL",
+              "nativeQueryRef": "Lipid Latest LDL/HDL"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

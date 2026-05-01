@@ -1,0 +1,252 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "4f36397ddcea1317c0ac",
+  "position": {
+    "x": 9.1428571428571423,
+    "y": 534.85714285714289,
+    "z": 15000,
+    "height": 185.14285714285714,
+    "width": 1256,
+    "tabOrder": 15000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "exam_date"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.exam_date",
+              "nativeQueryRef": "exam_date"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo Glucose"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo Glucose",
+              "nativeQueryRef": "Endo Glucose"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo HbA1c"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo HbA1c",
+              "nativeQueryRef": "Endo HbA1c"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo HOMA-IR"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo HOMA-IR",
+              "nativeQueryRef": "Endo HOMA-IR"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo QUICKI"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo QUICKI",
+              "nativeQueryRef": "Endo QUICKI"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo Composite KPI"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo Composite KPI",
+              "nativeQueryRef": "Endo Composite KPI"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo Vitamin D"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo Vitamin D",
+              "nativeQueryRef": "Endo Vitamin D"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_EndoMetrics"
+                    }
+                  },
+                  "Property": "Endo Latest QUICKI"
+                }
+              },
+              "queryRef": "Fact_EndoMetrics.Endo Latest QUICKI",
+              "nativeQueryRef": "Endo Latest QUICKI"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "66ce226c1db0b20e9701",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_EndoMetrics"
+              }
+            },
+            "Property": "exam_date"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "efec6df732591d82d81d",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_EndoMetrics"
+              }
+            },
+            "Property": "Endo Glucose"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "590a091b431571597671",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_EndoMetrics"
+              }
+            },
+            "Property": "Endo HbA1c"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "10464ba221946220c32b",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_EndoMetrics"
+              }
+            },
+            "Property": "Endo HOMA-IR"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "85a1e6dcc1779ddcbb30",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_EndoMetrics"
+              }
+            },
+            "Property": "Endo QUICKI"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "b764d8cc0aa9cd2877c6",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_EndoMetrics"
+              }
+            },
+            "Property": "Endo Composite KPI"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "04ae76101d010493d6d1",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_EndoMetrics"
+              }
+            },
+            "Property": "Endo Vitamin D"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "b9317e4bab89ab83b387",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_EndoMetrics"
+              }
+            },
+            "Property": "Endo Latest QUICKI"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

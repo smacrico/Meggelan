@@ -5,7 +5,10 @@ table Fact_EndoMetrics
 			
 			CALCULATE(
 			    MAX(Fact_EndoMetrics[glucose_for_calc]),
-			    TREATAS({[Latest Selected Date]}, Fact_EndoMetrics[exam_date])
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Latest Glucose Data Date]
+			    )
 			)
 		formatString: 0.00
 		displayFolder: Endo - Latest
@@ -15,13 +18,16 @@ table Fact_EndoMetrics
 			
 			CALCULATE(
 			    MAX(Fact_EndoMetrics[glucose_for_calc]),
-			    TREATAS({[Previous Selected Date]}, Fact_EndoMetrics[exam_date])
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Previous Glucose Data Date]
+			    )
 			)
 		formatString: 0.00
 		displayFolder: Endo - Previous
 		lineageTag: 9f64f5c5-aa49-485a-9223-5f33c91e8129
 
-	measure 'Endo Glucose Delta' = [Endo Latest Glucose] - [Endo Previous Glucose]
+	measure 'Endo Glucose Delta' = [Endo Glucose] - [Endo Previous Glucose]
 		formatString: 0.00
 		displayFolder: Endo - Delta
 		lineageTag: 4f38a9ac-68fe-41f1-8a7c-f3c76cf424a4
@@ -36,7 +42,11 @@ table Fact_EndoMetrics
 			AVERAGEX(
 			    TOPN(
 			        3,
-			        ALLSELECTED(Fact_EndoMetrics[exam_date]),
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            Fact_EndoMetrics[exam_date] <= [Endo Anchor Glucose Data Date]
+			                && NOT ISBLANK(Fact_EndoMetrics[glucose_for_calc])
+			        ),
 			        Fact_EndoMetrics[exam_date], DESC
 			    ),
 			    CALCULATE(MAX(Fact_EndoMetrics[glucose_for_calc]))
@@ -49,7 +59,10 @@ table Fact_EndoMetrics
 			
 			CALCULATE(
 			    MAX(Fact_EndoMetrics[fasting_insulin]),
-			    TREATAS({[Latest Selected Date]}, Fact_EndoMetrics[exam_date])
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Latest Fasting Insulin Data Date]
+			    )
 			)
 		formatString: 0.00
 		displayFolder: Endo - Latest
@@ -59,13 +72,16 @@ table Fact_EndoMetrics
 			
 			CALCULATE(
 			    MAX(Fact_EndoMetrics[fasting_insulin]),
-			    TREATAS({[Previous Selected Date]}, Fact_EndoMetrics[exam_date])
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Previous Fasting Insulin Data Date]
+			    )
 			)
 		formatString: 0.00
 		displayFolder: Endo - Previous
 		lineageTag: 2614c447-269b-4bd9-bb3c-03581a64bcf0
 
-	measure 'Endo Fasting Insulin Delta' = [Endo Latest Fasting Insulin] - [Endo Previous Fasting Insulin]
+	measure 'Endo Fasting Insulin Delta' = [Endo Fasting Insulin] - [Endo Previous Fasting Insulin]
 		formatString: 0.00
 		displayFolder: Endo - Delta
 		lineageTag: 6bc2560d-5b64-4c2a-887b-aa26660d3b16
@@ -80,7 +96,11 @@ table Fact_EndoMetrics
 			AVERAGEX(
 			    TOPN(
 			        3,
-			        ALLSELECTED(Fact_EndoMetrics[exam_date]),
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            Fact_EndoMetrics[exam_date] <= [Endo Anchor Fasting Insulin Data Date]
+			                && NOT ISBLANK(Fact_EndoMetrics[fasting_insulin])
+			        ),
 			        Fact_EndoMetrics[exam_date], DESC
 			    ),
 			    CALCULATE(MAX(Fact_EndoMetrics[fasting_insulin]))
@@ -93,7 +113,10 @@ table Fact_EndoMetrics
 			
 			CALCULATE(
 			    MAX(Fact_EndoMetrics[hba1c]),
-			    TREATAS({[Latest Selected Date]}, Fact_EndoMetrics[exam_date])
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Latest HbA1c Data Date]
+			    )
 			)
 		formatString: 0.00
 		displayFolder: Endo - Latest
@@ -103,13 +126,16 @@ table Fact_EndoMetrics
 			
 			CALCULATE(
 			    MAX(Fact_EndoMetrics[hba1c]),
-			    TREATAS({[Previous Selected Date]}, Fact_EndoMetrics[exam_date])
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Previous HbA1c Data Date]
+			    )
 			)
 		formatString: 0.00
 		displayFolder: Endo - Previous
 		lineageTag: 6e7fa8d6-3e5c-4a69-bd81-3dd307d3ea09
 
-	measure 'Endo HbA1c Delta' = [Endo Latest HbA1c] - [Endo Previous HbA1c]
+	measure 'Endo HbA1c Delta' = [Endo HbA1c] - [Endo Previous HbA1c]
 		formatString: 0.00
 		displayFolder: Endo - Delta
 		lineageTag: 8f434043-0c4a-41fa-a385-9f5eb981d68a
@@ -124,7 +150,11 @@ table Fact_EndoMetrics
 			AVERAGEX(
 			    TOPN(
 			        3,
-			        ALLSELECTED(Fact_EndoMetrics[exam_date]),
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            Fact_EndoMetrics[exam_date] <= [Endo Anchor HbA1c Data Date]
+			                && NOT ISBLANK(Fact_EndoMetrics[hba1c])
+			        ),
 			        Fact_EndoMetrics[exam_date], DESC
 			    ),
 			    CALCULATE(MAX(Fact_EndoMetrics[hba1c]))
@@ -137,7 +167,10 @@ table Fact_EndoMetrics
 			
 			CALCULATE(
 			    MAX(Fact_EndoMetrics[eag_mgdl]),
-			    TREATAS({[Latest Selected Date]}, Fact_EndoMetrics[exam_date])
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Latest eAG Data Date]
+			    )
 			)
 		formatString: 0.00
 		displayFolder: Endo - Latest
@@ -147,13 +180,16 @@ table Fact_EndoMetrics
 			
 			CALCULATE(
 			    MAX(Fact_EndoMetrics[eag_mgdl]),
-			    TREATAS({[Previous Selected Date]}, Fact_EndoMetrics[exam_date])
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Previous eAG Data Date]
+			    )
 			)
 		formatString: 0.00
 		displayFolder: Endo - Previous
 		lineageTag: 15962bce-b505-4fd7-8d97-c6391f86799c
 
-	measure 'Endo eAG Delta' = [Endo Latest eAG] - [Endo Previous eAG]
+	measure 'Endo eAG Delta' = [Endo eAG] - [Endo Previous eAG]
 		formatString: 0.00
 		displayFolder: Endo - Delta
 		lineageTag: 9fefd7da-2a38-4425-9c49-d919856fc575
@@ -168,7 +204,11 @@ table Fact_EndoMetrics
 			AVERAGEX(
 			    TOPN(
 			        3,
-			        ALLSELECTED(Fact_EndoMetrics[exam_date]),
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            Fact_EndoMetrics[exam_date] <= [Endo Anchor eAG Data Date]
+			                && NOT ISBLANK(Fact_EndoMetrics[eag_mgdl])
+			        ),
 			        Fact_EndoMetrics[exam_date], DESC
 			    ),
 			    CALCULATE(MAX(Fact_EndoMetrics[eag_mgdl]))
@@ -181,7 +221,10 @@ table Fact_EndoMetrics
 			
 			CALCULATE(
 			    MAX(Fact_EndoMetrics[homa_ir]),
-			    TREATAS({[Latest Selected Date]}, Fact_EndoMetrics[exam_date])
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Latest HOMA-IR Data Date]
+			    )
 			)
 		formatString: 0.00
 		displayFolder: Endo - Latest
@@ -191,13 +234,16 @@ table Fact_EndoMetrics
 			
 			CALCULATE(
 			    MAX(Fact_EndoMetrics[homa_ir]),
-			    TREATAS({[Previous Selected Date]}, Fact_EndoMetrics[exam_date])
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Previous HOMA-IR Data Date]
+			    )
 			)
 		formatString: 0.00
 		displayFolder: Endo - Previous
 		lineageTag: 52fdf11f-3880-4057-b528-c1bd0a29df0a
 
-	measure 'Endo HOMA-IR Delta' = [Endo Latest HOMA-IR] - [Endo Previous HOMA-IR]
+	measure 'Endo HOMA-IR Delta' = [Endo HOMA-IR] - [Endo Previous HOMA-IR]
 		formatString: 0.00
 		displayFolder: Endo - Delta
 		lineageTag: 85b3b225-eb0e-4848-9667-0ef12b0d9190
@@ -212,7 +258,11 @@ table Fact_EndoMetrics
 			AVERAGEX(
 			    TOPN(
 			        3,
-			        ALLSELECTED(Fact_EndoMetrics[exam_date]),
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            Fact_EndoMetrics[exam_date] <= [Endo Anchor HOMA-IR Data Date]
+			                && NOT ISBLANK(Fact_EndoMetrics[homa_ir])
+			        ),
 			        Fact_EndoMetrics[exam_date], DESC
 			    ),
 			    CALCULATE(MAX(Fact_EndoMetrics[homa_ir]))
@@ -225,7 +275,10 @@ table Fact_EndoMetrics
 			
 			CALCULATE(
 			    MAX(Fact_EndoMetrics[quicki]),
-			    TREATAS({[Latest Selected Date]}, Fact_EndoMetrics[exam_date])
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Latest QUICKI Data Date]
+			    )
 			)
 		formatString: 0.00
 		displayFolder: Endo - Latest
@@ -235,13 +288,16 @@ table Fact_EndoMetrics
 			
 			CALCULATE(
 			    MAX(Fact_EndoMetrics[quicki]),
-			    TREATAS({[Previous Selected Date]}, Fact_EndoMetrics[exam_date])
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Previous QUICKI Data Date]
+			    )
 			)
 		formatString: 0.00
 		displayFolder: Endo - Previous
 		lineageTag: 65b16a0c-3217-45ba-b60c-a91d1e37e699
 
-	measure 'Endo QUICKI Delta' = [Endo Latest QUICKI] - [Endo Previous QUICKI]
+	measure 'Endo QUICKI Delta' = [Endo QUICKI] - [Endo Previous QUICKI]
 		formatString: 0.00
 		displayFolder: Endo - Delta
 		lineageTag: 0716f22d-0bdc-4413-9c0c-902b74311f8f
@@ -256,7 +312,11 @@ table Fact_EndoMetrics
 			AVERAGEX(
 			    TOPN(
 			        3,
-			        ALLSELECTED(Fact_EndoMetrics[exam_date]),
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            Fact_EndoMetrics[exam_date] <= [Endo Anchor QUICKI Data Date]
+			                && NOT ISBLANK(Fact_EndoMetrics[quicki])
+			        ),
 			        Fact_EndoMetrics[exam_date], DESC
 			    ),
 			    CALCULATE(MAX(Fact_EndoMetrics[quicki]))
@@ -269,7 +329,10 @@ table Fact_EndoMetrics
 			
 			CALCULATE(
 			    MAX(Fact_EndoMetrics[tsh]),
-			    TREATAS({[Latest Selected Date]}, Fact_EndoMetrics[exam_date])
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Latest TSH Data Date]
+			    )
 			)
 		formatString: 0.00
 		displayFolder: Endo - Latest
@@ -279,13 +342,16 @@ table Fact_EndoMetrics
 			
 			CALCULATE(
 			    MAX(Fact_EndoMetrics[tsh]),
-			    TREATAS({[Previous Selected Date]}, Fact_EndoMetrics[exam_date])
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Previous TSH Data Date]
+			    )
 			)
 		formatString: 0.00
 		displayFolder: Endo - Previous
 		lineageTag: 2b139465-9595-448f-9018-957b131827c0
 
-	measure 'Endo TSH Delta' = [Endo Latest TSH] - [Endo Previous TSH]
+	measure 'Endo TSH Delta' = [Endo TSH] - [Endo Previous TSH]
 		formatString: 0.00
 		displayFolder: Endo - Delta
 		lineageTag: 57c3d1ae-5489-4172-be7e-eed83a6d8ec4
@@ -300,7 +366,11 @@ table Fact_EndoMetrics
 			AVERAGEX(
 			    TOPN(
 			        3,
-			        ALLSELECTED(Fact_EndoMetrics[exam_date]),
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            Fact_EndoMetrics[exam_date] <= [Endo Anchor TSH Data Date]
+			                && NOT ISBLANK(Fact_EndoMetrics[tsh])
+			        ),
 			        Fact_EndoMetrics[exam_date], DESC
 			    ),
 			    CALCULATE(MAX(Fact_EndoMetrics[tsh]))
@@ -313,7 +383,10 @@ table Fact_EndoMetrics
 			
 			CALCULATE(
 			    MAX(Fact_EndoMetrics[free_t4]),
-			    TREATAS({[Latest Selected Date]}, Fact_EndoMetrics[exam_date])
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Latest Free T4 Data Date]
+			    )
 			)
 		formatString: 0.00
 		displayFolder: Endo - Latest
@@ -323,13 +396,16 @@ table Fact_EndoMetrics
 			
 			CALCULATE(
 			    MAX(Fact_EndoMetrics[free_t4]),
-			    TREATAS({[Previous Selected Date]}, Fact_EndoMetrics[exam_date])
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Previous Free T4 Data Date]
+			    )
 			)
 		formatString: 0.00
 		displayFolder: Endo - Previous
 		lineageTag: d54c897a-42c7-4549-b572-1122fdd7def5
 
-	measure 'Endo Free T4 Delta' = [Endo Latest Free T4] - [Endo Previous Free T4]
+	measure 'Endo Free T4 Delta' = [Endo Free T4] - [Endo Previous Free T4]
 		formatString: 0.00
 		displayFolder: Endo - Delta
 		lineageTag: a878f61c-8569-4b4d-88b8-cad82fe21d13
@@ -344,7 +420,11 @@ table Fact_EndoMetrics
 			AVERAGEX(
 			    TOPN(
 			        3,
-			        ALLSELECTED(Fact_EndoMetrics[exam_date]),
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            Fact_EndoMetrics[exam_date] <= [Endo Anchor Free T4 Data Date]
+			                && NOT ISBLANK(Fact_EndoMetrics[free_t4])
+			        ),
 			        Fact_EndoMetrics[exam_date], DESC
 			    ),
 			    CALCULATE(MAX(Fact_EndoMetrics[free_t4]))
@@ -357,7 +437,10 @@ table Fact_EndoMetrics
 			
 			CALCULATE(
 			    MAX(Fact_EndoMetrics[tsh_free_t4_ratio]),
-			    TREATAS({[Latest Selected Date]}, Fact_EndoMetrics[exam_date])
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Latest TSH/Free T4 Ratio Data Date]
+			    )
 			)
 		formatString: 0.00
 		displayFolder: Endo - Latest
@@ -367,13 +450,16 @@ table Fact_EndoMetrics
 			
 			CALCULATE(
 			    MAX(Fact_EndoMetrics[tsh_free_t4_ratio]),
-			    TREATAS({[Previous Selected Date]}, Fact_EndoMetrics[exam_date])
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Previous TSH/Free T4 Ratio Data Date]
+			    )
 			)
 		formatString: 0.00
 		displayFolder: Endo - Previous
 		lineageTag: 31631d53-c357-4e5c-88b3-798bb46f26c8
 
-	measure 'Endo TSH/Free T4 Ratio Delta' = [Endo Latest TSH/Free T4 Ratio] - [Endo Previous TSH/Free T4 Ratio]
+	measure 'Endo TSH/Free T4 Ratio Delta' = [Endo TSH/Free T4 Ratio] - [Endo Previous TSH/Free T4 Ratio]
 		formatString: 0.00
 		displayFolder: Endo - Delta
 		lineageTag: f4f2543a-1130-4829-a3d5-71f41dfc8986
@@ -388,7 +474,11 @@ table Fact_EndoMetrics
 			AVERAGEX(
 			    TOPN(
 			        3,
-			        ALLSELECTED(Fact_EndoMetrics[exam_date]),
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            Fact_EndoMetrics[exam_date] <= [Endo Anchor TSH/Free T4 Ratio Data Date]
+			                && NOT ISBLANK(Fact_EndoMetrics[tsh_free_t4_ratio])
+			        ),
 			        Fact_EndoMetrics[exam_date], DESC
 			    ),
 			    CALCULATE(MAX(Fact_EndoMetrics[tsh_free_t4_ratio]))
@@ -401,7 +491,10 @@ table Fact_EndoMetrics
 			
 			CALCULATE(
 			    MAX(Fact_EndoMetrics[vitamin_d_25_oh]),
-			    TREATAS({[Latest Selected Date]}, Fact_EndoMetrics[exam_date])
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Latest Vitamin D Data Date]
+			    )
 			)
 		formatString: 0.00
 		displayFolder: Endo - Latest
@@ -411,13 +504,16 @@ table Fact_EndoMetrics
 			
 			CALCULATE(
 			    MAX(Fact_EndoMetrics[vitamin_d_25_oh]),
-			    TREATAS({[Previous Selected Date]}, Fact_EndoMetrics[exam_date])
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Previous Vitamin D Data Date]
+			    )
 			)
 		formatString: 0.00
 		displayFolder: Endo - Previous
 		lineageTag: 687eecd1-f247-4741-a9d3-c0f63aa7700e
 
-	measure 'Endo Vitamin D Delta' = [Endo Latest Vitamin D] - [Endo Previous Vitamin D]
+	measure 'Endo Vitamin D Delta' = [Endo Vitamin D] - [Endo Previous Vitamin D]
 		formatString: 0.00
 		displayFolder: Endo - Delta
 		lineageTag: 4119179b-32c6-4321-ba30-46d9d71daf98
@@ -432,7 +528,11 @@ table Fact_EndoMetrics
 			AVERAGEX(
 			    TOPN(
 			        3,
-			        ALLSELECTED(Fact_EndoMetrics[exam_date]),
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            Fact_EndoMetrics[exam_date] <= [Endo Anchor Vitamin D Data Date]
+			                && NOT ISBLANK(Fact_EndoMetrics[vitamin_d_25_oh])
+			        ),
 			        Fact_EndoMetrics[exam_date], DESC
 			    ),
 			    CALCULATE(MAX(Fact_EndoMetrics[vitamin_d_25_oh]))
@@ -583,7 +683,7 @@ table Fact_EndoMetrics
 
 	measure 'Endo HOMA-IR Score' =
 			
-			VAR x = [Endo Latest HOMA-IR]
+			VAR x = [Endo HOMA-IR]
 			RETURN
 			SWITCH(
 			    TRUE(),
@@ -598,7 +698,7 @@ table Fact_EndoMetrics
 
 	measure 'Endo QUICKI Score' =
 			
-			VAR x = [Endo Latest QUICKI]
+			VAR x = [Endo QUICKI]
 			RETURN
 			SWITCH(
 			    TRUE(),
@@ -613,7 +713,7 @@ table Fact_EndoMetrics
 
 	measure 'Endo Vitamin D Score' =
 			
-			VAR x = [Endo Latest Vitamin D]
+			VAR x = [Endo Vitamin D]
 			RETURN
 			SWITCH(
 			    TRUE(),
@@ -629,7 +729,7 @@ table Fact_EndoMetrics
 
 	measure 'Endo HbA1c Score' =
 			
-			VAR x = [Endo Latest HbA1c]
+			VAR x = [Endo HbA1c]
 			RETURN
 			SWITCH(
 			    TRUE(),
@@ -644,7 +744,7 @@ table Fact_EndoMetrics
 
 	measure 'Endo Glucose Score' =
 			
-			VAR x = [Endo Latest Glucose]
+			VAR x = [Endo Glucose]
 			RETURN
 			SWITCH(
 			    TRUE(),
@@ -683,7 +783,7 @@ table Fact_EndoMetrics
 
 	measure 'Endo Vitamin D Indicator' =
 			
-			VAR x = [Endo Latest Vitamin D]
+			VAR x = [Endo Vitamin D]
 			RETURN
 			SWITCH(
 			    TRUE(),
@@ -767,46 +867,22 @@ table Fact_EndoMetrics
 		displayFolder: Endo - KPI
 		lineageTag: fa0fe00b-e001-4251-88fc-fe6f3da7b41b
 
-	measure 'Endo HOMA-IR Stability KPI' =
-			
-			VAR curr = [Endo Latest HOMA-IR]
-			VAR avg3 = [Endo HOMA-IR Rolling 3]
-			RETURN
-			ABS(curr - avg3)
-			)
+	measure 'Endo HOMA-IR Stability KPI' = ABS([Endo HOMA-IR] - [Endo HOMA-IR Rolling 3])
 		formatString: 0.00
 		displayFolder: Endo - Stability
 		lineageTag: d8a0e75c-0942-43bd-825b-f62e2a2a6708
 
-	measure 'Endo QUICKI Stability KPI' =
-			
-			VAR curr = [Endo Latest QUICKI]
-			VAR avg3 = [Endo QUICKI Rolling 3]
-			RETURN
-			ABS(curr - avg3)
-			)
+	measure 'Endo QUICKI Stability KPI' = ABS([Endo QUICKI] - [Endo QUICKI Rolling 3])
 		formatString: 0.00
 		displayFolder: Endo - Stability
 		lineageTag: 497e96ce-c981-4640-ad53-6c54b657c580
 
-	measure 'Endo HbA1c Stability KPI' =
-			
-			VAR curr = [Endo Latest HbA1c]
-			VAR avg3 = [Endo HbA1c Rolling 3]
-			RETURN
-			ABS(curr - avg3)
-			)
+	measure 'Endo HbA1c Stability KPI' = ABS([Endo HbA1c] - [Endo HbA1c Rolling 3])
 		formatString: 0.00
 		displayFolder: Endo - Stability
 		lineageTag: 0abe6f14-1dc0-4784-a40a-869007741852
 
-	measure 'Endo Vitamin D Stability KPI' =
-			
-			VAR curr = [Endo Latest Vitamin D]
-			VAR avg3 = [Endo Vitamin D Rolling 3]
-			RETURN
-			ABS(curr - avg3)
-			)
+	measure 'Endo Vitamin D Stability KPI' = ABS([Endo Vitamin D] - [Endo Vitamin D Rolling 3])
 		formatString: 0.00
 		displayFolder: Endo - Stability
 		lineageTag: 9a175d16-0853-4cbf-87aa-f319407bea9a
@@ -895,9 +971,1180 @@ table Fact_EndoMetrics
 		displayFolder: Formatting - Trend
 		lineageTag: 4edb810b-4a83-41db-8b1e-b45bb4476a22
 
+	measure 'Endo Latest Glucose Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_EndoMetrics),
+			        NOT ISBLANK(Fact_EndoMetrics[glucose_for_calc])
+			    ),
+			    Fact_EndoMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: da8476a2-00bb-45b6-a8a3-f4b80c58a54c
+
+	measure 'Endo Previous Glucose Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] < [Endo Anchor Glucose Data Date]
+			            && NOT ISBLANK(Fact_EndoMetrics[glucose_for_calc])
+			    ),
+			    Fact_EndoMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: 99be5072-421c-438b-ac09-3a0b250778d0
+
+	measure 'Endo Latest Fasting Insulin Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_EndoMetrics),
+			        NOT ISBLANK(Fact_EndoMetrics[fasting_insulin])
+			    ),
+			    Fact_EndoMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: f1e244e8-e418-44d9-8b5e-14cdad165518
+
+	measure 'Endo Previous Fasting Insulin Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] < [Endo Anchor Fasting Insulin Data Date]
+			            && NOT ISBLANK(Fact_EndoMetrics[fasting_insulin])
+			    ),
+			    Fact_EndoMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: 369d68ed-d2a2-4acc-8c2f-8e39105958d4
+
+	measure 'Endo Latest HbA1c Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_EndoMetrics),
+			        NOT ISBLANK(Fact_EndoMetrics[hba1c])
+			    ),
+			    Fact_EndoMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: 34ec0538-28ed-40f0-bedf-aa344ee08c76
+
+	measure 'Endo Previous HbA1c Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] < [Endo Anchor HbA1c Data Date]
+			            && NOT ISBLANK(Fact_EndoMetrics[hba1c])
+			    ),
+			    Fact_EndoMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: 4362be95-9e59-45ba-975e-e0ef33f6baaf
+
+	measure 'Endo Latest eAG Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_EndoMetrics),
+			        NOT ISBLANK(Fact_EndoMetrics[eag_mgdl])
+			    ),
+			    Fact_EndoMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: 04a04d79-7232-420a-97b5-f7a16392a4a9
+
+	measure 'Endo Previous eAG Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] < [Endo Anchor eAG Data Date]
+			            && NOT ISBLANK(Fact_EndoMetrics[eag_mgdl])
+			    ),
+			    Fact_EndoMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: c9aa950d-f120-4b8f-9284-4105757ad8b3
+
+	measure 'Endo Latest HOMA-IR Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_EndoMetrics),
+			        NOT ISBLANK(Fact_EndoMetrics[homa_ir])
+			    ),
+			    Fact_EndoMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: 1c3cd8da-20ac-4528-b419-a6e9e1f166c2
+
+	measure 'Endo Previous HOMA-IR Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] < [Endo Anchor HOMA-IR Data Date]
+			            && NOT ISBLANK(Fact_EndoMetrics[homa_ir])
+			    ),
+			    Fact_EndoMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: 5a73a67d-6730-4773-a796-9a2fb08737f8
+
+	measure 'Endo Latest QUICKI Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_EndoMetrics),
+			        NOT ISBLANK(Fact_EndoMetrics[quicki])
+			    ),
+			    Fact_EndoMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: 91ca8fbe-68bd-4db9-8128-a8c33e691133
+
+	measure 'Endo Previous QUICKI Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] < [Endo Anchor QUICKI Data Date]
+			            && NOT ISBLANK(Fact_EndoMetrics[quicki])
+			    ),
+			    Fact_EndoMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: b86f5e62-a3a1-49c9-8a94-d2d6f6c5203f
+
+	measure 'Endo Latest TSH Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_EndoMetrics),
+			        NOT ISBLANK(Fact_EndoMetrics[tsh])
+			    ),
+			    Fact_EndoMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: 2eddda12-5a29-41d4-92e7-7d5171bf9e95
+
+	measure 'Endo Previous TSH Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] < [Endo Anchor TSH Data Date]
+			            && NOT ISBLANK(Fact_EndoMetrics[tsh])
+			    ),
+			    Fact_EndoMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: 8f103174-fe83-49d5-8e54-73cdbd752a89
+
+	measure 'Endo Latest Free T4 Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_EndoMetrics),
+			        NOT ISBLANK(Fact_EndoMetrics[free_t4])
+			    ),
+			    Fact_EndoMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: b0e20d56-20db-4bce-8ba9-adc537a79454
+
+	measure 'Endo Previous Free T4 Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] < [Endo Anchor Free T4 Data Date]
+			            && NOT ISBLANK(Fact_EndoMetrics[free_t4])
+			    ),
+			    Fact_EndoMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: 5a34467c-db2e-40f4-ab17-2cad94541c55
+
+	measure 'Endo Latest TSH/Free T4 Ratio Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_EndoMetrics),
+			        NOT ISBLANK(Fact_EndoMetrics[tsh_free_t4_ratio])
+			    ),
+			    Fact_EndoMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: 2d8cb5d9-04e3-4527-835c-8b20f98768b3
+
+	measure 'Endo Previous TSH/Free T4 Ratio Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] < [Endo Anchor TSH/Free T4 Ratio Data Date]
+			            && NOT ISBLANK(Fact_EndoMetrics[tsh_free_t4_ratio])
+			    ),
+			    Fact_EndoMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: c5808098-b62d-4e2d-a8c7-5ae7b26e678c
+
+	measure 'Endo Latest Vitamin D Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_EndoMetrics),
+			        NOT ISBLANK(Fact_EndoMetrics[vitamin_d_25_oh])
+			    ),
+			    Fact_EndoMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: acabcba2-6345-4f06-84ae-5bcf4ba447d1
+
+	measure 'Endo Previous Vitamin D Data Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] < [Endo Anchor Vitamin D Data Date]
+			            && NOT ISBLANK(Fact_EndoMetrics[vitamin_d_25_oh])
+			    ),
+			    Fact_EndoMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: ced5e4b7-9668-49fd-bd03-1fc37e658fe8
+
+	measure 'Endo Days Between Latest And Previous Test' = DATEDIFF([Endo Previous Exam Date], [Endo Anchor Exam Date], DAY)
+		formatString: 0
+		displayFolder: Endo - Data Dates
+		lineageTag: af9fd838-bfbd-4d23-8c38-f59981875f83
+
+	measure 'Endo Anchor Exam Date' =
+			
+			VAR SelectedDate = [Selected Anchor Calendar Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(SelectedDate),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            Fact_EndoMetrics[exam_date] <= SelectedDate
+			                && NOT ISBLANK(Fact_EndoMetrics[Endo Glucose])
+			        ),
+			        Fact_EndoMetrics[exam_date]
+			    ),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            NOT ISBLANK(Fact_EndoMetrics[Endo Glucose])
+			        ),
+			        Fact_EndoMetrics[exam_date]
+			    )
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: a5be9a0c-ac3d-4754-a634-2125afe722af
+
+	measure 'Endo Previous Exam Date' =
+			
+			MAXX(
+			    FILTER(
+			        ALLSELECTED(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] < [Endo Anchor Exam Date]
+			            && NOT ISBLANK(Fact_EndoMetrics[glucose_for_calc])
+			    ),
+			    Fact_EndoMetrics[exam_date]
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: 4aedd186-979d-4301-bc73-c9aa17f4615c
+
+	measure 'Endo Anchor Glucose Data Date' =
+			
+			VAR SelectedDate = [Selected Anchor Calendar Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(SelectedDate),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            Fact_EndoMetrics[exam_date] <= SelectedDate
+			                && NOT ISBLANK(Fact_EndoMetrics[glucose_for_calc])
+			        ),
+			        Fact_EndoMetrics[exam_date]
+			    ),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            NOT ISBLANK(Fact_EndoMetrics[glucose_for_calc])
+			        ),
+			        Fact_EndoMetrics[exam_date]
+			    )
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: 8f6e7deb-361e-4440-8ed7-e9acfdb74a9d
+
+	measure 'Endo Glucose' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[glucose_for_calc]),
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Anchor Glucose Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Endo - Latest
+		lineageTag: e694a903-ec67-4c5c-a85c-8addc37f1b4e
+
+	measure 'Endo Anchor Fasting Insulin Data Date' =
+			
+			VAR SelectedDate = [Selected Anchor Calendar Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(SelectedDate),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            Fact_EndoMetrics[exam_date] <= SelectedDate
+			                && NOT ISBLANK(Fact_EndoMetrics[fasting_insulin])
+			        ),
+			        Fact_EndoMetrics[exam_date]
+			    ),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            NOT ISBLANK(Fact_EndoMetrics[fasting_insulin])
+			        ),
+			        Fact_EndoMetrics[exam_date]
+			    )
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: ee66d645-c74f-49e1-90a0-e34dccb2c2e4
+
+	measure 'Endo Fasting Insulin' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[fasting_insulin]),
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Anchor Fasting Insulin Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Endo - Latest
+		lineageTag: 00f5fc2f-d458-48fe-b398-27a123a15958
+
+	measure 'Endo Anchor HbA1c Data Date' =
+			
+			VAR SelectedDate = [Selected Anchor Calendar Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(SelectedDate),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            Fact_EndoMetrics[exam_date] <= SelectedDate
+			                && NOT ISBLANK(Fact_EndoMetrics[hba1c])
+			        ),
+			        Fact_EndoMetrics[exam_date]
+			    ),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            NOT ISBLANK(Fact_EndoMetrics[hba1c])
+			        ),
+			        Fact_EndoMetrics[exam_date]
+			    )
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: 10fbf912-731b-4e77-9da9-5e83eace484e
+
+	measure 'Endo HbA1c' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[hba1c]),
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Anchor HbA1c Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Endo - Latest
+		lineageTag: 607f51c1-a472-4922-bbcd-45d932941b27
+
+	measure 'Endo Anchor eAG Data Date' =
+			
+			VAR SelectedDate = [Selected Anchor Calendar Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(SelectedDate),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            Fact_EndoMetrics[exam_date] <= SelectedDate
+			                && NOT ISBLANK(Fact_EndoMetrics[eag_mgdl])
+			        ),
+			        Fact_EndoMetrics[exam_date]
+			    ),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            NOT ISBLANK(Fact_EndoMetrics[eag_mgdl])
+			        ),
+			        Fact_EndoMetrics[exam_date]
+			    )
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: f872d529-af42-4207-b0d1-892ca4905622
+
+	measure 'Endo eAG' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[eag_mgdl]),
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Anchor eAG Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Endo - Latest
+		lineageTag: 74ea6835-431c-4ad5-a175-8146ba3d0cdb
+
+	measure 'Endo Anchor HOMA-IR Data Date' =
+			
+			VAR SelectedDate = [Selected Anchor Calendar Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(SelectedDate),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            Fact_EndoMetrics[exam_date] <= SelectedDate
+			                && NOT ISBLANK(Fact_EndoMetrics[homa_ir])
+			        ),
+			        Fact_EndoMetrics[exam_date]
+			    ),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            NOT ISBLANK(Fact_EndoMetrics[homa_ir])
+			        ),
+			        Fact_EndoMetrics[exam_date]
+			    )
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: ea796e9b-4a1a-4f10-86ec-a912443f251c
+
+	measure 'Endo HOMA-IR' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[homa_ir]),
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Anchor HOMA-IR Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Endo - Latest
+		lineageTag: 45d9b32e-90a4-4e5c-98f8-6855ba62c5d9
+
+	measure 'Endo Anchor QUICKI Data Date' =
+			
+			VAR SelectedDate = [Selected Anchor Calendar Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(SelectedDate),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            Fact_EndoMetrics[exam_date] <= SelectedDate
+			                && NOT ISBLANK(Fact_EndoMetrics[quicki])
+			        ),
+			        Fact_EndoMetrics[exam_date]
+			    ),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            NOT ISBLANK(Fact_EndoMetrics[quicki])
+			        ),
+			        Fact_EndoMetrics[exam_date]
+			    )
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: 65eb4eb3-699b-4d93-bc06-bc4d0153c797
+
+	measure 'Endo QUICKI' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[quicki]),
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Anchor QUICKI Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Endo - Latest
+		lineageTag: b1612847-a315-4303-bdc3-b0b8d7f98dfe
+
+	measure 'Endo Anchor TSH Data Date' =
+			
+			VAR SelectedDate = [Selected Anchor Calendar Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(SelectedDate),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            Fact_EndoMetrics[exam_date] <= SelectedDate
+			                && NOT ISBLANK(Fact_EndoMetrics[tsh])
+			        ),
+			        Fact_EndoMetrics[exam_date]
+			    ),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            NOT ISBLANK(Fact_EndoMetrics[tsh])
+			        ),
+			        Fact_EndoMetrics[exam_date]
+			    )
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: b98ffd60-0b8f-406c-a695-d715f67068b9
+
+	measure 'Endo TSH' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[tsh]),
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Anchor TSH Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Endo - Latest
+		lineageTag: 3faa8c29-c32b-4eae-b53a-076fab338909
+
+	measure 'Endo Anchor Free T4 Data Date' =
+			
+			VAR SelectedDate = [Selected Anchor Calendar Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(SelectedDate),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            Fact_EndoMetrics[exam_date] <= SelectedDate
+			                && NOT ISBLANK(Fact_EndoMetrics[free_t4])
+			        ),
+			        Fact_EndoMetrics[exam_date]
+			    ),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            NOT ISBLANK(Fact_EndoMetrics[free_t4])
+			        ),
+			        Fact_EndoMetrics[exam_date]
+			    )
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: a1191fac-23ef-4abd-af80-b09c3b0cb49a
+
+	measure 'Endo Free T4' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[free_t4]),
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Anchor Free T4 Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Endo - Latest
+		lineageTag: 61a3f703-a1a7-46ff-95dd-3b90a79e76c0
+
+	measure 'Endo Anchor TSH/Free T4 Ratio Data Date' =
+			
+			VAR SelectedDate = [Selected Anchor Calendar Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(SelectedDate),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            Fact_EndoMetrics[exam_date] <= SelectedDate
+			                && NOT ISBLANK(Fact_EndoMetrics[tsh_free_t4_ratio])
+			        ),
+			        Fact_EndoMetrics[exam_date]
+			    ),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            NOT ISBLANK(Fact_EndoMetrics[tsh_free_t4_ratio])
+			        ),
+			        Fact_EndoMetrics[exam_date]
+			    )
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: 707f38ce-5de9-4b82-8dac-51cf55c59538
+
+	measure 'Endo TSH/Free T4 Ratio' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[tsh_free_t4_ratio]),
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Anchor TSH/Free T4 Ratio Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Endo - Latest
+		lineageTag: dfd2a16e-571c-497f-be5e-c9723cecbf8e
+
+	measure 'Endo Anchor Vitamin D Data Date' =
+			
+			VAR SelectedDate = [Selected Anchor Calendar Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(SelectedDate),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            Fact_EndoMetrics[exam_date] <= SelectedDate
+			                && NOT ISBLANK(Fact_EndoMetrics[vitamin_d_25_oh])
+			        ),
+			        Fact_EndoMetrics[exam_date]
+			    ),
+			    MAXX(
+			        FILTER(
+			            ALLSELECTED(Fact_EndoMetrics),
+			            NOT ISBLANK(Fact_EndoMetrics[vitamin_d_25_oh])
+			        ),
+			        Fact_EndoMetrics[exam_date]
+			    )
+			)
+		formatString: yyyy-mm-dd
+		displayFolder: Endo - Data Dates
+		lineageTag: 9df7dd8b-0c2b-4469-b914-3cfbc280700e
+
+	measure 'Endo Vitamin D' =
+			
+			CALCULATE(
+			    MAX(Fact_EndoMetrics[vitamin_d_25_oh]),
+			    FILTER(
+			        ALL(Fact_EndoMetrics),
+			        Fact_EndoMetrics[exam_date] = [Endo Anchor Vitamin D Data Date]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: Endo - Latest
+		lineageTag: 76d2c970-f510-491e-b6f6-68d1d2dd2154
+
+	measure 'Endo Composite Background Hex' = [Endo Composite Color Hex]
+		displayFolder: Formatting - Endo
+		lineageTag: a36bb877-f33a-4fed-8e06-1f97764dab8b
+
+	/// Use on line/scatter charts to display metric over time.
+	measure 'Endo Glucose Trend' = MAX(Fact_EndoMetrics[glucose_for_calc])
+		formatString: 0.00
+		displayFolder: Endo - Trend Series
+		lineageTag: 1e0721d9-60f6-4032-93d7-05f0893c3c59
+
+	/// Use with trend line to highlight the selected/latest anchor exam.
+	measure 'Endo Glucose Anchor Marker' =
+			
+			VAR CurrentAxisDate = MAX(Fact_EndoMetrics[exam_date])
+			VAR AnchorDate = [Endo Anchor Glucose Data Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(AnchorDate) && CurrentAxisDate = AnchorDate,
+			    MAX(Fact_EndoMetrics[glucose_for_calc]),
+			    BLANK()
+			)
+		formatString: 0.00
+		displayFolder: Endo - Anchor Markers
+		lineageTag: d53c61e1-48af-43c3-b991-a72f0678cc7c
+
+	/// Use on line/scatter charts to display metric over time.
+	measure 'Endo Fasting Insulin Trend' = MAX(Fact_EndoMetrics[fasting_insulin])
+		formatString: 0.00
+		displayFolder: Endo - Trend Series
+		lineageTag: 71afbeed-e68d-4601-95df-6dacc3396905
+
+	/// Use with trend line to highlight the selected/latest anchor exam.
+	measure 'Endo Fasting Insulin Anchor Marker' =
+			
+			VAR CurrentAxisDate = MAX(Fact_EndoMetrics[exam_date])
+			VAR AnchorDate = [Endo Anchor Fasting Insulin Data Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(AnchorDate) && CurrentAxisDate = AnchorDate,
+			    MAX(Fact_EndoMetrics[fasting_insulin]),
+			    BLANK()
+			)
+		formatString: 0.00
+		displayFolder: Endo - Anchor Markers
+		lineageTag: a7ae7320-54fb-41e2-a069-3850044ea6a6
+
+	/// Use on line/scatter charts to display metric over time.
+	measure 'Endo HbA1c Trend' = MAX(Fact_EndoMetrics[hba1c])
+		formatString: 0.00
+		displayFolder: Endo - Trend Series
+		lineageTag: 3adf26a8-2d84-4a89-bb18-9a08344ba8b1
+
+	/// Use with trend line to highlight the selected/latest anchor exam.
+	measure 'Endo HbA1c Anchor Marker' =
+			
+			VAR CurrentAxisDate = MAX(Fact_EndoMetrics[exam_date])
+			VAR AnchorDate = [Endo Anchor HbA1c Data Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(AnchorDate) && CurrentAxisDate = AnchorDate,
+			    MAX(Fact_EndoMetrics[hba1c]),
+			    BLANK()
+			)
+		formatString: 0.00
+		displayFolder: Endo - Anchor Markers
+		lineageTag: 976e2e5b-2918-4c3b-8b52-d91b981389bd
+
+	/// Use on line/scatter charts to display metric over time.
+	measure 'Endo eAG Trend' = MAX(Fact_EndoMetrics[eag_mgdl])
+		formatString: 0.00
+		displayFolder: Endo - Trend Series
+		lineageTag: 235aa667-3b7a-437e-82ab-5e623eb03c48
+
+	/// Use with trend line to highlight the selected/latest anchor exam.
+	measure 'Endo eAG Anchor Marker' =
+			
+			VAR CurrentAxisDate = MAX(Fact_EndoMetrics[exam_date])
+			VAR AnchorDate = [Endo Anchor eAG Data Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(AnchorDate) && CurrentAxisDate = AnchorDate,
+			    MAX(Fact_EndoMetrics[eag_mgdl]),
+			    BLANK()
+			)
+		formatString: 0.00
+		displayFolder: Endo - Anchor Markers
+		lineageTag: 8ce41e2d-c1bd-41bf-bef9-f1eaa322f242
+
+	/// Use on line/scatter charts to display metric over time.
+	measure 'Endo HOMA-IR Trend' = MAX(Fact_EndoMetrics[homa_ir])
+		formatString: 0.00
+		displayFolder: Endo - Trend Series
+		lineageTag: 108aa03c-358d-4218-9c6b-10616a10bb13
+
+	/// Use with trend line to highlight the selected/latest anchor exam.
+	measure 'Endo HOMA-IR Anchor Marker' =
+			
+			VAR CurrentAxisDate = MAX(Fact_EndoMetrics[exam_date])
+			VAR AnchorDate = [Endo Anchor HOMA-IR Data Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(AnchorDate) && CurrentAxisDate = AnchorDate,
+			    MAX(Fact_EndoMetrics[homa_ir]),
+			    BLANK()
+			)
+		formatString: 0.00
+		displayFolder: Endo - Anchor Markers
+		lineageTag: 2b61615d-9e3b-496c-ae96-798df9463d2e
+
+	/// Use on line/scatter charts to display metric over time.
+	measure 'Endo QUICKI Trend' = MAX(Fact_EndoMetrics[quicki])
+		formatString: 0.00
+		displayFolder: Endo - Trend Series
+		lineageTag: 02ccac6d-09fc-4443-8b44-9de1b3243a76
+
+	/// Use with trend line to highlight the selected/latest anchor exam.
+	measure 'Endo QUICKI Anchor Marker' =
+			
+			VAR CurrentAxisDate = MAX(Fact_EndoMetrics[exam_date])
+			VAR AnchorDate = [Endo Anchor QUICKI Data Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(AnchorDate) && CurrentAxisDate = AnchorDate,
+			    MAX(Fact_EndoMetrics[quicki]),
+			    BLANK()
+			)
+		formatString: 0.00
+		displayFolder: Endo - Anchor Markers
+		lineageTag: de7d0f21-e046-4f2f-9a09-de57622aa9a5
+
+	/// Use on line/scatter charts to display metric over time.
+	measure 'Endo TSH Trend' = MAX(Fact_EndoMetrics[tsh])
+		formatString: 0.00
+		displayFolder: Endo - Trend Series
+		lineageTag: 801e1cff-609c-4b5c-9d43-1355f08b0326
+
+	/// Use with trend line to highlight the selected/latest anchor exam.
+	measure 'Endo TSH Anchor Marker' =
+			
+			VAR CurrentAxisDate = MAX(Fact_EndoMetrics[exam_date])
+			VAR AnchorDate = [Endo Anchor TSH Data Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(AnchorDate) && CurrentAxisDate = AnchorDate,
+			    MAX(Fact_EndoMetrics[tsh]),
+			    BLANK()
+			)
+		formatString: 0.00
+		displayFolder: Endo - Anchor Markers
+		lineageTag: 7eea0a89-7da5-47c2-af2f-6bc35a550155
+
+	/// Use on line/scatter charts to display metric over time.
+	measure 'Endo Free T4 Trend' = MAX(Fact_EndoMetrics[free_t4])
+		formatString: 0.00
+		displayFolder: Endo - Trend Series
+		lineageTag: ab8877fa-7525-493a-9eeb-2f57354a1d58
+
+	/// Use with trend line to highlight the selected/latest anchor exam.
+	measure 'Endo Free T4 Anchor Marker' =
+			
+			VAR CurrentAxisDate = MAX(Fact_EndoMetrics[exam_date])
+			VAR AnchorDate = [Endo Anchor Free T4 Data Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(AnchorDate) && CurrentAxisDate = AnchorDate,
+			    MAX(Fact_EndoMetrics[free_t4]),
+			    BLANK()
+			)
+		formatString: 0.00
+		displayFolder: Endo - Anchor Markers
+		lineageTag: e74a15d7-e486-4cc3-8187-370da2abc60d
+
+	/// Use on line/scatter charts to display metric over time.
+	measure 'Endo TSH/Free T4 Ratio Trend' = MAX(Fact_EndoMetrics[tsh_free_t4_ratio])
+		formatString: 0.00
+		displayFolder: Endo - Trend Series
+		lineageTag: f3d112ee-0620-4cc4-b2c0-8681980efa06
+
+	/// Use with trend line to highlight the selected/latest anchor exam.
+	measure 'Endo TSH/Free T4 Ratio Anchor Marker' =
+			
+			VAR CurrentAxisDate = MAX(Fact_EndoMetrics[exam_date])
+			VAR AnchorDate = [Endo Anchor TSH/Free T4 Ratio Data Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(AnchorDate) && CurrentAxisDate = AnchorDate,
+			    MAX(Fact_EndoMetrics[tsh_free_t4_ratio]),
+			    BLANK()
+			)
+		formatString: 0.00
+		displayFolder: Endo - Anchor Markers
+		lineageTag: 12c50dec-1c66-494d-bd13-1dbd4f6ae19c
+
+	/// Use on line/scatter charts to display metric over time.
+	measure 'Endo Vitamin D Trend' = MAX(Fact_EndoMetrics[vitamin_d_25_oh])
+		formatString: 0.00
+		displayFolder: Endo - Trend Series
+		lineageTag: 33c48f65-fa2f-4450-9e77-5222666a1a58
+
+	/// Use with trend line to highlight the selected/latest anchor exam.
+	measure 'Endo Vitamin D Anchor Marker' =
+			
+			VAR CurrentAxisDate = MAX(Fact_EndoMetrics[exam_date])
+			VAR AnchorDate = [Endo Anchor Vitamin D Data Date]
+			RETURN
+			IF(
+			    NOT ISBLANK(AnchorDate) && CurrentAxisDate = AnchorDate,
+			    MAX(Fact_EndoMetrics[vitamin_d_25_oh]),
+			    BLANK()
+			)
+		formatString: 0.00
+		displayFolder: Endo - Anchor Markers
+		lineageTag: 636a0859-5902-4a30-842d-43dde9b0fce6
+
+	measure 'Endo Anchor Exam Date Label' = FORMAT([Endo Anchor Exam Date], "yyyy-mm-dd")
+		displayFolder: Endo - Anchor Markers
+		lineageTag: 4043a586-b72e-4320-b919-77a558c1847a
+
+	/// Static target/reference line.
+	measure 'Endo Glucose Target' = 100
+		formatString: 0.00
+		displayFolder: Endo - Targets
+		lineageTag: 036e1135-7d45-474d-ab7d-7339bfe2e4b2
+
+	/// Static target/reference line.
+	measure 'Endo Fasting Insulin Target' = 10
+		formatString: 0.00
+		displayFolder: Endo - Targets
+		lineageTag: 411475fd-a8c6-40c3-af97-61749378e3ef
+
+	/// Static target/reference line.
+	measure 'Endo HbA1c Target' = 5.7
+		formatString: 0.00
+		displayFolder: Endo - Targets
+		lineageTag: f7e77918-6b9d-456d-bc33-64370c2222a0
+
+	/// Static target/reference line.
+	measure 'Endo eAG Target' = 117
+		formatString: 0.00
+		displayFolder: Endo - Targets
+		lineageTag: 14c43746-a7f8-4f7b-b9a5-a305246538d1
+
+	/// Static target/reference line.
+	measure 'Endo HOMA-IR Target' = 2.0
+		formatString: 0.00
+		displayFolder: Endo - Targets
+		lineageTag: 18d0ddaf-530e-41b8-a59f-4bdec970580f
+
+	/// Static target/reference line.
+	measure 'Endo QUICKI Target' = 0.35
+		formatString: 0.00
+		displayFolder: Endo - Targets
+		lineageTag: 65b7ebe2-3fd6-4ae6-ac2f-19d78f8fea2a
+
+	/// Static target/reference line.
+	measure 'Endo Vitamin D Target' = 30
+		formatString: 0.00
+		displayFolder: Endo - Targets
+		lineageTag: 3e02e0c6-2c8d-4bd0-98f3-ca6ae989f0bc
+
+	/// Static target/reference line.
+	measure 'Endo Glucose Favorable Ceiling' = 100
+		formatString: 0.00
+		displayFolder: Endo - Reference Bands
+		lineageTag: a3c07766-8135-4a52-8023-520644cad10e
+
+	/// Static target/reference line.
+	measure 'Endo Glucose Prediabetes Ceiling' = 126
+		formatString: 0.00
+		displayFolder: Endo - Reference Bands
+		lineageTag: 899fbb69-0beb-4fb7-bf19-ada8c5bf78a0
+
+	/// Static target/reference line.
+	measure 'Endo HbA1c Favorable Ceiling' = 5.7
+		formatString: 0.00
+		displayFolder: Endo - Reference Bands
+		lineageTag: a616c39a-6899-4cc1-b79c-15f7a24d6e0e
+
+	/// Static target/reference line.
+	measure 'Endo HbA1c Prediabetes Ceiling' = 6.5
+		formatString: 0.00
+		displayFolder: Endo - Reference Bands
+		lineageTag: 94417a44-f846-4b13-a1bc-d2f863918706
+
+	/// Static target/reference line.
+	measure 'Endo HOMA-IR Favorable Ceiling' = 2.0
+		formatString: 0.00
+		displayFolder: Endo - Reference Bands
+		lineageTag: 4df82fc3-82c5-4636-aae2-901a39d15b57
+
+	/// Static target/reference line.
+	measure 'Endo HOMA-IR Borderline Ceiling' = 3.0
+		formatString: 0.00
+		displayFolder: Endo - Reference Bands
+		lineageTag: 3448c2fa-247e-4d7a-ad5f-a5c361e99bcd
+
+	/// Static target/reference line.
+	measure 'Endo QUICKI Favorable Floor' = 0.35
+		formatString: 0.00
+		displayFolder: Endo - Reference Bands
+		lineageTag: 0603d407-c9ac-42bb-8a22-cf3c708d6379
+
+	/// Static target/reference line.
+	measure 'Endo QUICKI Borderline Floor' = 0.30
+		formatString: 0.00
+		displayFolder: Endo - Reference Bands
+		lineageTag: c65afbcf-f590-4140-bde2-3b2c76540102
+
+	/// Static target/reference line.
+	measure 'Endo Vitamin D Deficient Ceiling' = 20
+		formatString: 0.00
+		displayFolder: Endo - Reference Bands
+		lineageTag: defe7169-e25d-4128-9151-b27c8bb75958
+
+	/// Static target/reference line.
+	measure 'Endo Vitamin D Insufficient Ceiling' = 30
+		formatString: 0.00
+		displayFolder: Endo - Reference Bands
+		lineageTag: 877467f5-0ac5-45fe-935f-f04238b03338
+
+	/// Static target/reference line.
+	measure 'Endo Vitamin D Sufficient Ceiling' = 50
+		formatString: 0.00
+		displayFolder: Endo - Reference Bands
+		lineageTag: 0124e79c-63d9-4983-8dba-b4c62e69fc37
+
+	/// Dynamic chart title with anchor date.
+	measure 'Endo Glucose Trend Title' =
+			
+			VAR AnchorDate = [Endo Anchor Glucose Data Date]
+			RETURN
+			"Glucose Trend — Anchor: " &
+			IF(
+			    ISBLANK(AnchorDate),
+			    "n/a",
+			    FORMAT(AnchorDate, "yyyy-mm-dd")
+			)
+		displayFolder: Endo - Titles
+		lineageTag: 48929e59-4227-4f95-9771-cd065213ef33
+
+	/// Dynamic chart title with anchor date.
+	measure 'Endo Fasting Insulin Trend Title' =
+			
+			VAR AnchorDate = [Endo Anchor Fasting Insulin Data Date]
+			RETURN
+			"Fasting Insulin Trend — Anchor: " &
+			IF(
+			    ISBLANK(AnchorDate),
+			    "n/a",
+			    FORMAT(AnchorDate, "yyyy-mm-dd")
+			)
+		displayFolder: Endo - Titles
+		lineageTag: 4811b000-ed7c-49f6-93c2-93b0170a3a4f
+
+	/// Dynamic chart title with anchor date.
+	measure 'Endo HbA1c Trend Title' =
+			
+			VAR AnchorDate = [Endo Anchor HbA1c Data Date]
+			RETURN
+			"HbA1c Trend — Anchor: " &
+			IF(
+			    ISBLANK(AnchorDate),
+			    "n/a",
+			    FORMAT(AnchorDate, "yyyy-mm-dd")
+			)
+		displayFolder: Endo - Titles
+		lineageTag: 57d6dc48-27fd-4dee-a9a9-1c834aef9d34
+
+	/// Dynamic chart title with anchor date.
+	measure 'Endo eAG Trend Title' =
+			
+			VAR AnchorDate = [Endo Anchor eAG Data Date]
+			RETURN
+			"eAG Trend — Anchor: " &
+			IF(
+			    ISBLANK(AnchorDate),
+			    "n/a",
+			    FORMAT(AnchorDate, "yyyy-mm-dd")
+			)
+		displayFolder: Endo - Titles
+		lineageTag: a3a351dd-2b4e-4d27-8c90-c5acf1c2036a
+
+	/// Dynamic chart title with anchor date.
+	measure 'Endo HOMA-IR Trend Title' =
+			
+			VAR AnchorDate = [Endo Anchor HOMA-IR Data Date]
+			RETURN
+			"HOMA-IR Trend — Anchor: " &
+			IF(
+			    ISBLANK(AnchorDate),
+			    "n/a",
+			    FORMAT(AnchorDate, "yyyy-mm-dd")
+			)
+		displayFolder: Endo - Titles
+		lineageTag: b63c2a5e-d447-40f5-ba4e-c22971d28614
+
+	/// Dynamic chart title with anchor date.
+	measure 'Endo QUICKI Trend Title' =
+			
+			VAR AnchorDate = [Endo Anchor QUICKI Data Date]
+			RETURN
+			"QUICKI Trend — Anchor: " &
+			IF(
+			    ISBLANK(AnchorDate),
+			    "n/a",
+			    FORMAT(AnchorDate, "yyyy-mm-dd")
+			)
+		displayFolder: Endo - Titles
+		lineageTag: 21865c7f-5046-480d-8116-2ea5d51df2e4
+
+	/// Dynamic chart title with anchor date.
+	measure 'Endo TSH Trend Title' =
+			
+			VAR AnchorDate = [Endo Anchor TSH Data Date]
+			RETURN
+			"TSH Trend — Anchor: " &
+			IF(
+			    ISBLANK(AnchorDate),
+			    "n/a",
+			    FORMAT(AnchorDate, "yyyy-mm-dd")
+			)
+		displayFolder: Endo - Titles
+		lineageTag: 6a952f01-5120-4120-be5b-3ec0d34f0a08
+
+	/// Dynamic chart title with anchor date.
+	measure 'Endo Free T4 Trend Title' =
+			
+			VAR AnchorDate = [Endo Anchor Free T4 Data Date]
+			RETURN
+			"Free T4 Trend — Anchor: " &
+			IF(
+			    ISBLANK(AnchorDate),
+			    "n/a",
+			    FORMAT(AnchorDate, "yyyy-mm-dd")
+			)
+		displayFolder: Endo - Titles
+		lineageTag: fbf121f5-9cfc-43ec-821b-e77a22aebd33
+
+	/// Dynamic chart title with anchor date.
+	measure 'Endo TSH/Free T4 Ratio Trend Title' =
+			
+			VAR AnchorDate = [Endo Anchor TSH/Free T4 Ratio Data Date]
+			RETURN
+			"TSH/Free T4 Ratio Trend — Anchor: " &
+			IF(
+			    ISBLANK(AnchorDate),
+			    "n/a",
+			    FORMAT(AnchorDate, "yyyy-mm-dd")
+			)
+		displayFolder: Endo - Titles
+		lineageTag: bc63668f-d4e4-4052-b856-9689e5fa8b30
+
+	/// Dynamic chart title with anchor date.
+	measure 'Endo Vitamin D Trend Title' =
+			
+			VAR AnchorDate = [Endo Anchor Vitamin D Data Date]
+			RETURN
+			"Vitamin D Trend — Anchor: " &
+			IF(
+			    ISBLANK(AnchorDate),
+			    "n/a",
+			    FORMAT(AnchorDate, "yyyy-mm-dd")
+			)
+		displayFolder: Endo - Titles
+		lineageTag: 46b6a699-1a4b-4ffd-8124-e8dfa0c5c8ec
+
 	column exam_date
 		dataType: dateTime
-		formatString: Long Date
+		formatString: dd/mm/yyyy
 		lineageTag: cf16c07d-f4f1-4986-9cbe-52ffc030121f
 		summarizeBy: none
 		sourceColumn: exam_date
@@ -905,6 +2152,8 @@ table Fact_EndoMetrics
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
 
 	column glucose_for_calc
 		dataType: double
@@ -1473,11 +2722,6 @@ table Fact_EndoMetrics
 		summarizeBy: none
 		sourceColumn: created_at
 
-		variation Variation
-			isDefault
-			relationship: b12fe101-69e6-412b-b595-662870721540
-			defaultHierarchy: LocalDateTable_47668c12-7c4a-46fb-9d12-92e9801944b0.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 	column updated_at
@@ -1486,11 +2730,6 @@ table Fact_EndoMetrics
 		lineageTag: 6a663c49-111b-478a-9186-a02a2dd00b61
 		summarizeBy: none
 		sourceColumn: updated_at
-
-		variation Variation
-			isDefault
-			relationship: 143c90c0-0231-4ea7-b40f-e9b8c27a1e71
-			defaultHierarchy: LocalDateTable_87b9a9b9-6ce9-4ee1-addb-f24510a013ef.'Date Hierarchy'
 
 		annotation SummarizationSetBy = Automatic
 
