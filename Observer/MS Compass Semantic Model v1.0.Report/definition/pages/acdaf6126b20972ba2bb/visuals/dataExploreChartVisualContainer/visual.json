@@ -1,0 +1,15 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "dataExploreChartVisualContainer",
+  "position": {
+    "x": 32,
+    "y": 376,
+    "z": 1000,
+    "height": 312,
+    "width": 1216
+  },
+  "visual": {
+    "visualType": "columnChart",
+    "autoSelectVisualType": true
+  }
+}
