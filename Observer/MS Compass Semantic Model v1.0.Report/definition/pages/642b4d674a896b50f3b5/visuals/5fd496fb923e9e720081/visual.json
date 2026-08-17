@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "5fd496fb923e9e720081",
+  "position": {
+    "x": 522,
+    "y": 0,
+    "z": 2,
+    "height": 85,
+    "width": 384,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Overall Marker Monitoring Status"
+                }
+              },
+              "queryRef": "_Measures.Overall Marker Monitoring Status",
+              "nativeQueryRef": "Overall Marker Monitoring Status"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

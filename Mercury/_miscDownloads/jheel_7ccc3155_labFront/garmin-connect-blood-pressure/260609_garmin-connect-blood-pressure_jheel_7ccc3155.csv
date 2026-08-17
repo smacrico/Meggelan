@@ -1,0 +1,8 @@
+Header Length,5
+Powered by Labfront
+Documentation,https://help.labfront.com/data-documentation
+projectId,projectTitle,participantId,participantInsignia
+d7934d1c-460d-4580-b14a-273638afa65a,MS Daily Compass Project,7ccc3155-f88f-4033-9e89-6656bb8a8703,jheel
+
+timezoneOffsetInMs,unixTimestampInMs,isoDate,systolic,diastolic,pulse,sourceType
+10800000,1780978949000,2026-06-09T07:22:29.000+03:00,115,70,62,MANUAL

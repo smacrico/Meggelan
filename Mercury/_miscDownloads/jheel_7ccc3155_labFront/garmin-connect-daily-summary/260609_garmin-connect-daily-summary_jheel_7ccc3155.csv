@@ -1,0 +1,8 @@
+Header Length,5
+Powered by Labfront
+Documentation,https://help.labfront.com/data-documentation
+projectId,projectTitle,participantId,participantInsignia
+d7934d1c-460d-4580-b14a-273638afa65a,MS Daily Compass Project,7ccc3155-f88f-4033-9e89-6656bb8a8703,jheel
+
+dailySummaryId,calendarDate,timezoneOffsetInMs,unixTimestampInMs,isoDate,durationInMs,activityType,steps,distanceInMeters,activeTimeInMs,activeKilocalories,bmrKilocalories,moderateIntensityDurationInMs,vigorousIntensityDurationInMs,floorsClimbed,minHeartRateInBeatsPerMinute,averageHeartRateInBeatsPerMinute,maxHeartRateInBeatsPerMinute,restingHeartRateInBeatsPerMinute,averageStressInStressLevel,maxStressInStressLevel,stressDurationInMs,restStressDurationInMs,activityStressDurationInMs,lowStressDurationInMs,mediumStressDurationInMs,highStressDurationInMs,stressQualifier,stepsGoal,intensityDurationGoalInMs,floorsClimbedGoal
+x4b803d3-6a272d50-15180-0,2026-06-09,10800000,1780952400000,2026-06-09T00:00:00.000+03:00,86400000,GENERIC,8057,5374,8066000,391,1883,1500000,300000,,51,71,136,58,29,97,38640000,36360000,10020000,31980000,5520000,1140000,balanced,9200,19800000,10

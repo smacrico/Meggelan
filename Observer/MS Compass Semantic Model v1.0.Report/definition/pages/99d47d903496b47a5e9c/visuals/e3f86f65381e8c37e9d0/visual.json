@@ -1,0 +1,167 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "e3f86f65381e8c37e9d0",
+  "position": {
+    "x": 26,
+    "y": 398,
+    "z": 4,
+    "height": 281,
+    "width": 1218,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_marker"
+                    }
+                  },
+                  "Property": "marker_name"
+                }
+              },
+              "queryRef": "dim_marker.marker_name",
+              "nativeQueryRef": "marker_name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_marker_target"
+                    }
+                  },
+                  "Property": "target_profile"
+                }
+              },
+              "queryRef": "dim_marker_target.target_profile",
+              "nativeQueryRef": "target_profile"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_marker_target"
+                    }
+                  },
+                  "Property": "sex_scope"
+                }
+              },
+              "queryRef": "dim_marker_target.sex_scope",
+              "nativeQueryRef": "sex_scope"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_marker_target"
+                    }
+                  },
+                  "Property": "direction_type"
+                }
+              },
+              "queryRef": "dim_marker_target.direction_type",
+              "nativeQueryRef": "direction_type"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_marker_target"
+                    }
+                  },
+                  "Property": "target_min_value"
+                }
+              },
+              "queryRef": "dim_marker_target.target_min_value",
+              "nativeQueryRef": "target_min_value"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_marker_target"
+                    }
+                  },
+                  "Property": "target_max_value"
+                }
+              },
+              "queryRef": "dim_marker_target.target_max_value",
+              "nativeQueryRef": "target_max_value"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_marker_target"
+                    }
+                  },
+                  "Property": "watch_low_min_value"
+                }
+              },
+              "queryRef": "dim_marker_target.watch_low_min_value",
+              "nativeQueryRef": "watch_low_min_value"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_marker_target"
+                    }
+                  },
+                  "Property": "watch_high_max_value"
+                }
+              },
+              "queryRef": "dim_marker_target.watch_high_max_value",
+              "nativeQueryRef": "watch_high_max_value"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_marker_target"
+                    }
+                  },
+                  "Property": "target_note"
+                }
+              },
+              "queryRef": "dim_marker_target.target_note",
+              "nativeQueryRef": "target_note"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "dim_marker"
+                  }
+                },
+                "Property": "marker_name"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

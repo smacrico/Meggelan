@@ -1,0 +1,9 @@
+Header Length,5
+Powered by Labfront
+Documentation,https://help.labfront.com/data-documentation
+projectId,projectTitle,participantId,participantInsignia
+d7934d1c-460d-4580-b14a-273638afa65a,MS Daily Compass Project,7ccc3155-f88f-4033-9e89-6656bb8a8703,jheel
+
+calendarDate,timezoneOffsetInMs,unixTimestampInMs,isoDate,durationInMs,activityType,activitySubType
+2026-06-07,10800000,1780807440000,2026-06-07T07:44:00.000+03:00,3240000,fitness_equipment,elliptical
+2026-06-07,10800000,1780812660000,2026-06-07T09:11:00.000+03:00,900000,walking,
