@@ -1,0 +1,94 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "ea266047b7445f46cfb2",
+  "position": {
+    "x": 371,
+    "y": 22,
+    "z": 2,
+    "height": 447,
+    "width": 884,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_lipid_panel"
+                    }
+                  },
+                  "Property": "exam_date"
+                }
+              },
+              "queryRef": "fact_lipid_panel.exam_date",
+              "nativeQueryRef": "exam_date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_lipid_panel"
+                    }
+                  },
+                  "Property": "data_quality_status"
+                }
+              },
+              "queryRef": "fact_lipid_panel.data_quality_status",
+              "nativeQueryRef": "data_quality_status"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_lipid_panel"
+                    }
+                  },
+                  "Property": "is_complete_basic_panel"
+                }
+              },
+              "queryRef": "fact_lipid_panel.is_complete_basic_panel",
+              "nativeQueryRef": "is_complete_basic_panel"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_lipid_panel"
+                    }
+                  },
+                  "Property": "has_negative_remnant_cholesterol"
+                }
+              },
+              "queryRef": "fact_lipid_panel.has_negative_remnant_cholesterol",
+              "nativeQueryRef": "has_negative_remnant_cholesterol"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_lipid_panel"
+                    }
+                  },
+                  "Property": "source_file_name"
+                }
+              },
+              "queryRef": "fact_lipid_panel.source_file_name",
+              "nativeQueryRef": "source_file_name"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

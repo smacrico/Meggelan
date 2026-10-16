@@ -1,0 +1,85 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "18fd24d423a4d21888ef",
+  "position": {
+    "x": 10,
+    "y": 170,
+    "z": 1,
+    "height": 291,
+    "width": 525,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_marker"
+                    }
+                  },
+                  "Property": "marker_name"
+                }
+              },
+              "queryRef": "dim_marker.marker_name",
+              "nativeQueryRef": "marker_name",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Latest Marker Value"
+                }
+              },
+              "queryRef": "_Measures.Latest Marker Value",
+              "nativeQueryRef": "Latest Marker Value"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Latest Marker Target Max"
+                }
+              },
+              "queryRef": "_Measures.Latest Marker Target Max",
+              "nativeQueryRef": "Latest Marker Target Max"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Latest Distance From Target"
+                }
+              },
+              "queryRef": "_Measures.Latest Distance From Target",
+              "nativeQueryRef": "Latest Distance From Target"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -15,12 +15,12 @@ class Settings(BaseSettings):
     tracked_metrics: list[str] = [
         "SD1", "SD2", "sdnn", "rmssd", "pNN50", "VLF", "LF", "HF"
     ]
-    allowed_source_views: list[str] = ["myHRV_view"]
+    allowed_source_views: list[str] = ["myHRV_view_adv"]
     source_name_default: str = "MyHRV_import"
 
     # Artemis integration
     artemis_db_path: str = Field(default="c:/smakrykoDBs/Artemis.db")
-    artemis_source_view: str = Field(default="myHRV_view")
+    artemis_source_view: str = Field(default="myHRV_view_adv")
     artemis_source_name_column: str = Field(default="name")
     artemis_date_column: str = Field(default="date")
     artemis_poll_interval_seconds: int = Field(default=60, ge=5, le=86400)

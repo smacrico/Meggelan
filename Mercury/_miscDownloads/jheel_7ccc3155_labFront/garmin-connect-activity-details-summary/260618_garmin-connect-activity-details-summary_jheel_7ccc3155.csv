@@ -1,0 +1,11 @@
+Header Length,5
+Powered by Labfront
+Documentation,https://help.labfront.com/data-documentation
+projectId,projectTitle,participantId,participantInsignia
+d7934d1c-460d-4580-b14a-273638afa65a,MS Daily Compass Project,7ccc3155-f88f-4033-9e89-6656bb8a8703,jheel
+
+summaryId,activityId,timezoneOffsetInMs,unixTimestampInMs,isoDate,durationInMs,activityType,averageBikeCadenceInRoundsPerMinute,averageHeartRateInBeatsPerMinute,averageRunCadenceInStepsPerMinute,averageSpeedInMetersPerSecond,averageSwimCadenceInStrokesPerMinute,averagePaceInMinutesPerKilometer,activeKilocalories,deviceName,distanceInMeters,maxBikeCadenceInRoundsPerMinute,maxHeartRateInBeatsPerMinute,maxPaceInMinutesPerKilometer,maxRunCadenceInStepsPerMinute,maxSpeedInMetersPerSecond,numberOfActiveLengths,startingLatitudeInDegree,startingLongitudeInDegree,steps,totalElevationGainInMeters,totalElevationLossInMeters,isParent,parentSummaryId,manual
+23289844100-detail,23289844100,10800000,1781753599000,2026-06-18T06:33:19.000+03:00,180000,BREATHWORK,,68,,,,,,Garmin Forerunner 245,,,80,,,,,,,,,,,,
+23289886785-detail,23289886785,10800000,1781753867000,2026-06-18T06:37:47.000+03:00,299000,OTHER,,67,,,,,9,Garmin Forerunner 245,,,80,,,,,,,,,,,,
+23290172214-detail,23290172214,10800000,1781757509000,2026-06-18T07:38:29.000+03:00,691000,FITNESS_EQUIPMENT,,81,,0.086,,193.79845,36,Garmin Forerunner 245,59.61,,93,12.493753,,1.334,,37.94608692638576,23.618760108947754,116,,,,,
+23290238978-detail,23290238978,10800000,1781758236000,2026-06-18T07:50:36.000+03:00,600000,YOGA,,64,,,,,16,Garmin Forerunner 245,,,91,,,,,,,,,,,,

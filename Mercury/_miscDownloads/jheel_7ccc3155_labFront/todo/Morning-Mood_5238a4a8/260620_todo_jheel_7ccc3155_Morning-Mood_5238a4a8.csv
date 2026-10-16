@@ -1,0 +1,8 @@
+Header Length,5
+Powered by Labfront
+Documentation,https://help.labfront.com/data-documentation
+projectId,projectTitle,participantId,participantInsignia,taskId,taskScheduleRepeat,taskScheduleDescription,todoId,todoName,todoDescription
+d7934d1c-460d-4580-b14a-273638afa65a,MS Daily Compass Project,7ccc3155-f88f-4033-9e89-6656bb8a8703,jheel,5238a4a8-1ec0-45a3-a247-0218445f8a0b,,,11f134af-00b3-4c6d-8fb0-c9d0c6b8b888,Morning Mood,log your morning mood
+
+timezone,unixTimestampInMs,isoDate
+Europe/Athens,1781927751249,2026-06-20T06:55:51.249+03:00

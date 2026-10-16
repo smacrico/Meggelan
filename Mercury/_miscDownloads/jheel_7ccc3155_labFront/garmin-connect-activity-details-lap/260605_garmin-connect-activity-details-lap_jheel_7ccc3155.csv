@@ -1,0 +1,10 @@
+Header Length,5
+Powered by Labfront
+Documentation,https://help.labfront.com/data-documentation
+projectId,projectTitle,participantId,participantInsignia
+d7934d1c-460d-4580-b14a-273638afa65a,MS Daily Compass Project,7ccc3155-f88f-4033-9e89-6656bb8a8703,jheel
+
+summaryId,activityId,unixTimestampInMs
+23135135682-detail,23135135682,1780630579000
+23135172774-detail,23135172774,1780631105000
+23135201107-detail,23135201107,1780631409000

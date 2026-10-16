@@ -1,0 +1,8 @@
+Header Length,5
+Powered by Labfront
+Documentation,https://help.labfront.com/data-documentation
+projectId,projectTitle,participantId,participantInsignia,taskId,taskScheduleRepeat,taskScheduleDescription,todoId,todoName,todoDescription
+d7934d1c-460d-4580-b14a-273638afa65a,MS Daily Compass Project,7ccc3155-f88f-4033-9e89-6656bb8a8703,jheel,b79fb569-6b50-45aa-90d7-820dd0bbd1aa,,,30d08e42-fb54-42ca-a179-0d3ce01053aa,Test HRV,critical to measure HRV before start your day
+
+timezone,unixTimestampInMs,isoDate
+Europe/Athens,1780977625645,2026-06-09T07:00:25.645+03:00

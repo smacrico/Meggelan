@@ -1,0 +1,144 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "04593fc3ffd96fa619af",
+  "position": {
+    "x": 10,
+    "y": 0,
+    "z": 0,
+    "height": 59,
+    "width": 1126,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_patient_profile"
+                    }
+                  },
+                  "Property": "patient_display_name"
+                }
+              },
+              "queryRef": "dim_patient_profile.patient_display_name",
+              "nativeQueryRef": "patient_display_name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_patient_profile"
+                    }
+                  },
+                  "Property": "sex"
+                }
+              },
+              "queryRef": "dim_patient_profile.sex",
+              "nativeQueryRef": "sex"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_patient_profile"
+                    }
+                  },
+                  "Property": "risk_profile"
+                }
+              },
+              "queryRef": "dim_patient_profile.risk_profile",
+              "nativeQueryRef": "risk_profile"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_patient_profile"
+                    }
+                  },
+                  "Property": "target_profile"
+                }
+              },
+              "queryRef": "dim_patient_profile.target_profile",
+              "nativeQueryRef": "target_profile"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_patient_profile"
+                    }
+                  },
+                  "Property": "personalized_ldl_target_mg_dl"
+                }
+              },
+              "queryRef": "Sum(dim_patient_profile.personalized_ldl_target_mg_dl)",
+              "nativeQueryRef": "personalized_ldl_target_mg_dl"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_patient_profile"
+                    }
+                  },
+                  "Property": "personalized_non_hdl_target_mg_dl"
+                }
+              },
+              "queryRef": "Sum(dim_patient_profile.personalized_non_hdl_target_mg_dl)",
+              "nativeQueryRef": "personalized_non_hdl_target_mg_dl"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_patient_profile"
+                    }
+                  },
+                  "Property": "personalized_triglycerides_target_mg_dl"
+                }
+              },
+              "queryRef": "Sum(dim_patient_profile.personalized_triglycerides_target_mg_dl)",
+              "nativeQueryRef": "personalized_triglycerides_target_mg_dl"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "dim_patient_profile"
+                      }
+                    },
+                    "Property": "personalized_ldl_target_mg_dl"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,8 @@
+Header Length,5
+Powered by Labfront
+Documentation,https://help.labfront.com/data-documentation
+projectId,projectTitle,participantId,participantInsignia
+d7934d1c-460d-4580-b14a-273638afa65a,MS Daily Compass Project,7ccc3155-f88f-4033-9e89-6656bb8a8703,jheel
+
+sleepSummaryId,calendarDate,timezoneOffsetInMs,unixTimestampInMs,isoDate,durationInMs,unmeasurableSleepInMs,deepSleepDurationInMs,lightSleepDurationInMs,remSleepInMs,awakeDurationInMs,overallSleepQualifier,overallSleepScore,validation,totalDurationQualifier,awakeCountQualifier,restlessnessQualifier,stressQualifier,remPercentageQualifier,lightPercentageQualifier,deepPercentageQualifier
+x4b803d3-6a2c7530-6108,2026-06-13,10800000,1781298480000,2026-06-13T00:08:00.000+03:00,24840000,0,7680000,14100000,3060000,780000,,,ENHANCED_FINAL,,,,,,,

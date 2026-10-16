@@ -1,0 +1,26 @@
+{
+  "baseline_days": 60,
+  "min_baseline_days": 21,
+  "risk_weights": {
+    "hrv_suppression": 25,
+    "rhr_elevation": 20,
+    "sleep_deficit": 15,
+    "fatigue_spike": 20,
+    "activity_drop": 10,
+    "symptom_burden": 10
+  },
+  "thresholds": {
+    "yellow": 35,
+    "red": 65,
+    "hrv_drop_yellow_pct": 10,
+    "hrv_drop_red_pct": 20,
+    "rhr_rise_yellow_pct": 5,
+    "rhr_rise_red_pct": 8,
+    "sleep_drop_yellow_pct": 10,
+    "sleep_drop_red_pct": 20,
+    "fatigue_rise_yellow": 2,
+    "fatigue_rise_red": 3,
+    "activity_drop_yellow_pct": 20,
+    "activity_drop_red_pct": 35
+  }
+}

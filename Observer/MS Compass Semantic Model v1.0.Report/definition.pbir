@@ -1,0 +1,9 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definitionProperties/2.0.0/schema.json",
+  "version": "4.0",
+  "datasetReference": {
+    "byConnection": {
+      "connectionString": "Data Source=\"powerbi://api.powerbi.com/v1.0/eaf93b58-8876-4dc7-9c70-78917324421a/MS Compass Analytics\";initial catalog=\"MS Compass Semantic Model\";access mode=readonly;integrated security=ClaimsToken;semanticmodelid=83e5e0e8-5fbb-4a86-aa4b-3dae2c6f1fa5"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "MS Compass Semantic Model v1.0"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "1a8cea2a-9fd9-4735-99c2-8d9544d2084b"
+  }
+}
