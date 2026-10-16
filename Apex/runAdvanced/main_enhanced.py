@@ -5,17 +5,49 @@ import logging
 from metrics_enhanced import RunningMetricsService
 from plots_enhanced import RunningPlotter
 from repository_enhanced import RunningRepository
+from geminiCode.FatBurn_Function import calculate_running_fat_burn
 
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
+RUNNER_WEIGHT_KG = 73.9
+RESTING_HR = 60
+MAX_HR = 190
+
+
+def add_fat_burn_metrics(df, weight_kg: float, rest_hr: int, max_hr: int):
+    """Add estimated fat oxidation and fat burned for every run."""
+    heart_rate_reserve = max(max_hr - rest_hr, 1)
+
+    def calculate_row(row):
+        intensity_ratio = (row["heart_rate"] - rest_hr) / heart_rate_reserve
+        if intensity_ratio < 0.70:
+            intensity = "Easy (Zone 2)"
+        elif intensity_ratio < 0.85:
+            intensity = "Moderate (Zone 3-4)"
+        else:
+            intensity = "Hard / Intervals"
+
+        return calculate_running_fat_burn(
+            distance_km=float(row["distance"]),
+            weight_kg=weight_kg,
+            intensity=intensity,
+        )
+
+    fat_burn = df.apply(calculate_row, axis=1, result_type="expand")
+    df["fat_burn_intensity"] = fat_burn["intensity"]
+    df["fat_oxidation_rate"] = fat_burn["fat_oxidation_rate"]
+    df["fat_burned_grams"] = fat_burn["fat_burned_grams"]
+    df["fat_calories_kcal"] = fat_burn["fat_calories_kcal"]
+    return df
+
 
 def main() -> None:
     db_path = "c:/smakrykoDBs/Apex.db"
-    output_dir = "c:/temp/logsFitnessApp"
+    output_dir = "c:/temp/logsFitnessApp/Run_DashBoards"
 
     repository = RunningRepository(db_path=db_path)
-    metrics = RunningMetricsService(repository=repository, rest_hr=60, max_hr=190)
+    metrics = RunningMetricsService(repository=repository, rest_hr=RESTING_HR, max_hr=MAX_HR)
     plotter = RunningPlotter(output_dir=output_dir)
 
     # metrics_enhanced.load_training_log() now calculates:
@@ -38,6 +70,8 @@ def main() -> None:
 
     # Add fatigue, overtraining, risk level, latest ACWR/monotony/strain summary.
     df, anomaly_summary = metrics.detect_anomalies(df, weekly_trimp)
+
+    df = add_fat_burn_metrics(df, RUNNER_WEIGHT_KG, RESTING_HR, MAX_HR)
 
     # Persist the fully enhanced dataframe after all derived metrics and risk flags exist.
     repository.save_training_log(df)
@@ -97,6 +131,10 @@ def main() -> None:
         "fatigue_flag",
         "overtraining_flag",
         "risk_level",
+        "fat_burn_intensity",
+        "fat_oxidation_rate",
+        "fat_burned_grams",
+        "fat_calories_kcal",
     ]
     available_enhanced_columns = [col for col in enhanced_columns if col in df.columns]
     logging.info("Enhanced derived metrics available: %s", ", ".join(available_enhanced_columns))
@@ -114,6 +152,7 @@ def main() -> None:
     )
     plotter.visualize_speed_metrics(df)
     plotter.visualize_hr_rs_deviation(df)
+    plotter.visualize_fat_burn(df)
     plotter.advanced_visualizations(df)
     plotter.create_performance_dashboard(df)
 

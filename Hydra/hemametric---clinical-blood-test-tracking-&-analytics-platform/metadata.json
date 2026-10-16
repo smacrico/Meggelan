@@ -1,0 +1,6 @@
+{
+  "name": "HemaMetric - Clinical Blood Test Tracking & Analytics Platform",
+  "description": "Comprehensive clinical laboratory blood test tracking, biomarker normalization, automated derived ratios, alert management, and longitudinal analytics platform.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

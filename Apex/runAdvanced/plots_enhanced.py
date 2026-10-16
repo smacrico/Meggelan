@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import datetime
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -8,12 +9,12 @@ import pandas as pd
 
 
 class RunningPlotter:
-    def __init__(self, output_dir: str = "c:/temp/logsFitnessApp") -> None:
+    def __init__(self, output_dir: str = "c:/temp/logsFitnessApp/Run_DashBoards") -> None:
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
     def _save_plot(self, filename: str) -> Path:
-        path = self.output_dir / filename
+        path = self.output_dir / f"Run_{filename}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png"
         plt.savefig(path, dpi=300, bbox_inches="tight")
         print(f"Saved: {path}")
         return path
@@ -49,7 +50,7 @@ class RunningPlotter:
         plt.ylabel("Running Economy")
 
         plt.tight_layout()
-        self._save_plot("trends.png")
+        self._save_plot("Trends")
         plt.show()
 
     def visualize_training_load(self, df: pd.DataFrame, weekly_trimp: pd.DataFrame) -> None:
@@ -117,7 +118,7 @@ class RunningPlotter:
             ax.legend(lines, labels, loc="upper left")
 
         plt.tight_layout()
-        self._save_plot("training_load_enhanced.png")
+        self._save_plot("TrainingLoad")
         plt.show()
 
     def visualize_recovery_and_readiness(self, df: pd.DataFrame) -> None:
@@ -133,7 +134,7 @@ class RunningPlotter:
         plt.title("Recovery and Readiness Over Time")
         plt.legend()
         plt.tight_layout()
-        self._save_plot("recovery_readiness.png")
+        self._save_plot("RecoveryReadiness")
         plt.show()
 
     def visualize_score_impact_over_time(
@@ -161,7 +162,7 @@ class RunningPlotter:
         plt.title("Comparison of Scoring Calculations Over Time")
         plt.legend()
         plt.tight_layout()
-        self._save_plot("score_impact.png")
+        self._save_plot("ScoreImpact")
         plt.show()
 
     def visualize_speed_metrics(self, df: pd.DataFrame) -> None:
@@ -232,7 +233,7 @@ class RunningPlotter:
             ax6.grid(True, alpha=0.3, axis="y")
 
         plt.tight_layout()
-        self._save_plot("speed_metrics.png")
+        self._save_plot("SpeedMetrics")
         plt.show()
 
     def visualize_hr_rs_deviation(self, df: pd.DataFrame) -> None:
@@ -289,7 +290,42 @@ class RunningPlotter:
             ax4.grid(True, alpha=0.3)
 
         plt.tight_layout()
-        self._save_plot("hr_rs_deviation.png")
+        self._save_plot("HRRSDeviation")
+        plt.show()
+
+    def visualize_fat_burn(self, df: pd.DataFrame) -> None:
+        if df.empty or "fat_burned_grams" not in df.columns:
+            return
+
+        plot_df = df.dropna(subset=["date", "fat_burned_grams"]).sort_values("date")
+        if plot_df.empty:
+            return
+
+        fig, ax = plt.subplots(figsize=(14, 7))
+        bars = ax.bar(
+            plot_df["date"],
+            plot_df["fat_burned_grams"],
+            color="#d97706",
+            alpha=0.85,
+            label="Estimated fat burned",
+        )
+        ax.plot(
+            plot_df["date"],
+            plot_df["fat_burned_grams"].cumsum(),
+            color="#1f2937",
+            marker="o",
+            linewidth=2,
+            label="Cumulative fat burned",
+        )
+        ax.bar_label(bars, fmt="%.1f g", padding=3, fontsize=8)
+        ax.set_title("Estimated Fat Burn per Run")
+        ax.set_xlabel("Run date")
+        ax.set_ylabel("Fat burned (grams)")
+        ax.tick_params(axis="x", rotation=45)
+        ax.grid(True, alpha=0.3, axis="y")
+        ax.legend()
+        fig.tight_layout()
+        self._save_plot("fatBurn")
         plt.show()
 
     def advanced_visualizations(self, df: pd.DataFrame) -> None:
@@ -380,7 +416,7 @@ class RunningPlotter:
             plt.text(0.5, 0.5, "No seasonal data", ha="center", va="center")
 
         plt.tight_layout()
-        self._save_plot("advanced_metrics.png")
+        self._save_plot("AdvancedMetrics")
         plt.show()
 
     def create_performance_dashboard(self, df: pd.DataFrame) -> None:
@@ -486,7 +522,7 @@ class RunningPlotter:
                 ax11.pie(zone_counts.values, labels=zone_counts.index.astype(str), autopct="%1.1f%%", startangle=90)
         ax11.set_title("Speed Zone Distribution")
 
-        self._save_plot("performance_dashboard.png")
+        self._save_plot("PerformanceDashboard")
         plt.show()
 
 
@@ -542,7 +578,7 @@ class RunningPlotter:
             axes[2, 1].grid(True, alpha=0.3)
 
         plt.tight_layout()
-        self._save_plot("enhanced_metrics.png")
+        self._save_plot("EnhancedMetrics")
         plt.show()
 
     def visualize_risk_dashboard(self, df: pd.DataFrame) -> None:
@@ -587,7 +623,7 @@ class RunningPlotter:
             axes[1, 1].grid(True, alpha=0.3)
 
         plt.tight_layout()
-        self._save_plot("risk_dashboard.png")
+        self._save_plot("RiskDashboard")
         plt.show()
 
 
